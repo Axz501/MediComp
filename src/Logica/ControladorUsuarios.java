@@ -67,7 +67,7 @@ public class ControladorUsuarios {
         catch(Exception e){
             System.out.println(e.getMessage());
         }
-        Jornada j = new Jornada(d1,d2,d,false);
+        Jornada j = new Jornada(d1,d2,d,false,null);
         this.persist(m);
         this.persist(a);
         this.persist(d);

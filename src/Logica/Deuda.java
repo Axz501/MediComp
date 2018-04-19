@@ -6,12 +6,10 @@
 package Logica;
 
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 
 /**
@@ -19,60 +17,59 @@ import javax.persistence.OneToOne;
  * @author Admin
  */
 @Entity
-public class Entidad implements Serializable {
+public class Deuda implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String correo;
-    private String nombre;
+    private float costo_total;
+    private String asunto;
+    private String descripcion;
+    private boolean tipo;
     @OneToOne
-    private Direccion direccion;
-    private String telefono;
-    @ManyToMany(mappedBy = "entidades")
-    private List<Paciente> pacientes;
+    private EstadoDeuda estado;
 
-    public Entidad(String correo, String nombre, Direccion direccion, String telefono) {
-        this.correo = correo;
-        this.nombre = nombre;
-        this.direccion = direccion;
-        this.telefono = telefono;
+    public Deuda(float costo_total, String asunto, String descripcion, boolean tipo) {
+        this.costo_total = costo_total;
+        this.asunto = asunto;
+        this.descripcion = descripcion;
+        this.tipo = tipo;
     }
 
-    public String getCorreo() {
-        return correo;
+    public float getCosto_total() {
+        return costo_total;
     }
 
-    public void setCorreo(String correo) {
-        this.correo = correo;
+    public void setCosto_total(float costo_total) {
+        this.costo_total = costo_total;
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getAsunto() {
+        return asunto;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setAsunto(String asunto) {
+        this.asunto = asunto;
     }
 
-    public Direccion getDireccion() {
-        return direccion;
+    public String getDescripcion() {
+        return descripcion;
     }
 
-    public void setDireccion(Direccion direccion) {
-        this.direccion = direccion;
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
-    public String getTelefono() {
-        return telefono;
+    public boolean isTipo() {
+        return tipo;
     }
 
-    public void setTelefono(String telefono) {
-        this.telefono = telefono;
+    public void setTipo(boolean tipo) {
+        this.tipo = tipo;
     }
     
-        
+    
 
     public Long getId() {
         return id;
@@ -92,10 +89,10 @@ public class Entidad implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Entidad)) {
+        if (!(object instanceof Deuda)) {
             return false;
         }
-        Entidad other = (Entidad) object;
+        Deuda other = (Deuda) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -104,7 +101,7 @@ public class Entidad implements Serializable {
 
     @Override
     public String toString() {
-        return "Logica.Entidad[ id=" + id + " ]";
+        return "Logica.Deuda[ id=" + id + " ]";
     }
     
 }
