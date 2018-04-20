@@ -444,7 +444,7 @@ public class Registrarse extends JFrame {
             javax.swing.JOptionPane.showMessageDialog(this, "Debe llenar todos los campos \n", "AVISO!", javax.swing.JOptionPane.INFORMATION_MESSAGE);
         } else {
             if (!contrasenia.equals(contrasenia2)) {
-                javax.swing.JOptionPane.showMessageDialog(null, "Las contraseñas no coinciden");
+                javax.swing.JOptionPane.showMessageDialog(this, "Las contraseñas no coinciden");
                 formatOk = false;
                 txt_Contra.setText(null);
                 txt_Contra1.setText(null);
@@ -459,21 +459,21 @@ public class Registrarse extends JFrame {
 
                     Ok = Usr.IngresarMedico(ci,contrasenia,nombre,apellido,correo,RutaImagen);
                     if(Ok){
-                        javax.swing.JOptionPane.showMessageDialog(null,"El medico ha sido dado de alta");
+                        javax.swing.JOptionPane.showMessageDialog(this,"El medico ha sido dado de alta");
                         this.dispose();
                     }
                     else{
-                        javax.swing.JOptionPane.showMessageDialog(null,"El medico no ha podido ser dado de alta, ci y/o correo en uso", "Datos incorrectos", JOptionPane.WARNING_MESSAGE);
+                        javax.swing.JOptionPane.showMessageDialog(this,"El medico no ha podido ser dado de alta, ci y/o correo en uso", "Datos incorrectos", JOptionPane.WARNING_MESSAGE);
                     }
                 }
                 if (comboTipo.equals("Asistente")) {
                     if(renumerado2.getText().equals("Si")){renum = true;}else{renum=false;}
                     Ok = Usr.IngresarAsistente(renum,hr_trabajadas,hr_renumeradas,ci, contrasenia, nombre, apellido, correo, RutaImagen);
                     if (Ok) {
-                        javax.swing.JOptionPane.showMessageDialog(null, "El cliente ha sido dado de alta");
+                        javax.swing.JOptionPane.showMessageDialog(this, "El cliente ha sido dado de alta");
                         this.dispose();
                     } else {
-                        javax.swing.JOptionPane.showMessageDialog(null, "El cliente no ha podido ser dado de alta, nickname y/o correo en uso", "Datos incorrectos", JOptionPane.WARNING_MESSAGE);
+                        javax.swing.JOptionPane.showMessageDialog(this, "El cliente no ha podido ser dado de alta, nickname y/o correo en uso", "Datos incorrectos", JOptionPane.WARNING_MESSAGE);
                     }
 
                 }

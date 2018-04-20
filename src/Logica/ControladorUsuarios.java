@@ -179,14 +179,21 @@ public class ControladorUsuarios  implements IContUsuario{
             } else {
                 Img = null; // no se pudo copiar la imagen, queda en null
             }
-        }
-
-        Medico m = new Medico(ci, contrasenia, nombre, apellido, correo, new Imagen(Img));
-        try{
-        persist(m);
-        return true;
-        } catch(Exception ex){
-        return false;
+            Medico m = new Medico(ci, contrasenia, nombre, apellido, correo, new Imagen(Img));
+            try {
+                persist(m);
+                return true;
+            } catch (Exception ex) {
+                return false;
+            }
+        } else {
+            Medico m = new Medico(ci, contrasenia, nombre, apellido, correo);
+            try {
+                persist(m);
+                return true;
+            } catch (Exception ex) {
+                return false;
+            }
         }
         
     }
@@ -220,18 +227,24 @@ public class ControladorUsuarios  implements IContUsuario{
             } else {
                 Img = null; // no se pudo copiar la imagen, queda en null
             }
-        }
-
-        Asistente a = new Asistente(renumerado,horas_trabajadas,horas_renumeradas,ci, contrasenia, nombre, apellido, correo, new Imagen(Img));
-        try{
-        persist(a);
-        return true;
-        } catch(Exception ex){
-        return false;
-        }
         
+            Asistente a = new Asistente(renumerado, horas_trabajadas, horas_renumeradas, ci, contrasenia, nombre, apellido, correo, new Imagen(Img));
+            try {
+                persist(a);
+                return true;
+            } catch (Exception ex) {
+                return false;
+            }
+        } else {
+            Asistente a = new Asistente(renumerado, horas_trabajadas, horas_renumeradas, ci, contrasenia, nombre, apellido, correo);
+            try {
+                persist(a);
+                return true;
+            } catch (Exception ex) {
+                return false;
+            }
+        }
     }
-    
     @Override
     public void getUsuariosdeBD(){
         List<Usuario> resultado = null;

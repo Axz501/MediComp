@@ -45,6 +45,13 @@ public class Usuario implements Serializable {
         this.contrasenia = contrasenia;
         this.imagen = imagen;
     }
+    public Usuario(String ci, String contrasenia, String nombre, String apellido, String correo) {
+        this.ci = ci;
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.correo = correo;
+        this.contrasenia = contrasenia;
+    }
 
     public List<Jornada> getJornadas() {
         return jornadas;
