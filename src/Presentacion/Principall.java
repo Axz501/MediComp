@@ -14,6 +14,8 @@ import javax.swing.JFrame;
 import Utils.JFrameConFondo;
 import Utils.JMoverFrame;
 import java.awt.Frame;
+import java.awt.Image;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -39,6 +41,12 @@ public class Principall extends JFrameConFondo {
         setLocationRelativeTo(null);
         setExtendedState(MAXIMIZED_BOTH);
         
+        String ruta = this.getClass().getClassLoader().getResource("").getPath();
+        ruta = ruta.replace("build/classes/", "src/Utils/Logomini.png");
+        javax.swing.JOptionPane.showMessageDialog(null,ruta);
+        Image icono = new ImageIcon(ruta).getImage();
+        icono = icono.getScaledInstance(200, 200, Image.SCALE_DEFAULT);
+        setIconImage(icono);
         
         
     }
