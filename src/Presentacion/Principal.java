@@ -412,7 +412,7 @@ public class Principal extends JPanelConFondo {
         Registrarse3.setBackground(Entrar.getBackground());
         Registrarse3.setBorder(BorderFactory.createBevelBorder(1, Color.CYAN, Color.black));
         jLabel10.setForeground(Color.black);
-        nuevo nuevo = new nuevo();
+        Registrarse nuevo = new Registrarse();
         String ruta = this.getClass().getClassLoader().getResource("").getPath();
         ruta = ruta.replace("build/classes/", "src/Utils/Logomini.png");
         Image icono = new ImageIcon(ruta).getImage();
