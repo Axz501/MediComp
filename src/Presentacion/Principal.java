@@ -18,7 +18,10 @@ import javax.swing.ImageIcon;
 import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
 import Utils.JPanelConFondo;
+import java.awt.Color;
+import java.awt.Font;
 import static java.awt.Frame.ICONIFIED;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 /**
@@ -159,7 +162,7 @@ public class Principal extends JPanelConFondo {
 
         jPanel3.setOpaque(false);
 
-        jLabel1.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Contraseña:");
 
@@ -188,7 +191,7 @@ public class Principal extends JPanelConFondo {
             }
         });
 
-        jLabel10.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        jLabel10.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
         jLabel10.setText("Registrarse");
 
@@ -211,7 +214,7 @@ public class Principal extends JPanelConFondo {
 
         jSeparator5.setForeground(new java.awt.Color(255, 255, 255));
 
-        jLabel9.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        jLabel9.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setText("Cedula de Identidad:");
 
@@ -223,7 +226,7 @@ public class Principal extends JPanelConFondo {
             }
         });
 
-        jLabel8.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        jLabel8.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setText("Entrar");
 
@@ -259,6 +262,7 @@ public class Principal extends JPanelConFondo {
             }
         });
 
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Si todavia no tienes un cuenta registrate.");
 
@@ -303,7 +307,7 @@ public class Principal extends JPanelConFondo {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addGap(31, 31, 31)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 77, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 76, Short.MAX_VALUE)
                 .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -358,13 +362,22 @@ public class Principal extends JPanelConFondo {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        try{
-        //javax.swing.JOptionPane.showOptionDialog(null, "Cerrar Programa", "Seguro que deseas salir de la aplicación?", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, {"Si","No"}, "No");
-        
-        }
-        catch(Exception e){
-            System.out.print(e.getMessage());
-        }
+    JLabel label = new JLabel("¿Deseas salir del programa?");
+    Font fuente = new Font("Verdana", Font.BOLD, 13);
+    label.setFont(fuente);
+    label.setForeground(Color.BLACK);
+    JLabel j1 = new JLabel("Si");
+    JLabel j2 = new JLabel("No");
+    j1.setFont(fuente);
+    j1.setForeground(Color.black);
+    j2.setFont(fuente);
+    j2.setForeground(Color.black);
+    Object[] options = {j1.getText(), j2.getText()};
+    int x = JOptionPane.showOptionDialog(null,
+    label,"Cerrar Programa",JOptionPane.YES_NO_OPTION,
+    JOptionPane.QUESTION_MESSAGE,null,options,options[0]);
+    //int x = javax.swing.JOptionPane.showConfirmDialog(null, label , "Cerrar", JOptionPane.YES_NO_OPTION);
+    if (x==0)
         System.exit(0);
         
     }//GEN-LAST:event_jButton3ActionPerformed
