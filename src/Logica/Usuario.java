@@ -27,13 +27,18 @@ public class Usuario implements Serializable {
     private String contrasenia;
     private String imagen;
 
-    public Usuario(String ci, String nombre, String apellido, String correo, String contraseña, String imagen) {
+    public Usuario(String ci, String nombre, String apellido, String correo, String contrasenia, String imagen) {
         this.ci = ci;
         this.nombre = nombre;
         this.apellido = apellido;
         this.correo = correo;
-        this.contrasenia = contraseña;
+        this.contrasenia = contrasenia;
         this.imagen = imagen;
+    }
+
+    Usuario(String ci, String contrasenia) {
+        this.ci = ci;
+        this.contrasenia = contrasenia;
     }
 
     

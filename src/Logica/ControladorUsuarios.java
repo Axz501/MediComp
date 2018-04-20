@@ -74,4 +74,8 @@ public class ControladorUsuarios {
         this.persist(j);
     }
     
+ /*   public boolean registrarusuario(String ci, String contrasenia){
+
+    }*/
+    
 }

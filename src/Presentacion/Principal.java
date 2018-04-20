@@ -5,6 +5,7 @@
  */
 package Presentacion;
 
+import Logica.Usuario;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Toolkit;
@@ -23,14 +24,13 @@ public class Principal extends javax.swing.JPanel {
 
     public Principal(int x, int y) {
         initComponents();  
-        
         jPanel1.setBounds(0, 0, x/2, y);
         jPanel1.repaint();
-        
         jPanel3.setLocation(x/4*3-jPanel3.getWidth()/2, y/2-jPanel3.getHeight()/2);
         jPanel3.repaint();
-        
         jPanel2.setLocation(x/4-jPanel2.getWidth()/2, y/2-jPanel2.getHeight()/2);
+        
+        
     }
 
     /**
@@ -105,7 +105,7 @@ public class Principal extends javax.swing.JPanel {
         jPanel2.setBounds(45, 94, 358, 354);
 
         add(jPanel1);
-        jPanel1.setBounds(0, 0, 460, 570);
+        jPanel1.setBounds(0, 0, 500, 560);
 
         jPanel3.setOpaque(false);
 
@@ -145,6 +145,11 @@ public class Principal extends javax.swing.JPanel {
         });
 
         Registrarse3.setBackground(new java.awt.Color(0, 0, 51));
+        Registrarse3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Registrarse3MouseClicked(evt);
+            }
+        });
 
         jLabel10.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
@@ -181,6 +186,11 @@ public class Principal extends javax.swing.JPanel {
         jLabel9.setText("Cedula de Identidad:");
 
         Entrar.setBackground(new java.awt.Color(0, 204, 204));
+        Entrar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                EntrarMouseClicked(evt);
+            }
+        });
 
         jLabel8.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
@@ -282,20 +292,22 @@ public class Principal extends javax.swing.JPanel {
         jTextField1.setText("");
     }//GEN-LAST:event_jTextField1MouseClicked
 
+    private void EntrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EntrarMouseClicked
+        
+    }//GEN-LAST:event_EntrarMouseClicked
+
+    private void Registrarse3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Registrarse3MouseClicked
+        
+    }//GEN-LAST:event_Registrarse3MouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Entrar;
-    private javax.swing.JPanel Registrarse;
-    private javax.swing.JPanel Registrarse1;
-    private javax.swing.JPanel Registrarse2;
     private javax.swing.JPanel Registrarse3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
@@ -306,9 +318,6 @@ public class Principal extends javax.swing.JPanel {
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator5;
-    private javax.swing.JSeparator jSeparator6;
-    private javax.swing.JSeparator jSeparator7;
-    private javax.swing.JSeparator jSeparator8;
     private javax.swing.JSeparator jSeparator9;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;

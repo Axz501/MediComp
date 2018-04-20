@@ -31,7 +31,7 @@
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="0" y="0" width="-1" height="-1"/>
+          <AbsoluteConstraints x="0" y="0" width="500" height="560"/>
         </Constraint>
       </Constraints>
 
@@ -241,6 +241,9 @@
               <Color blue="33" green="0" red="0" type="rgb"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="Registrarse3MouseClicked"/>
+          </Events>
 
           <Layout>
             <DimensionLayout dim="0">
@@ -313,6 +316,9 @@
               <Color blue="cc" green="cc" red="0" type="rgb"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="EntrarMouseClicked"/>
+          </Events>
 
           <Layout>
             <DimensionLayout dim="0">
