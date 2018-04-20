@@ -6,15 +6,10 @@
 package Presentacion;
 
 import UpperEssential.UpperEssentialLookAndFeel;
-import com.sun.awt.AWTUtilities;
-import java.awt.Shape;
 import java.awt.Toolkit;
-import java.awt.geom.RoundRectangle2D;
 import javax.swing.JFrame;
 import Utils.JFrameConFondo;
 import Utils.JMoverFrame;
-import static com.mchange.v2.log.MLog.config;
-import java.awt.Frame;
 import java.awt.GraphicsConfiguration;
 import java.awt.Image;
 import javax.swing.ImageIcon;
