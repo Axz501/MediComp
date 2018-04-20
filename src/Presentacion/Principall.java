@@ -13,9 +13,12 @@ import java.awt.geom.RoundRectangle2D;
 import javax.swing.JFrame;
 import Utils.JFrameConFondo;
 import Utils.JMoverFrame;
+import static com.mchange.v2.log.MLog.config;
 import java.awt.Frame;
+import java.awt.GraphicsConfiguration;
 import java.awt.Image;
 import javax.swing.ImageIcon;
+import sun.java2d.SunGraphicsEnvironment;
 
 /**
  *
@@ -39,11 +42,12 @@ public class Principall extends JFrameConFondo {
         this.setContentPane(new Principal(x,y,this));
         
         setLocationRelativeTo(null);
+        GraphicsConfiguration config = this.getGraphicsConfiguration();
+        this.setMaximizedBounds(SunGraphicsEnvironment.getUsableBounds(config.getDevice()));
         setExtendedState(MAXIMIZED_BOTH);
         
         String ruta = this.getClass().getClassLoader().getResource("").getPath();
         ruta = ruta.replace("build/classes/", "src/Utils/Logomini.png");
-        javax.swing.JOptionPane.showMessageDialog(null,ruta);
         Image icono = new ImageIcon(ruta).getImage();
         icono = icono.getScaledInstance(200, 200, Image.SCALE_DEFAULT);
         setIconImage(icono);

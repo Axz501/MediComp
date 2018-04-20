@@ -7,6 +7,7 @@ package Logica;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -73,5 +74,6 @@ public class ControladorUsuarios {
         this.persist(d);
         this.persist(j);
     }
+    
     
 }

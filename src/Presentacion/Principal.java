@@ -20,8 +20,15 @@ import Utils.JPanelConFondo;
 import java.awt.Color;
 import java.awt.Font;
 import static java.awt.Frame.ICONIFIED;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import static java.lang.Thread.sleep;
+import java.util.concurrent.TimeUnit;
+import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.Timer;
+import javax.swing.border.Border;
 
 /**
  *
@@ -39,6 +46,7 @@ public class Principal extends JPanelConFondo {
                
         escritorio = j;
         
+        
         jPanel1.setBounds(0, 0, x/2, y);
         jPanel1.repaint();
         
@@ -46,6 +54,7 @@ public class Principal extends JPanelConFondo {
         jPanel3.repaint();
         
         jPanel2.setLocation(x/4-jPanel2.getWidth()/2, y/2-jPanel2.getHeight()/2);
+        
         
     }
 
@@ -186,6 +195,11 @@ public class Principal extends JPanelConFondo {
 
         Registrarse3.setBackground(new java.awt.Color(0, 0, 51));
         Registrarse3.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        Registrarse3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Registrarse3MouseClicked(evt);
+            }
+        });
 
         jLabel10.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
@@ -216,6 +230,11 @@ public class Principal extends JPanelConFondo {
 
         Entrar.setBackground(new java.awt.Color(0, 204, 204));
         Entrar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        Entrar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                EntrarMouseClicked(evt);
+            }
+        });
 
         jLabel8.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
@@ -372,6 +391,52 @@ public class Principal extends JPanelConFondo {
         System.exit(0);
         
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void EntrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EntrarMouseClicked
+        Color c = Entrar.getBackground();
+        Border b = Entrar.getBorder();
+        Color c2 = Registrarse3.getBackground();
+        Entrar.setBackground(c2);
+        Entrar.setBorder(BorderFactory.createMatteBorder(1,1,1,1, Color.WHITE));
+        
+        Timer timer = new Timer(50, new ActionListener() {
+        public void actionPerformed(ActionEvent arg0) {
+          Entrar.setBackground(c);
+          Entrar.setBorder(BorderFactory.createSoftBevelBorder(0));
+        }
+        });
+        timer.setRepeats(false); // Only execute once
+        timer.start();
+        
+    }//GEN-LAST:event_EntrarMouseClicked
+
+    private void Registrarse3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Registrarse3MouseClicked
+        Color c = Registrarse3.getBackground();
+        Border b = Registrarse3.getBorder();
+        Color f = jLabel10.getForeground();
+        Registrarse3.setBackground(Entrar.getBackground());
+        Registrarse3.setBorder(BorderFactory.createBevelBorder(1, Color.CYAN, Color.black));
+        jLabel10.setForeground(Color.black);
+        nuevo nuevo = new nuevo();
+        String ruta = this.getClass().getClassLoader().getResource("").getPath();
+        ruta = ruta.replace("build/classes/", "src/Utils/Logomini.png");
+        Image icono = new ImageIcon(ruta).getImage();
+        icono = icono.getScaledInstance(200, 200, Image.SCALE_DEFAULT);
+        nuevo.setIconImage(icono);
+        nuevo.setSize(600,600);
+        nuevo.setVisible(true);
+        nuevo.centrar();
+        
+        Timer timer = new Timer(50, new ActionListener() {
+        public void actionPerformed(ActionEvent arg0) {
+          Registrarse3.setBackground(c);
+          Registrarse3.setBorder(b);
+          jLabel10.setForeground(f);
+        }
+        });
+        timer.setRepeats(false); // Only execute once
+        timer.start();
+    }//GEN-LAST:event_Registrarse3MouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
