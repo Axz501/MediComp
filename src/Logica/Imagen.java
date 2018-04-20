@@ -16,43 +16,29 @@ import javax.persistence.Id;
  * @author Admin
  */
 @Entity
-public class Direccion implements Serializable {
-    
+public class Imagen implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    private String url;
     
-    private String ciudad;
-    private String departamento;
-    private String calle;
-    private int numero;
-    
-    public Direccion(){}
+    public Imagen(){}
 
-    public Direccion(String ciudad, String departamento, String calle, int numero) {
-        this.ciudad = ciudad;
-        this.departamento = departamento;
-        this.calle = calle;
-        this.numero = numero;
+    public Imagen(String url) {
+        this.url = url;
     }
 
-    public String getCiudad() {
-        return ciudad;
+    public String getUrl() {
+        return url;
     }
 
-    public String getDepartamento() {
-        return departamento;
-    }
-
-    public String getCalle() {
-        return calle;
-    }
-
-    public int getNumero() {
-        return numero;
+    public void setUrl(String url) {
+        this.url = url;
     }
     
+
     public Long getId() {
         return id;
     }
@@ -71,10 +57,10 @@ public class Direccion implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Direccion)) {
+        if (!(object instanceof Imagen)) {
             return false;
         }
-        Direccion other = (Direccion) object;
+        Imagen other = (Imagen) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -83,7 +69,7 @@ public class Direccion implements Serializable {
 
     @Override
     public String toString() {
-        return "Logica.Jornada[ id=" + id + " ]";
+        return "Logica.Imagen[ id=" + id + " ]";
     }
     
 }

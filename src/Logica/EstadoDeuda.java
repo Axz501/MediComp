@@ -11,6 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 /**
@@ -28,6 +29,7 @@ public class EstadoDeuda implements Serializable {
     private int cant_cuotas;
     private int cuotas_pendientes;
     private int cuotas_pagas;
+    @OneToMany
     private List<Cuota> cuotas;
     
     public EstadoDeuda(){

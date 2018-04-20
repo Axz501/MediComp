@@ -28,14 +28,16 @@ public class Medico extends Usuario implements Serializable {
     private List<Entidad> entidades;
     @OneToMany
     private List<Paciente> pacientes;
+    
+    public Medico(){}
 
-    public Medico(String ci, String nombre, String apellido, String correo, String contraseña, String imagen) {
+    public Medico(String ci, String nombre, String apellido, String correo, String contraseña, Imagen imagen) {
         super(ci, nombre, apellido, correo, contraseña, imagen);
         this.entidades=null;
         this.pacientes=null;
     }
 
-    public Medico(List<Entidad> entidades, List<Paciente> pacientes, String ci, String nombre, String apellido, String correo, String contraseña, String imagen) {
+    public Medico(List<Entidad> entidades, List<Paciente> pacientes, String ci, String nombre, String apellido, String correo, String contraseña, Imagen imagen) {
         super(ci, nombre, apellido, correo, contraseña, imagen);
         this.entidades = entidades;
         this.pacientes = pacientes;

@@ -12,8 +12,10 @@ import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -28,7 +30,27 @@ import javax.persistence.Persistence;
 public class ControladorUsuarios  implements IContUsuario{
     
     private static ControladorUsuarios instancia;
-    private Map<String, Usuario> usuarios;
+    private Map<String, Usuario> usuarios = new HashMap();
+    private Usuario sesionactiva;
+
+    public Map<String, Usuario> getUsuarios() {
+        return usuarios;
+    }
+
+    public void setUsuarios(Map<String, Usuario> usuarios) {
+        this.usuarios = usuarios;
+    }
+    
+
+    public Usuario getSesionactiva() {
+        return sesionactiva;
+    }
+
+    public void setSesionactiva(Usuario sesionactiva) {
+        this.sesionactiva = sesionactiva;
+    }
+    
+    
     
     public static ControladorUsuarios getInstance() {
         if (instancia == null) {
@@ -99,6 +121,21 @@ public class ControladorUsuarios  implements IContUsuario{
             return false; // Error, no se pudo copiar la imagen
         }
     }
+    
+    @Override
+    public boolean login(String ci, String pass){
+        for (Usuario u : this.usuarios.values()) {
+            if (u.getCi().equals(ci) && u.getContrasenia().equals(pass)){
+                this.setSesionactiva(u);
+                return true;
+            }
+            if (u.getCorreo().equals(ci) && u.getContrasenia().equals(pass)){
+                this.setSesionactiva(u);
+                return true;
+            }
+        }
+        return false;
+    }
     @Override
     public boolean verificarDatos(String ci, String correo) {
         for (Usuario usr : this.usuarios.values()) {
@@ -144,7 +181,7 @@ public class ControladorUsuarios  implements IContUsuario{
             }
         }
 
-        Medico m = new Medico(ci, contrasenia, nombre, apellido, correo, Img);
+        Medico m = new Medico(ci, contrasenia, nombre, apellido, correo, new Imagen(Img));
         try{
         persist(m);
         return true;
@@ -185,7 +222,7 @@ public class ControladorUsuarios  implements IContUsuario{
             }
         }
 
-        Asistente a = new Asistente(renumerado,horas_trabajadas,horas_renumeradas,ci, contrasenia, nombre, apellido, correo, Img);
+        Asistente a = new Asistente(renumerado,horas_trabajadas,horas_renumeradas,ci, contrasenia, nombre, apellido, correo, new Imagen(Img));
         try{
         persist(a);
         return true;
@@ -195,8 +232,32 @@ public class ControladorUsuarios  implements IContUsuario{
         
     }
     
- /*   public boolean registrarusuario(String ci, String contrasenia){
-
-    }*/
+    @Override
+    public void getUsuariosdeBD(){
+        List<Usuario> resultado = null;
+        ControladorUsuarios.getInstance().getEntityManager().getTransaction().begin();
+        try {
+            resultado = ControladorUsuarios.getEntityManager().createNativeQuery("SELECT * FROM usuario ;", Usuario.class).getResultList();
+            ControladorUsuarios.getEntityManager().getTransaction().commit();
+        } catch (Exception e) {
+            ControladorUsuarios.getEntityManager().getTransaction().rollback();
+        }
+        //this.setClientes(clientes);
+        if (resultado!=null && !resultado.isEmpty()){
+            for (int i=0;i<resultado.size();i++){
+                this.getUsuarios().put(resultado.get(i).getCi(), resultado.get(i));
+            }
+        }
+    }
+    @Override
+    public void prueba(){
+        Imagen i = new Imagen("123.jpg");
+        Medico m = new Medico("45678","Cosme","fulanito","hola@gmail.com","123456789",i);
+        Asistente a = new Asistente(false,0,0,"5555","Juan","Perez","juan2@gmail.com","123456789",i);
+        persist(i);
+        persist(m);
+        persist(a);
+    }
+    
     
 }

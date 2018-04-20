@@ -7,11 +7,13 @@ package Logica;
 
 import java.io.Serializable;
 import java.util.List;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 /**
  *
@@ -25,13 +27,17 @@ public class Usuario implements Serializable {
     private String ci;
     private String nombre;
     private String apellido;
+    @Column(unique=true)
     private String correo;
     private String contrasenia;
-    private String imagen;
+    @OneToOne
+    private Imagen imagen;
     @OneToMany
     private List<Jornada> jornadas;
 
-    public Usuario(String ci, String nombre, String apellido, String correo, String contrasenia, String imagen) {
+    public Usuario(){}
+    
+    public Usuario(String ci, String nombre, String apellido, String correo, String contrasenia, Imagen imagen) {
         this.ci = ci;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -39,7 +45,6 @@ public class Usuario implements Serializable {
         this.contrasenia = contrasenia;
         this.imagen = imagen;
     }
-
 
     public List<Jornada> getJornadas() {
         return jornadas;
@@ -93,11 +98,11 @@ public class Usuario implements Serializable {
         this.correo = correo;
     }
 
-    public String getImagen() {
+    public Imagen getImagen() {
         return imagen;
     }
 
-    public void setImagen(String imagen) {
+    public void setImagen(Imagen imagen) {
         this.imagen = imagen;
     }
     

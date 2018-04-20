@@ -13,6 +13,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 
 /**
@@ -29,23 +30,24 @@ public class EstudioRealizado implements Serializable {
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date fecha_hora;
     private String informe;
-    private List<String> imagenes;
+    @OneToMany
+    private List<Imagen> imagenes;
     @ManyToOne
     private NombredeEstudio nombre;
     @ManyToOne
     private Consulta consulta;
     
-    public EstudioRealizado(Date fecha_hora, String informe, List<String> imagen) {
+    public EstudioRealizado(Date fecha_hora, String informe, List<Imagen> imagen) {
         this.fecha_hora = fecha_hora;
         this.informe = informe;
         this.imagenes = imagen;
     }
 
-    public List<String> getImagenes() {
+    public List<Imagen> getImagenes() {
         return imagenes;
     }
 
-    public void setImagenes(List<String> imagenes) {
+    public void setImagenes(List<Imagen> imagenes) {
         this.imagenes = imagenes;
     }
 
@@ -67,7 +69,7 @@ public class EstudioRealizado implements Serializable {
     
     
 
-    public void AgregarImagen(String imagen){
+    public void AgregarImagen(Imagen imagen){
         this.imagenes.add(imagen);
     }
     
@@ -86,15 +88,7 @@ public class EstudioRealizado implements Serializable {
     public void setInforme(String informe) {
         this.informe = informe;
     }
-
-    public List<String> getImagen() {
-        return imagenes;
-    }
-
-    public void setImagen(List<String> imagen) {
-        this.imagenes = imagen;
-    }
-    
+ 
     
 
     public Long getId() {
