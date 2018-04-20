@@ -6,10 +6,12 @@
 package Logica;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 /**
  *
@@ -26,6 +28,8 @@ public class Usuario implements Serializable {
     private String correo;
     private String contrasenia;
     private String imagen;
+    @OneToMany
+    private List<Jornada> jornadas;
 
     public Usuario(String ci, String nombre, String apellido, String correo, String contrasenia, String imagen) {
         this.ci = ci;
@@ -36,12 +40,18 @@ public class Usuario implements Serializable {
         this.imagen = imagen;
     }
 
-    Usuario(String ci, String contrasenia) {
-        this.ci = ci;
-        this.contrasenia = contrasenia;
+    public List<Jornada> getJornadas() {
+        return jornadas;
     }
 
+    public void setJornadas(List<Jornada> jornadas) {
+        this.jornadas = jornadas;
+    }
     
+    public void AgregarJornada(Jornada j){
+        this.jornadas.add(j);
+    }
+
     public String getContrasenia() {
         return contrasenia;
     }

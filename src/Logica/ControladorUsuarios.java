@@ -56,22 +56,24 @@ public class ControladorUsuarios {
     }
     
     public void ingresarusuario(){
-        Medico m = new Medico("444","juan","perez","juan@gmail.com","sape","url.jpg");
-        Asistente a = new Asistente(false,0,0,"555",m.getNombre(),m.getApellido(),m.getCorreo(),m.getContrasenia(),m.getImagen());
-        Direccion d = new Direccion("Soriano","Mercedes","Uruguay",80);
-        Date d1=null,d2=null;
-        try{
-            d1 = new SimpleDateFormat("yyyy-MM-dd").parse("2001-10-20");
-            d2 = new SimpleDateFormat("yyyy-MM-dd").parse("2001-10-28");
-            }
-        catch(Exception e){
-            System.out.println(e.getMessage());
-        }
-        Jornada j = new Jornada(d1,d2,d,false);
-        this.persist(m);
-        this.persist(a);
-        this.persist(d);
-        this.persist(j);
+        
+//        Medico m = new Medico("444","juan","perez","juan@gmail.com","sape","url.jpg");
+//        Asistente a = new Asistente(false,0,0,"555",m.getNombre(),m.getApellido(),m.getCorreo(),m.getContrasenia(),m.getImagen());
+//        Direccion d = new Direccion("Soriano","Mercedes","Uruguay",80);
+//        Date d1=null,d2=null;
+//        try{
+//            d1 = new SimpleDateFormat("yyyy-MM-dd").parse("2001-10-20");
+//            d2 = new SimpleDateFormat("yyyy-MM-dd").parse("2001-10-28");
+//            }
+//        catch(Exception e){
+//            System.out.println(e.getMessage());
+//        }
+//        Jornada j = new Jornada(d1,d2,d,false,null);
+//        this.persist(m);
+//        this.persist(a);
+//        this.persist(d);
+//        this.persist(j);
+
     }
     
  /*   public boolean registrarusuario(String ci, String contrasenia){

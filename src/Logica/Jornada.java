@@ -12,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 
 /**
@@ -33,13 +34,28 @@ public class Jornada implements Serializable {
     @ManyToOne
     private Direccion direccion;
     private boolean particular;
+    @OneToOne
+    private Deuda deuda;
+    @OneToOne
+    private Entidad entidad;
 
-    public Jornada(Date Fecha_Inicio, Date Fecha_Fin, Direccion direccion, boolean particular) {
+    public Jornada(Date Fecha_Inicio, Date Fecha_Fin, Direccion direccion, boolean particular, Deuda deuda) {
         this.Fecha_Inicio = Fecha_Inicio;
         this.Fecha_Fin = Fecha_Fin;
         this.direccion = direccion;
         this.particular = particular;
+        this.deuda = deuda;
     }
+
+    public Deuda getDeuda() {
+        return deuda;
+    }
+
+    public void setDeuda(Deuda deuda) {
+        this.deuda = deuda;
+    }
+    
+    
 
     public Date getFecha_Inicio() {
         return Fecha_Inicio;

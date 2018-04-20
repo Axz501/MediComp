@@ -6,73 +6,61 @@
 package Logica;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
 
 /**
  *
  * @author Admin
  */
 @Entity
-public class Entidad implements Serializable {
+public class Cuota implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String correo;
-    private String nombre;
-    @OneToOne
-    private Direccion direccion;
-    private String telefono;
-    @ManyToMany(mappedBy = "entidades")
-    private List<Paciente> pacientes;
+    private float monto;
+    private boolean pago;
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date fecha_vencimiento;
 
-    public Entidad(String correo, String nombre, Direccion direccion, String telefono) {
-        this.correo = correo;
-        this.nombre = nombre;
-        this.direccion = direccion;
-        this.telefono = telefono;
+    public Cuota(float monto, boolean pago, Date fecha_vencimiento) {
+        this.monto = monto;
+        this.pago = pago;
+        this.fecha_vencimiento = fecha_vencimiento;
     }
 
-    public String getCorreo() {
-        return correo;
+    public float getMonto() {
+        return monto;
     }
 
-    public void setCorreo(String correo) {
-        this.correo = correo;
+    public void setMonto(float monto) {
+        this.monto = monto;
     }
 
-    public String getNombre() {
-        return nombre;
+    public boolean isPago() {
+        return pago;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setPago(boolean pago) {
+        this.pago = pago;
     }
 
-    public Direccion getDireccion() {
-        return direccion;
+    public Date getFecha_vencimiento() {
+        return fecha_vencimiento;
     }
 
-    public void setDireccion(Direccion direccion) {
-        this.direccion = direccion;
-    }
-
-    public String getTelefono() {
-        return telefono;
-    }
-
-    public void setTelefono(String telefono) {
-        this.telefono = telefono;
+    public void setFecha_vencimiento(Date fecha_vencimiento) {
+        this.fecha_vencimiento = fecha_vencimiento;
     }
     
-        
+    
+    
 
     public Long getId() {
         return id;
@@ -92,10 +80,10 @@ public class Entidad implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Entidad)) {
+        if (!(object instanceof Cuota)) {
             return false;
         }
-        Entidad other = (Entidad) object;
+        Cuota other = (Cuota) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -104,7 +92,7 @@ public class Entidad implements Serializable {
 
     @Override
     public String toString() {
-        return "Logica.Entidad[ id=" + id + " ]";
+        return "Logica.Cuota[ id=" + id + " ]";
     }
     
 }

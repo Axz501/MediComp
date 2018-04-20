@@ -6,10 +6,13 @@
 package Logica;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 /**
@@ -34,6 +37,10 @@ public class Paciente implements Serializable {
     private String telefono;
     @OneToOne
     private Direccion direccion;
+    @OneToMany(mappedBy = "paciente")
+    private List<Consulta> consultas;
+    @ManyToMany
+    private List<Entidad> entidades;
 
     public Paciente(String ci, String nombre, String apellido, int edad, String genero, String imagen, boolean particular, String correo, String telefono, Direccion direccion) {
         this.ci = ci;
@@ -59,6 +66,18 @@ public class Paciente implements Serializable {
         this.direccion=null;
         this.correo=null;
         this.telefono=null;       
+    }
+
+    public List<Consulta> getConsultas() {
+        return consultas;
+    }
+
+    public void setConsultas(List<Consulta> consultas) {
+        this.consultas = consultas;
+    }
+    
+    private void AgregarConsulta(Consulta c){
+        this.consultas.add(c);
     }
 
     public String getCi() {

@@ -13,6 +13,9 @@
     <class>Logica.EstudioRealizado</class>
     <class>Logica.NombredeEstudio</class>
     <class>Logica.Prototipo</class>
+    <class>Logica.Deuda</class>
+    <class>Logica.EstadoDeuda</class>
+    <class>Logica.Cuota</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/medicomp?zeroDateTimeBehavior=convertToNull"/>
       <property name="javax.persistence.jdbc.user" value="root"/>

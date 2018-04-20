@@ -5,14 +5,21 @@
  */
 package Presentacion;
 
+import UpperEssential.UpperEssentialLookAndFeel;
+import com.sun.awt.AWTUtilities;
+import java.awt.Shape;
 import java.awt.Toolkit;
+import java.awt.geom.RoundRectangle2D;
 import javax.swing.JFrame;
+import Utils.JFrameConFondo;
+import Utils.JMoverFrame;
+import java.awt.Frame;
 
 /**
  *
  * @author ninoh
  */
-public class Principall extends javax.swing.JFrame {
+public class Principall extends JFrameConFondo {
 
     /**
      * Creates new form Principall
@@ -20,14 +27,20 @@ public class Principall extends javax.swing.JFrame {
     int x;
     int y;
     public Principall() {
+        if (!this.isUndecorated()){
+            this.setUndecorated(true);
+        }
         initComponents();
         this.repaint();
         x = (int) (Toolkit.getDefaultToolkit().getScreenSize().getWidth());
         y = (int) (Toolkit.getDefaultToolkit().getScreenSize().getHeight());
-        this.setContentPane(new Principal(x,y));
+        this.setContentPane(new Principal(x,y,this));
         
         setLocationRelativeTo(null);
         setExtendedState(MAXIMIZED_BOTH);
+        
+        
+        
     }
 
     /**
@@ -53,12 +66,36 @@ public class Principall extends javax.swing.JFrame {
     private void formWindowStateChanged(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowStateChanged
         if(evt.getNewState()==JFrame.NORMAL){
         this.setSize(910, 551);
-        this.setContentPane(new Principal(910,551));
+        Principal p = new Principal(910,551,this);
+        this.setContentPane(p);
         this.setLocation(x/2-910/2,y/2-551/2);
-        
+        JMoverFrame mueve1 = new JMoverFrame(p);
+        p.addMouseListener(mueve1);
+        p.addMouseMotionListener(mueve1);
+       
+        }
+        if(evt.getNewState()!=JFrame.ICONIFIED && evt.getNewState()!=JFrame.NORMAL){
+            x = (int) (Toolkit.getDefaultToolkit().getScreenSize().getWidth());
+            y = (int) (Toolkit.getDefaultToolkit().getScreenSize().getHeight());
+            this.setContentPane(new Principal(x,y,this));
+            setLocationRelativeTo(null);
+            setExtendedState(MAXIMIZED_BOTH);
         }
     }//GEN-LAST:event_formWindowStateChanged
 
+    public void minimizar(){
+        this.setSize(910, 551);
+        this.setContentPane(new Principal(910,551,this));
+        this.setLocation(x/2-910/2,y/2-551/2);
+        setExtendedState(NORMAL);
+    }
+    public void maximizar(){
+        x = (int) (Toolkit.getDefaultToolkit().getScreenSize().getWidth());
+        y = (int) (Toolkit.getDefaultToolkit().getScreenSize().getHeight());
+        this.setContentPane(new Principal(x,y,this));
+        setLocationRelativeTo(null);
+        setExtendedState(MAXIMIZED_BOTH);
+    }
     /**
      * @param args the command line arguments
      */
@@ -69,19 +106,21 @@ public class Principall extends javax.swing.JFrame {
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
         try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
+//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+//                if ("Nimbus".equals(info.getName())) {
+//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//                    break;
+//                }
+            javax.swing.UIManager.setLookAndFeel(new UpperEssentialLookAndFeel("src/Utils/TemaLindo2.theme"));
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Principall.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Principall.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Principall.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+//        } catch (ClassNotFoundException ex) {
+//            java.util.logging.Logger.getLogger(Principall.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (InstantiationException ex) {
+//            java.util.logging.Logger.getLogger(Principall.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (IllegalAccessException ex) {
+//            java.util.logging.Logger.getLogger(Principall.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } 
+        catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(Principall.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>

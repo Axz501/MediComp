@@ -7,10 +7,14 @@ package Logica;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 
 /**
@@ -26,7 +30,33 @@ public class Consulta implements Serializable {
     private Long id;
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date Fecha_Hora;
+    @OneToMany(mappedBy = "consulta")
+    private List<EstudioRealizado> estudios;
+    @OneToOne
+    private Deuda deuda;
+    @ManyToOne
+    private Paciente paciente;
 
+    public List<EstudioRealizado> getEstudios() {
+        return estudios;
+    }
+    
+    public void agregarestudio(EstudioRealizado e){
+        this.estudios.add(e);
+    }
+
+    public void setEstudios(List<EstudioRealizado> estudios) {
+        this.estudios = estudios;
+    }
+
+    public Deuda getDeuda() {
+        return deuda;
+    }
+
+    public void setDeuda(Deuda deuda) {
+        this.deuda = deuda;
+    }
+    
     public Consulta(Date Fecha_Hora) {
         this.Fecha_Hora = Fecha_Hora;
     }
