@@ -87,6 +87,7 @@ public class Principal extends JPanelConFondo {
 
         jPanel2.setOpaque(false);
 
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Utils/Logo (2).png"))); // NOI18N
         jLabel3.setPreferredSize(new java.awt.Dimension(400, 375));
 
         jSeparator1.setForeground(new java.awt.Color(255, 255, 255));
@@ -357,7 +358,13 @@ public class Principal extends JPanelConFondo {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        //JOptionPane.showOptionDialog(null, "Cerrar Programa", "Seguro que deseas salir de la aplicación?", JOptionPane.YES_NO_OPTION, WIDTH, icon, os, ui);
+        try{
+        //javax.swing.JOptionPane.showOptionDialog(null, "Cerrar Programa", "Seguro que deseas salir de la aplicación?", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, {"Si","No"}, "No");
+        
+        }
+        catch(Exception e){
+            System.out.print(e.getMessage());
+        }
         System.exit(0);
         
     }//GEN-LAST:event_jButton3ActionPerformed
@@ -367,9 +374,10 @@ public class Principal extends JPanelConFondo {
     }//GEN-LAST:event_EntrarMouseClicked
 
     private void Registrarse3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Registrarse3MouseClicked
-        
+        Registrarse Ap = new Registrarse();
+        Ap.show();
     }//GEN-LAST:event_Registrarse3MouseClicked
-
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Entrar;

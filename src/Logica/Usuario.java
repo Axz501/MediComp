@@ -40,6 +40,7 @@ public class Usuario implements Serializable {
         this.imagen = imagen;
     }
 
+
     public List<Jornada> getJornadas() {
         return jornadas;
     }
