@@ -25,7 +25,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  *
  * @author Admin
  */
-public class Registrarse extends JFrameConFondo {
+public class Registrarse extends JFrame {
 
     /**
      * Creates new form Registrarse
