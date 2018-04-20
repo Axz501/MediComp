@@ -101,12 +101,12 @@ public class ControladorUsuarios  implements IContUsuario{
     }
     @Override
     public boolean verificarDatos(String ci, String correo) {
-        for (Usuario cli : this.usuarios.values()) {
-            if (cli.getCi().equals(ci)) {
+        for (Usuario usr : this.usuarios.values()) {
+            if (usr.getCi().equals(ci)) {
                 return false; 
             }
 
-            if (cli.getCorreo().equals(correo)) {
+            if (usr.getCorreo().equals(correo)) {
                 return false; 
             }
         }

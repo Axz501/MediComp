@@ -424,7 +424,7 @@ public class Registrarse extends JFrame {
     }//GEN-LAST:event_CargarImg1ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        boolean renum, formatOk=true;
+        boolean renum=false, formatOk=true;
         String ci, nombre, apellido, correo, comboTipo;
         int  hr_trabajadas, hr_renumeradas;
         String contrasenia = new String(txt_Contra.getPassword());
@@ -435,7 +435,7 @@ public class Registrarse extends JFrame {
         apellido = txt_Apellido.getText();
         correo = txt_Correo.getText();
         comboTipo = cmb_Tipo.getSelectedItem().toString();
-        if(renumerado2.getText().equals("Si")){renum = true;}else{renum=false;}
+        
         hr_trabajadas = Hrs_trabajadas2.getItemCount();
         hr_renumeradas = Hrs_Renumeradas2.getItemCount();
 
@@ -467,7 +467,7 @@ public class Registrarse extends JFrame {
                     }
                 }
                 if (comboTipo.equals("Asistente")) {
-
+                    if(renumerado2.getText().equals("Si")){renum = true;}else{renum=false;}
                     Ok = Usr.IngresarAsistente(renum,hr_trabajadas,hr_renumeradas,ci, contrasenia, nombre, apellido, correo, RutaImagen);
                     if (Ok) {
                         javax.swing.JOptionPane.showMessageDialog(null, "El cliente ha sido dado de alta");
