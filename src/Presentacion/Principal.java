@@ -186,7 +186,7 @@ public class Principal extends JPanelConFondo {
 
         contra.setBackground(new java.awt.Color(0, 0, 51));
         contra.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        contra.setForeground(new java.awt.Color(0, 0, 204));
+        contra.setForeground(new java.awt.Color(255, 255, 255));
         contra.setBorder(null);
         contra.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -260,8 +260,12 @@ public class Principal extends JPanelConFondo {
 
         cedula.setBackground(new java.awt.Color(0, 0, 51));
         cedula.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        cedula.setForeground(new java.awt.Color(255, 255, 255));
         cedula.setToolTipText("Introduzca su cédula sin puntos ni guiones");
         cedula.setBorder(null);
+        cedula.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        cedula.setSelectedTextColor(new java.awt.Color(0, 0, 0));
+        cedula.setSelectionColor(new java.awt.Color(153, 255, 255));
         cedula.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 cedulaMouseClicked(evt);
@@ -286,6 +290,11 @@ public class Principal extends JPanelConFondo {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.CENTER, jPanel3Layout.createSequentialGroup()
+                            .addGap(70, 70, 70)
+                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jSeparator9, javax.swing.GroupLayout.Alignment.CENTER, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.CENTER)))
                         .addGroup(jPanel3Layout.createSequentialGroup()
                             .addGap(27, 27, 27)
                             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -294,17 +303,11 @@ public class Principal extends JPanelConFondo {
                                 .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(contra, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGroup(jPanel3Layout.createSequentialGroup()
-                            .addGap(27, 27, 27)
-                            .addComponent(Entrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(51, 51, 51)
-                            .addComponent(Registrarse3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.CENTER, jPanel3Layout.createSequentialGroup()
-                            .addGap(70, 70, 70)
-                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jSeparator9, javax.swing.GroupLayout.Alignment.CENTER, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.CENTER))))
+                                .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(jPanel3Layout.createSequentialGroup()
+                                    .addComponent(Entrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(51, 51, 51)
+                                    .addComponent(Registrarse3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(89, 89, 89)
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -424,7 +427,7 @@ public class Principal extends JPanelConFondo {
         Registrarse3.setBackground(Entrar.getBackground());
         Registrarse3.setBorder(BorderFactory.createBevelBorder(1, Color.CYAN, Color.black));
         jLabel10.setForeground(Color.black);
-        nuevo nuevo = new nuevo();
+        Registrarse nuevo = new Registrarse();
         String ruta = this.getClass().getClassLoader().getResource("").getPath();
         ruta = ruta.replace("build/classes/", "src/Utils/Logomini.png");
         Image icono = new ImageIcon(ruta).getImage();

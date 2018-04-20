@@ -5,13 +5,14 @@
  */
 package Presentacion;
 
+
 import Logica.Fabrica;
 import Logica.IContUsuario;
-import UpperEssential.UpperEssentialLookAndFeel;
 import java.awt.Toolkit;
 import javax.swing.JFrame;
 import Utils.JFrameConFondo;
 import Utils.JMoverFrame;
+import com.seaglasslookandfeel.SeaGlassLookAndFeel;
 import java.awt.GraphicsConfiguration;
 import java.awt.Image;
 import javax.swing.ImageIcon;
@@ -124,7 +125,7 @@ public class Principall extends JFrameConFondo {
 //                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
 //                    break;
 //                }
-            javax.swing.UIManager.setLookAndFeel(new UpperEssentialLookAndFeel("src/Utils/TemaLindo2.theme"));
+            javax.swing.UIManager.setLookAndFeel(new SeaGlassLookAndFeel());
             }
 //        } catch (ClassNotFoundException ex) {
 //            java.util.logging.Logger.getLogger(Principall.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
