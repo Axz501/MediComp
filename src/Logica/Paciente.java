@@ -31,7 +31,8 @@ public class Paciente implements Serializable {
     private String apellido;
     private int edad;
     private String genero;
-    private String imagen;
+    @OneToOne
+    private Imagen imagen;
     private boolean particular;
     private String correo;
     private String telefono;
@@ -42,7 +43,7 @@ public class Paciente implements Serializable {
     @ManyToMany
     private List<Entidad> entidades;
 
-    public Paciente(String ci, String nombre, String apellido, int edad, String genero, String imagen, boolean particular, String correo, String telefono, Direccion direccion) {
+    public Paciente(String ci, String nombre, String apellido, int edad, String genero, Imagen imagen, boolean particular, String correo, String telefono, Direccion direccion) {
         this.ci = ci;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -55,7 +56,7 @@ public class Paciente implements Serializable {
         this.direccion = direccion;
     }
 
-    public Paciente(String ci, String nombre, String apellido, int edad, String genero, String imagen) {
+    public Paciente(String ci, String nombre, String apellido, int edad, String genero, Imagen imagen) {
         this.ci = ci;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -120,11 +121,11 @@ public class Paciente implements Serializable {
         this.genero = genero;
     }
 
-    public String getImagen() {
+    public Imagen getImagen() {
         return imagen;
     }
 
-    public void setImagen(String imagen) {
+    public void setImagen(Imagen imagen) {
         this.imagen = imagen;
     }
 

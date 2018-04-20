@@ -19,8 +19,10 @@ public class Asistente extends Usuario implements Serializable {
     private boolean renumerado;
     private int horas_trabajadas;
     private int horas_renumeradas;
+    
+    public Asistente(){}
 
-    public Asistente(boolean renumerado, int horas_trabajadas, int horas_renumeradas, String ci, String nombre, String apellido, String correo, String contraseña, String imagen) {
+    public Asistente(boolean renumerado, int horas_trabajadas, int horas_renumeradas, String ci, String nombre, String apellido, String correo, String contraseña, Imagen imagen) {
         super(ci, nombre, apellido, correo, contraseña, imagen);
         this.renumerado = renumerado;
         this.horas_trabajadas = horas_trabajadas;

@@ -5,6 +5,8 @@
  */
 package Presentacion;
 
+import Logica.Fabrica;
+import Logica.IContUsuario;
 import Logica.Usuario;
 import java.awt.Dimension;
 import java.awt.Frame;
@@ -38,6 +40,7 @@ import javax.swing.border.Border;
 public class Principal extends JPanelConFondo {
 
     private Principall escritorio;
+    private IContUsuario User;
     /**
      * Creates new form Principal
      */
@@ -46,7 +49,7 @@ public class Principal extends JPanelConFondo {
         initComponents(); 
                
         escritorio = j;
-        
+        User = Fabrica.getUsuario();
         
         jPanel1.setBounds(0, 0, x/2, y);
         jPanel1.repaint();
@@ -79,14 +82,14 @@ public class Principal extends JPanelConFondo {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jSeparator4 = new javax.swing.JSeparator();
-        jPasswordField1 = new javax.swing.JPasswordField();
+        contra = new javax.swing.JPasswordField();
         Registrarse3 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
         jSeparator5 = new javax.swing.JSeparator();
         jLabel9 = new javax.swing.JLabel();
         Entrar = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        cedula = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jSeparator9 = new javax.swing.JSeparator();
 
@@ -181,14 +184,13 @@ public class Principal extends JPanelConFondo {
 
         jSeparator4.setForeground(new java.awt.Color(255, 255, 255));
 
-        jPasswordField1.setBackground(new java.awt.Color(0, 0, 51));
-        jPasswordField1.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        jPasswordField1.setForeground(new java.awt.Color(0, 0, 204));
-        jPasswordField1.setText("jPasswordField1");
-        jPasswordField1.setBorder(null);
-        jPasswordField1.addFocusListener(new java.awt.event.FocusAdapter() {
+        contra.setBackground(new java.awt.Color(0, 0, 51));
+        contra.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        contra.setForeground(new java.awt.Color(0, 0, 204));
+        contra.setBorder(null);
+        contra.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                jPasswordField1FocusGained(evt);
+                contraFocusGained(evt);
             }
         });
 
@@ -256,18 +258,18 @@ public class Principal extends JPanelConFondo {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jTextField2.setBackground(new java.awt.Color(0, 0, 51));
-        jTextField2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jTextField2.setToolTipText("Introduzca su cédula sin puntos ni guiones");
-        jTextField2.setBorder(null);
-        jTextField2.addMouseListener(new java.awt.event.MouseAdapter() {
+        cedula.setBackground(new java.awt.Color(0, 0, 51));
+        cedula.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        cedula.setToolTipText("Introduzca su cédula sin puntos ni guiones");
+        cedula.setBorder(null);
+        cedula.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTextField2MouseClicked(evt);
+                cedulaMouseClicked(evt);
             }
         });
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+        cedula.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
+                cedulaActionPerformed(evt);
             }
         });
 
@@ -288,10 +290,10 @@ public class Principal extends JPanelConFondo {
                             .addGap(27, 27, 27)
                             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(cedula, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(contra, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGroup(jPanel3Layout.createSequentialGroup()
                             .addGap(27, 27, 27)
@@ -316,13 +318,13 @@ public class Principal extends JPanelConFondo {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 69, Short.MAX_VALUE)
                 .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(cedula, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(contra, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(47, 47, 47)
@@ -340,17 +342,17 @@ public class Principal extends JPanelConFondo {
         jPanel3.setBounds(480, 30, 400, 490);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextField2MouseClicked
+    private void cedulaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cedulaMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2MouseClicked
+    }//GEN-LAST:event_cedulaMouseClicked
 
-    private void jPasswordField1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jPasswordField1FocusGained
-        jPasswordField1.setText("");
-    }//GEN-LAST:event_jPasswordField1FocusGained
+    private void contraFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_contraFocusGained
+        contra.setText("");
+    }//GEN-LAST:event_contraFocusGained
 
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+    private void cedulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cedulaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
+    }//GEN-LAST:event_cedulaActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         if (this.getWidth()!=910)
@@ -393,7 +395,6 @@ public class Principal extends JPanelConFondo {
         Color c2 = Registrarse3.getBackground();
         Entrar.setBackground(c2);
         Entrar.setBorder(BorderFactory.createMatteBorder(1,1,1,1, Color.WHITE));
-        
         Timer timer = new Timer(50, new ActionListener() {
         public void actionPerformed(ActionEvent arg0) {
           Entrar.setBackground(c);
@@ -402,6 +403,17 @@ public class Principal extends JPanelConFondo {
         });
         timer.setRepeats(false); // Only execute once
         timer.start();
+        
+        String ci = cedula.getText();
+        char[] passw = contra.getPassword();
+        String pass = "";
+        for (int i=0;i<passw.length;i++)
+            pass = pass + passw[i];
+        if (User.login(ci, pass)){
+            javax.swing.JOptionPane.showMessageDialog(null,"El usuario existe");
+        }
+        else
+            javax.swing.JOptionPane.showMessageDialog(null,"Incorrecto");
         
     }//GEN-LAST:event_EntrarMouseClicked
 
@@ -437,6 +449,8 @@ public class Principal extends JPanelConFondo {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Entrar;
     private javax.swing.JPanel Registrarse3;
+    private javax.swing.JTextField cedula;
+    private javax.swing.JPasswordField contra;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -450,12 +464,10 @@ public class Principal extends JPanelConFondo {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator5;
     private javax.swing.JSeparator jSeparator9;
-    private javax.swing.JTextField jTextField2;
     // End of variables declaration//GEN-END:variables
 }

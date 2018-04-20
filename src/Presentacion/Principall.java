@@ -5,6 +5,8 @@
  */
 package Presentacion;
 
+import Logica.Fabrica;
+import Logica.IContUsuario;
 import UpperEssential.UpperEssentialLookAndFeel;
 import java.awt.Toolkit;
 import javax.swing.JFrame;
@@ -24,6 +26,7 @@ public class Principall extends JFrameConFondo {
     /**
      * Creates new form Principall
      */
+    private IContUsuario User;
     int x;
     int y;
     public Principall() {
@@ -31,6 +34,9 @@ public class Principall extends JFrameConFondo {
             this.setUndecorated(true);
         }
         initComponents();
+        User = Fabrica.getUsuario();
+        User.getUsuariosdeBD();
+        
         this.repaint();
         x = (int) (Toolkit.getDefaultToolkit().getScreenSize().getWidth());
         y = (int) (Toolkit.getDefaultToolkit().getScreenSize().getHeight());
