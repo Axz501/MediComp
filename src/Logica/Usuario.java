@@ -31,14 +31,15 @@ public class Usuario implements Serializable {
     @OneToMany
     private List<Jornada> jornadas;
 
-    public Usuario(String ci, String nombre, String apellido, String correo, String contraseña, String imagen) {
+    public Usuario(String ci, String nombre, String apellido, String correo, String contrasenia, String imagen) {
         this.ci = ci;
         this.nombre = nombre;
         this.apellido = apellido;
         this.correo = correo;
-        this.contrasenia = contraseña;
+        this.contrasenia = contrasenia;
         this.imagen = imagen;
     }
+
 
     public List<Jornada> getJornadas() {
         return jornadas;
