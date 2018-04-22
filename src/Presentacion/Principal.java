@@ -227,7 +227,7 @@ public class Principal extends JPanelConFondo {
 
         jLabel9.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel9.setText("Cedula de Identidad:");
+        jLabel9.setText("Cedula de Identidad/Correo Electrónico:");
 
         Entrar.setBackground(new java.awt.Color(0, 204, 204));
         Entrar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -298,7 +298,6 @@ public class Principal extends JPanelConFondo {
                         .addGroup(jPanel3Layout.createSequentialGroup()
                             .addGap(27, 27, 27)
                             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(cedula, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -308,9 +307,13 @@ public class Principal extends JPanelConFondo {
                                     .addComponent(Entrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGap(51, 51, 51)
                                     .addComponent(Registrarse3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(89, 89, 89)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(jPanel3Layout.createSequentialGroup()
+                            .addContainerGap()
+                            .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
+                            .addGap(89, 89, 89)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(31, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -415,8 +418,21 @@ public class Principal extends JPanelConFondo {
         if (User.login(ci, pass)){
             javax.swing.JOptionPane.showMessageDialog(null,"El usuario existe");
         }
-        else
-            javax.swing.JOptionPane.showMessageDialog(null,"Incorrecto");
+        else{
+            javax.swing.JOptionPane.showMessageDialog(null,"Credenciales Inválidas");
+            Object[] options = {"Si","No"};
+            int x = JOptionPane.showOptionDialog(null,
+            "Si te has olvidado de tu contraseña puedes restaurarla ¿Deseas restaurar tu contraseña?","Contraseña de Cuenta",JOptionPane.YES_NO_OPTION,
+            JOptionPane.QUESTION_MESSAGE,null,options,options[0]);
+            if (x==0){
+                String correo = javax.swing.JOptionPane.showInputDialog(null,"Ingrese el correo de su cuenta, para enviarle una nueva contraseña", "Restaurar Contraseña",JOptionPane.QUESTION_MESSAGE);
+                if (User.enviarcorreo(correo)){
+                    JOptionPane.showMessageDialog(null, "Se te enviará un correo en breve a tu casilla", "Correo Válido", JOptionPane.INFORMATION_MESSAGE);
+                }
+                else
+                    JOptionPane.showMessageDialog(null, "Tu correo no esta registrado", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
         
     }//GEN-LAST:event_EntrarMouseClicked
 
@@ -436,6 +452,7 @@ public class Principal extends JPanelConFondo {
         //nuevo.setSize(600,600);
         nuevo.setVisible(true);
         nuevo.centrar();
+        JOptionPane.showMessageDialog(nuevo, "Ingresa un nuevo usuario");
         
         Timer timer = new Timer(50, new ActionListener() {
         public void actionPerformed(ActionEvent arg0) {

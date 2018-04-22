@@ -17,4 +17,6 @@ public interface IContUsuario {
     public abstract boolean login(String ci, String pass);
     public abstract void prueba();
     public abstract void getUsuariosdeBD();
+    public abstract boolean enviarcorreo(String correo);
+    public abstract String get_SHA_512_SecurePassword(String passwordToHash);
 }

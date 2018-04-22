@@ -8,20 +8,29 @@ import Logica.Fabrica;
 import Logica.IContUsuario;
 import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 
 /**
  *
@@ -124,12 +133,13 @@ public class ControladorUsuarios  implements IContUsuario{
     
     @Override
     public boolean login(String ci, String pass){
+        String pass2 = this.get_SHA_512_SecurePassword(pass);
         for (Usuario u : this.usuarios.values()) {
-            if (u.getCi().equals(ci) && u.getContrasenia().equals(pass)){
+            if (u.getCi().equals(ci) && u.getContrasenia().equals(pass2)){
                 this.setSesionactiva(u);
                 return true;
             }
-            if (u.getCorreo().equals(ci) && u.getContrasenia().equals(pass)){
+            if (u.getCorreo().equals(ci) && u.getContrasenia().equals(pass2)){
                 this.setSesionactiva(u);
                 return true;
             }
@@ -233,6 +243,37 @@ public class ControladorUsuarios  implements IContUsuario{
     }
     
     @Override
+    public boolean enviarcorreo(String correo){
+        String gen = new RandomString(9, ThreadLocalRandom.current()).nextString();
+        String nuevapass = this.get_SHA_512_SecurePassword(gen);
+        if(!this.verificarDatos(correo, correo)){ //usamos el verificardatos a la inversa
+            Iterator it = this.usuarios.values().iterator();
+            while (it.hasNext()){
+                Usuario u = (Usuario) it.next();
+                if (u.getCorreo().equals(correo)){
+                    u.setContrasenia(nuevapass);
+                    break;
+                }
+            }
+            try {
+                ControladorUsuarios.getEntityManager().getTransaction().begin();
+                Query q = ControladorUsuarios.getEntityManager().createNativeQuery("UPDATE medicomp.usuario SET contrasenia='"+nuevapass+"' WHERE correo='"+correo+"';");
+                q.executeUpdate();
+                //ControladorUsuarios.getEntityManager().getTransaction().commit();
+            } catch (Exception e) {
+                ControladorUsuarios.getEntityManager().getTransaction().rollback();
+            }
+            try {
+                SendEmail.EnviarCorreo(correo,gen);
+            } catch (UnsupportedEncodingException ex) {
+                Logger.getLogger(ControladorUsuarios.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            return true;
+        }
+        return false;
+    }
+    
+    @Override
     public void getUsuariosdeBD(){
         List<Usuario> resultado = null;
         ControladorUsuarios.getInstance().getEntityManager().getTransaction().begin();
@@ -257,6 +298,27 @@ public class ControladorUsuarios  implements IContUsuario{
         persist(i);
         persist(m);
         persist(a);
+    }
+    
+    @Override
+    public String get_SHA_512_SecurePassword(String passwordToHash){
+        String salt = "ok";
+        String generatedPassword = null;
+
+        try {
+            MessageDigest md = MessageDigest.getInstance("SHA-512");
+            md.update(salt.getBytes("UTF-8"));
+            byte[] bytes = md.digest(passwordToHash.getBytes("UTF-8"));
+            StringBuilder sb = new StringBuilder();
+            for(int i=0; i< bytes.length ;i++){
+                sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
+            }
+            generatedPassword = sb.toString();
+        }
+        catch (NoSuchAlgorithmException | UnsupportedEncodingException e){
+            e.printStackTrace();
+        }
+        return generatedPassword;
     }
     
     

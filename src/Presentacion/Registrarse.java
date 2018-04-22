@@ -185,6 +185,7 @@ public class Registrarse extends JFrame {
         contenedor2.add(panelVacio, "panelVacio");
 
         panelAsistente2.setOpaque(false);
+        panelAsistente2.setPreferredSize(new java.awt.Dimension(350, 135));
 
         jLabel15.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
         jLabel15.setText("Renumerado: ");
@@ -195,14 +196,14 @@ public class Registrarse extends JFrame {
         jLabel17.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
         jLabel17.setText("Horas Renumeradas:");
 
-        Hrs_trabajadas2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24" }));
+        Hrs_trabajadas2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24" }));
         Hrs_trabajadas2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Hrs_trabajadas2ActionPerformed(evt);
             }
         });
 
-        Hrs_Renumeradas2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24" }));
+        Hrs_Renumeradas2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24" }));
         Hrs_Renumeradas2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Hrs_Renumeradas2ActionPerformed(evt);
@@ -220,7 +221,7 @@ public class Registrarse extends JFrame {
                 .addGroup(panelAsistente2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelAsistente2Layout.createSequentialGroup()
                         .addComponent(jLabel15)
-                        .addGap(119, 119, 119)
+                        .addGap(123, 123, 123)
                         .addComponent(renumerado2))
                     .addGroup(panelAsistente2Layout.createSequentialGroup()
                         .addGroup(panelAsistente2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -230,7 +231,7 @@ public class Registrarse extends JFrame {
                         .addGroup(panelAsistente2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(Hrs_trabajadas2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(Hrs_Renumeradas2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(78, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panelAsistente2Layout.setVerticalGroup(
             panelAsistente2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -435,7 +436,10 @@ public class Registrarse extends JFrame {
         apellido = txt_Apellido.getText();
         correo = txt_Correo.getText();
         comboTipo = cmb_Tipo.getSelectedItem().toString();
-        if(renumerado2.getText().equals("Si")){renum = true;}else{renum=false;}
+        if(renumerado2.getText().equals("Si")){
+            renum = true;
+        }else{
+            renum=false;}
         hr_trabajadas = Hrs_trabajadas2.getItemCount();
         hr_renumeradas = Hrs_Renumeradas2.getItemCount();
 
@@ -444,7 +448,7 @@ public class Registrarse extends JFrame {
             javax.swing.JOptionPane.showMessageDialog(this, "Debe llenar todos los campos \n", "AVISO!", javax.swing.JOptionPane.INFORMATION_MESSAGE);
         } else {
             if (!contrasenia.equals(contrasenia2)) {
-                javax.swing.JOptionPane.showMessageDialog(null, "Las contraseñas no coinciden");
+                javax.swing.JOptionPane.showMessageDialog(this, "Las contraseñas no coinciden");
                 formatOk = false;
                 txt_Contra.setText(null);
                 txt_Contra1.setText(null);
@@ -459,21 +463,21 @@ public class Registrarse extends JFrame {
 
                     Ok = Usr.IngresarMedico(ci,contrasenia,nombre,apellido,correo,RutaImagen);
                     if(Ok){
-                        javax.swing.JOptionPane.showMessageDialog(null,"El medico ha sido dado de alta");
+                        javax.swing.JOptionPane.showMessageDialog(this,"El medico ha sido dado de alta");
                         this.dispose();
                     }
                     else{
-                        javax.swing.JOptionPane.showMessageDialog(null,"El medico no ha podido ser dado de alta, ci y/o correo en uso", "Datos incorrectos", JOptionPane.WARNING_MESSAGE);
+                        javax.swing.JOptionPane.showMessageDialog(this,"El medico no ha podido ser dado de alta, ci y/o correo en uso", "Datos incorrectos", JOptionPane.WARNING_MESSAGE);
                     }
                 }
                 if (comboTipo.equals("Asistente")) {
 
                     Ok = Usr.IngresarAsistente(renum,hr_trabajadas,hr_renumeradas,ci, contrasenia, nombre, apellido, correo, RutaImagen);
                     if (Ok) {
-                        javax.swing.JOptionPane.showMessageDialog(null, "El cliente ha sido dado de alta");
+                        javax.swing.JOptionPane.showMessageDialog(this, "El cliente ha sido dado de alta");
                         this.dispose();
                     } else {
-                        javax.swing.JOptionPane.showMessageDialog(null, "El cliente no ha podido ser dado de alta, nickname y/o correo en uso", "Datos incorrectos", JOptionPane.WARNING_MESSAGE);
+                        javax.swing.JOptionPane.showMessageDialog(this, "El cliente no ha podido ser dado de alta, nickname y/o correo en uso", "Datos incorrectos", JOptionPane.WARNING_MESSAGE);
                     }
 
                 }
