@@ -25,7 +25,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  *
  * @author Admin
  */
-public class Registrarse extends JFrame {
+public class Registrarse extends JFrameConFondo {
 
     /**
      * Creates new form Registrarse
@@ -425,7 +425,7 @@ public class Registrarse extends JFrame {
     }//GEN-LAST:event_CargarImg1ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        boolean renum, formatOk=true;
+        boolean renum=false, formatOk=true, formatocorreo=false;
         String ci, nombre, apellido, correo, comboTipo;
         int  hr_trabajadas, hr_renumeradas;
         String contrasenia = new String(txt_Contra.getPassword());
@@ -436,12 +436,9 @@ public class Registrarse extends JFrame {
         apellido = txt_Apellido.getText();
         correo = txt_Correo.getText();
         comboTipo = cmb_Tipo.getSelectedItem().toString();
-        if(renumerado2.getText().equals("Si")){
-            renum = true;
-        }else{
-            renum=false;}
-        hr_trabajadas = Hrs_trabajadas2.getItemCount();
-        hr_renumeradas = Hrs_Renumeradas2.getItemCount();
+        
+        hr_trabajadas = Integer.parseInt(Hrs_trabajadas2.getSelectedItem().toString());
+        hr_renumeradas = Integer.parseInt(Hrs_Renumeradas2.getSelectedItem().toString());
 
         if ((txt_Ci.getText().equals("")) || (contrasenia.equals("")) || (contrasenia2.equals("")) || (txt_Nombre.getText().equals("")) || (txt_Apellido.getText().equals("")) || (txt_Correo.getText().equals("")) || ((cmb_Tipo.getSelectedItem() == null))) {
 
@@ -455,29 +452,34 @@ public class Registrarse extends JFrame {
             } else {
                 formatOk = true;
             }
-            if(formatOk){
+            if ((correo.contains("@")) && (correo.contains(".com"))){
+                formatocorreo = true;
+            }
+            else
+                javax.swing.JOptionPane.showMessageDialog(this, "Formato de correo inválido");
+            if(formatOk && formatocorreo){
 
                 boolean Ok;
                 System.out.println("comboTipo = "+comboTipo);
                 if(comboTipo.equals("Medico")){
 
-                    Ok = Usr.IngresarMedico(ci,contrasenia,nombre,apellido,correo,RutaImagen);
+                    Ok = Usr.IngresarMedico(ci,nombre,apellido,correo,contrasenia,RutaImagen);
                     if(Ok){
-                        javax.swing.JOptionPane.showMessageDialog(this,"El medico ha sido dado de alta");
+                        javax.swing.JOptionPane.showMessageDialog(this,"El Médico ha sido dado de alta");
                         this.dispose();
                     }
                     else{
-                        javax.swing.JOptionPane.showMessageDialog(this,"El medico no ha podido ser dado de alta, ci y/o correo en uso", "Datos incorrectos", JOptionPane.WARNING_MESSAGE);
+                        javax.swing.JOptionPane.showMessageDialog(this,"El Médico no ha podido ser dado de alta, ci y/o correo en uso", "Datos incorrectos", JOptionPane.WARNING_MESSAGE);
                     }
                 }
                 if (comboTipo.equals("Asistente")) {
-
-                    Ok = Usr.IngresarAsistente(renum,hr_trabajadas,hr_renumeradas,ci, contrasenia, nombre, apellido, correo, RutaImagen);
+                    renum = renumerado2.isSelected();
+                    Ok = Usr.IngresarAsistente(renum,hr_trabajadas,hr_renumeradas,ci,nombre, apellido, correo,contrasenia, RutaImagen);
                     if (Ok) {
-                        javax.swing.JOptionPane.showMessageDialog(this, "El cliente ha sido dado de alta");
+                        javax.swing.JOptionPane.showMessageDialog(this, "El Usuario ha sido dado de alta");
                         this.dispose();
                     } else {
-                        javax.swing.JOptionPane.showMessageDialog(this, "El cliente no ha podido ser dado de alta, nickname y/o correo en uso", "Datos incorrectos", JOptionPane.WARNING_MESSAGE);
+                        javax.swing.JOptionPane.showMessageDialog(this, "El Usuario no ha podido ser dado de alta, nickname y/o correo en uso", "Datos incorrectos", JOptionPane.WARNING_MESSAGE);
                     }
 
                 }

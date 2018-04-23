@@ -5,6 +5,8 @@
  */
 package Logica;
 
+import java.util.Map;
+
 /**
  *
  * @author ninoh
@@ -19,4 +21,6 @@ public interface IContUsuario {
     public abstract void getUsuariosdeBD();
     public abstract boolean enviarcorreo(String correo);
     public abstract String get_SHA_512_SecurePassword(String passwordToHash);
+    public abstract Map<String, Usuario> getUsuarios();
+    public abstract void setUsuarios(Map<String, Usuario> usuarios);
 }

@@ -42,6 +42,12 @@ public class Medico extends Usuario implements Serializable {
         this.entidades = entidades;
         this.pacientes = pacientes;
     }
+
+    public Medico(String ci, String contrasenia, String nombre, String apellido, String correo) {
+        super(ci, contrasenia, nombre, apellido, correo);
+        this.entidades=null;
+        this.pacientes=null;
+    }
     
     public void AgregarEntidad(Entidad e){
         this.entidades.add(e);

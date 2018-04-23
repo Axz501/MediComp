@@ -148,12 +148,12 @@ public class ControladorUsuarios  implements IContUsuario{
     }
     @Override
     public boolean verificarDatos(String ci, String correo) {
-        for (Usuario cli : this.usuarios.values()) {
-            if (cli.getCi().equals(ci)) {
+        for (Usuario usr : this.usuarios.values()) {
+            if (usr.getCi().equals(ci)) {
                 return false; 
             }
 
-            if (cli.getCorreo().equals(correo)) {
+            if (usr.getCorreo().equals(correo)) {
                 return false; 
             }
         }
@@ -169,6 +169,8 @@ public class ControladorUsuarios  implements IContUsuario{
                 return false;
             }
         }
+        
+        String passhash = this.get_SHA_512_SecurePassword(contrasenia);
 
         //Si no retorno false antes, entonces los datos están bien
         if (Img != null) {
@@ -189,14 +191,25 @@ public class ControladorUsuarios  implements IContUsuario{
             } else {
                 Img = null; // no se pudo copiar la imagen, queda en null
             }
-        }
-
-        Medico m = new Medico(ci, contrasenia, nombre, apellido, correo, new Imagen(Img));
-        try{
-        persist(m);
-        return true;
-        } catch(Exception ex){
-        return false;
+            Imagen img = new Imagen(Img);
+            Medico m = new Medico(ci, nombre, apellido, correo,passhash ,img);
+            this.usuarios.put(ci, m);
+            try {
+                persist(img);
+                persist(m);
+                return true;
+            } catch (Exception ex) {
+                return false;
+            }
+        } else {
+            Medico m = new Medico(ci, passhash, nombre, apellido, correo);
+            this.usuarios.put(ci, m);
+            try {
+                persist(m);
+                return true;
+            } catch (Exception ex) {
+                return false;
+            }
         }
         
     }
@@ -210,6 +223,8 @@ public class ControladorUsuarios  implements IContUsuario{
                 return false;
             }
         }
+        
+        String passhash = this.get_SHA_512_SecurePassword(contrasenia);
 
         //Si no retorno false antes, entonces los datos están bien
         if (Img != null) {
@@ -230,18 +245,27 @@ public class ControladorUsuarios  implements IContUsuario{
             } else {
                 Img = null; // no se pudo copiar la imagen, queda en null
             }
+            Imagen img = new Imagen(Img);
+            Asistente a = new Asistente(renumerado, horas_trabajadas, horas_renumeradas, ci, nombre, apellido, correo,passhash, img);
+            this.usuarios.put(ci, a);
+            try {
+                persist(img);
+                persist(a);
+                return true;
+            } catch (Exception ex) {
+                return false;
+            }
+        } else {
+            Asistente a = new Asistente(renumerado, horas_trabajadas, horas_renumeradas, ci, passhash, nombre, apellido, correo);
+            this.usuarios.put(ci, a);
+            try {
+                persist(a);
+                return true;
+            } catch (Exception ex) {
+                return false;
+            }
         }
-
-        Asistente a = new Asistente(renumerado,horas_trabajadas,horas_renumeradas,ci, contrasenia, nombre, apellido, correo, new Imagen(Img));
-        try{
-        persist(a);
-        return true;
-        } catch(Exception ex){
-        return false;
-        }
-        
     }
-    
     @Override
     public boolean enviarcorreo(String correo){
         String gen = new RandomString(9, ThreadLocalRandom.current()).nextString();

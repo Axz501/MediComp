@@ -197,8 +197,6 @@
                           <Group type="102" attributes="0">
                               <EmptySpace min="27" pref="27" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="cedula" alignment="0" min="-2" pref="330" max="-2" attributes="0"/>
-                                  <Component id="jSeparator4" alignment="0" min="-2" pref="330" max="-2" attributes="0"/>
                                   <Component id="jLabel1" alignment="0" min="-2" pref="100" max="-2" attributes="0"/>
                                   <Component id="contra" alignment="0" min="-2" pref="330" max="-2" attributes="0"/>
                                   <Component id="jSeparator5" alignment="0" min="-2" pref="330" max="-2" attributes="0"/>
@@ -206,6 +204,14 @@
                                       <Component id="Entrar" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace min="-2" pref="51" max="-2" attributes="0"/>
                                       <Component id="Registrarse3" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                                      <Group type="102" alignment="1" attributes="0">
+                                          <Component id="cedula" max="32767" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="jButton4" min="-2" pref="66" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Component id="jSeparator4" alignment="0" min="-2" pref="330" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
@@ -233,7 +239,10 @@
                   <EmptySpace pref="69" max="32767" attributes="0"/>
                   <Component id="jLabel9" min="-2" pref="20" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="cedula" min="-2" pref="25" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="cedula" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
+                      <Component id="jButton4" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jSeparator4" min="-2" pref="10" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -468,6 +477,23 @@
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
           </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="jButton4">
+          <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" red="33" type="rgb"/>
+            </Property>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Verdana" size="11" style="1"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="99" green="0" red="0" type="rgb"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Elegir"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton4ActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

@@ -26,8 +26,13 @@ import static java.awt.Frame.ICONIFIED;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import static java.lang.Thread.sleep;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 import javax.swing.BorderFactory;
+import javax.swing.JComboBox;
+import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.Timer;
@@ -41,6 +46,8 @@ public class Principal extends JPanelConFondo {
 
     private Principall escritorio;
     private IContUsuario User;
+    private JComboBox jcd;
+    private JDialog diag;
     /**
      * Creates new form Principal
      */
@@ -92,6 +99,7 @@ public class Principal extends JPanelConFondo {
         cedula = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jSeparator9 = new javax.swing.JSeparator();
+        jButton4 = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(0, 0, 51));
         setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -283,6 +291,16 @@ public class Principal extends JPanelConFondo {
 
         jSeparator9.setForeground(new java.awt.Color(255, 255, 255));
 
+        jButton4.setBackground(new java.awt.Color(51, 255, 255));
+        jButton4.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
+        jButton4.setForeground(new java.awt.Color(0, 0, 153));
+        jButton4.setText("Elegir");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -298,15 +316,19 @@ public class Principal extends JPanelConFondo {
                         .addGroup(jPanel3Layout.createSequentialGroup()
                             .addGap(27, 27, 27)
                             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(cedula, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(contra, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGroup(jPanel3Layout.createSequentialGroup()
                                     .addComponent(Entrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGap(51, 51, 51)
-                                    .addComponent(Registrarse3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                    .addComponent(Registrarse3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addGroup(jPanel3Layout.createSequentialGroup()
+                                        .addComponent(cedula)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jSeparator4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addGroup(jPanel3Layout.createSequentialGroup()
                             .addContainerGap()
@@ -324,7 +346,9 @@ public class Principal extends JPanelConFondo {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 69, Short.MAX_VALUE)
                 .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cedula, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cedula, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -465,6 +489,41 @@ public class Principal extends JPanelConFondo {
         timer.start();
     }//GEN-LAST:event_Registrarse3MouseClicked
 
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        int i = 0;
+        List<String> list = new ArrayList();
+        for (Usuario u : User.getUsuarios().values()) {
+            list.add(u.getCorreo());
+            i++;
+        }
+        jcd = new JComboBox(list.toArray());
+        //jcd.setEditable(true);
+        Object[] options = new Object[] {};
+        JOptionPane jop = new JOptionPane("Elija su correo",
+                                        JOptionPane.QUESTION_MESSAGE,
+                                        JOptionPane.DEFAULT_OPTION,
+                                        null,options, null);
+        jop.add(jcd);
+        diag = new JDialog();
+        diag.getContentPane().add(jop);
+        diag.pack();
+        diag.setSize(300,150);
+        diag.setLocationRelativeTo(null);
+        diag.setVisible(true);
+        jcd.addActionListener(new java.awt.event.ActionListener() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcdActionPerformed(evt);
+            }
+        });
+    }//GEN-LAST:event_jButton4ActionPerformed
+    private void jcdActionPerformed(java.awt.event.ActionEvent evt){
+        String texto = jcd.getSelectedItem().toString();
+        cedula.setText(texto);
+        diag.dispose();
+        
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Entrar;
@@ -474,6 +533,7 @@ public class Principal extends JPanelConFondo {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
