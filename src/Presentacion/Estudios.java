@@ -9,12 +9,12 @@ package Presentacion;
  *
  * @author Silvi Guariglia
  */
-public class Pacientes extends javax.swing.JPanel {
+public class Estudios extends javax.swing.JPanel {
 
     /**
-     * Creates new form Pacientes
+     * Creates new form Estudios
      */
-    public Pacientes() {
+    public Estudios() {
         initComponents();
     }
 
@@ -46,8 +46,6 @@ public class Pacientes extends javax.swing.JPanel {
         jLabel6 = new javax.swing.JLabel();
         jLabel33 = new javax.swing.JLabel();
 
-        setPreferredSize(new java.awt.Dimension(678, 570));
-
         jPanelDerecha.setBackground(new java.awt.Color(255, 255, 255));
 
         jPanelSuperior.setBackground(new java.awt.Color(0, 204, 204));
@@ -68,7 +66,7 @@ public class Pacientes extends javax.swing.JPanel {
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Utils/editar-documento.png"))); // NOI18N
 
         jLabel40.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
-        jLabel40.setText("Modificar pacientes");
+        jLabel40.setText("Modificar estudios");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -100,14 +98,14 @@ public class Pacientes extends javax.swing.JPanel {
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Utils/agregar-usuario.png"))); // NOI18N
 
         jLabel41.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
-        jLabel41.setText("Agregar pacientes");
+        jLabel41.setText("Agregar estudios");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap(20, Short.MAX_VALUE)
+                .addContainerGap(28, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel3)
@@ -131,7 +129,7 @@ public class Pacientes extends javax.swing.JPanel {
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Utils/borrar.png"))); // NOI18N
 
         jLabel42.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
-        jLabel42.setText("Borrar pacientes");
+        jLabel42.setText("Borrar estudios");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -163,7 +161,7 @@ public class Pacientes extends javax.swing.JPanel {
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Utils/grupo.png"))); // NOI18N
 
         jLabel43.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
-        jLabel43.setText("Listar pacientes");
+        jLabel43.setText("Listar estudios");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -195,12 +193,12 @@ public class Pacientes extends javax.swing.JPanel {
         jLabel24.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel24.setText("Bienvenido ¨Nombre¨");
 
-        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Utils/corazon1.png"))); // NOI18N
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Utils/historial-medico1.png"))); // NOI18N
 
         jLabel33.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
         jLabel33.setForeground(new java.awt.Color(255, 255, 255));
         jLabel33.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel33.setText("Pacientes");
+        jLabel33.setText("Estudios");
 
         javax.swing.GroupLayout jPanelSuperior1Layout = new javax.swing.GroupLayout(jPanelSuperior1);
         jPanelSuperior1.setLayout(jPanelSuperior1Layout);

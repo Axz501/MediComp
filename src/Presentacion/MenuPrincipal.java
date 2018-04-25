@@ -91,6 +91,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jButton2.setForeground(new java.awt.Color(255, 255, 255));
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Utils/doctor1.png"))); // NOI18N
         jButton2.setText("Mi Perfil");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
         jPanelIzquierda.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 120, 290, 40));
 
         jButton3.setBackground(new java.awt.Color(0, 0, 51));
@@ -110,6 +115,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jButton4.setForeground(new java.awt.Color(255, 255, 255));
         jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Utils/historial-medico.png"))); // NOI18N
         jButton4.setText("Estudios");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
         jPanelIzquierda.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 290, 40));
 
         jButton5.setBackground(new java.awt.Color(0, 0, 51));
@@ -413,7 +423,39 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
+       Pacientes panelPacientes = new Pacientes();
+       panelPacientes.setSize(640, 532);
+       panelPacientes.setLocation(5, 5);
+       
+       jPanelDerecha.removeAll();
+       jPanelDerecha.add(panelPacientes);
+       jPanelDerecha.revalidate();
+       jPanelDerecha.repaint();
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+       MenuPrincipal panelMiPerfil = new MenuPrincipal();
+       panelMiPerfil.setSize(640, 532);
+       panelMiPerfil.setLocation(5, 5);
+       
+       jPanelDerecha.removeAll();
+       jPanelDerecha.add(panelMiPerfil);
+       jPanelDerecha.revalidate();
+       jPanelDerecha.repaint();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+       Estudios panelEstudios = new Estudios();
+       panelEstudios.setSize(640, 532);
+       panelEstudios.setLocation(5, 5);
+       
+       jPanelDerecha.removeAll();
+       jPanelDerecha.add(panelEstudios);
+       jPanelDerecha.revalidate();
+       jPanelDerecha.repaint();
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments
