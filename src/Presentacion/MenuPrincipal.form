@@ -98,7 +98,7 @@
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\Users\usuario\Desktop\java EE\MediComp\Imagenes\dar-dinero.png"/>
+                  <Image iconType="3" name="/Utils/dar-dinero.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Deudas"/>
               </Properties>
@@ -120,7 +120,7 @@
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/Presentacion/doctor1.png"/>
+                  <Image iconType="3" name="/Utils/doctor1.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Mi Perfil"/>
               </Properties>
@@ -142,7 +142,7 @@
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\Users\usuario\Desktop\java EE\MediComp\Imagenes\corazon.png"/>
+                  <Image iconType="3" name="/Utils/corazon.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Pacientes"/>
               </Properties>
@@ -167,7 +167,7 @@
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/Presentacion/historial-medico.png"/>
+                  <Image iconType="3" name="/Utils/historial-medico.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Estudios"/>
               </Properties>
@@ -189,7 +189,7 @@
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\Users\usuario\Desktop\java EE\MediComp\Imagenes\calendario.png"/>
+                  <Image iconType="3" name="/Utils/calendario.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Jornadas"/>
               </Properties>
@@ -211,7 +211,7 @@
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\Users\usuario\Desktop\java EE\MediComp\Imagenes\hospital.png"/>
+                  <Image iconType="3" name="/Utils/hospital.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Entidades"/>
               </Properties>
@@ -241,7 +241,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="1" max="-2" attributes="0">
                           <Component id="jPanelUltimo" alignment="0" max="32767" attributes="0"/>
-                          <Component id="jPanelSuperior" alignment="0" min="-2" pref="640" max="-2" attributes="0"/>
+                          <Component id="jPanelSuperior" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="jPanelSegundo" alignment="0" max="32767" attributes="0"/>
                           <Component id="jPanelTercero" alignment="0" max="32767" attributes="0"/>
                       </Group>
@@ -280,25 +280,15 @@
                           <Component id="jLabel32" min="-2" pref="118" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
                           <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="365" max="-2" attributes="0"/>
-                          <Component id="jLabel22" min="-2" pref="333" max="-2" attributes="0"/>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace pref="83" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jLabel22" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
-                                  <Component id="jLabel23" min="-2" pref="40" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
+                          <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
+                          <Component id="jLabel23" min="-2" pref="40" max="-2" attributes="0"/>
                           <EmptySpace pref="49" max="32767" attributes="0"/>
                       </Group>
                       <Component id="jLabel1" alignment="1" max="32767" attributes="0"/>
@@ -311,17 +301,6 @@
                 </DimensionLayout>
               </Layout>
               <SubComponents>
-                <Component class="javax.swing.JLabel" name="jLabel22">
-                  <Properties>
-                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                      <Font name="Verdana" size="24" style="1"/>
-                    </Property>
-                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                      <Color blue="ff" green="ff" red="ff" type="rgb"/>
-                    </Property>
-                    <Property name="horizontalAlignment" type="int" value="0"/>
-                  </Properties>
-                </Component>
                 <Component class="javax.swing.JLabel" name="jLabel23">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -337,7 +316,7 @@
                 <Component class="javax.swing.JLabel" name="jLabel1">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="2" name="C:\Users\usuario\Desktop\java EE\MediComp\Imagenes\avatar.png"/>
+                      <Image iconType="3" name="/Utils/avatar.png"/>
                     </Property>
                   </Properties>
                 </Component>
@@ -545,7 +524,7 @@
                 <Component class="javax.swing.JLabel" name="jLabel37">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="2" name="C:\Users\usuario\Desktop\java EE\MediComp\Imagenes\avatar.png"/>
+                      <Image iconType="3" name="/Utils/avatar.png"/>
                     </Property>
                   </Properties>
                 </Component>
@@ -647,7 +626,7 @@
                     <Component class="javax.swing.JLabel" name="jLabel41">
                       <Properties>
                         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                          <Image iconType="2" name="C:\Users\usuario\Desktop\java EE\MediComp\Imagenes\agregar-usuario.png"/>
+                          <Image iconType="3" name="/Utils/agregar-usuario.png"/>
                         </Property>
                       </Properties>
                     </Component>
@@ -703,7 +682,7 @@
                     <Component class="javax.swing.JLabel" name="jLabel36">
                       <Properties>
                         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                          <Image iconType="2" name="C:\Users\usuario\Desktop\java EE\MediComp\Imagenes\grupo.png"/>
+                          <Image iconType="3" name="/Utils/grupo.png"/>
                         </Property>
                       </Properties>
                     </Component>

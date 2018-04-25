@@ -39,7 +39,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jButton6 = new javax.swing.JButton();
         jPanelDerecha = new javax.swing.JPanel();
         jPanelSuperior = new javax.swing.JPanel();
-        jLabel22 = new javax.swing.JLabel();
         jLabel23 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel32 = new javax.swing.JLabel();
@@ -83,21 +82,21 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jButton1.setBackground(new java.awt.Color(0, 0, 51));
         jButton1.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setIcon(new javax.swing.ImageIcon("C:\\Users\\usuario\\Desktop\\java EE\\MediComp\\Imagenes\\dar-dinero.png")); // NOI18N
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Utils/dar-dinero.png"))); // NOI18N
         jButton1.setText("Deudas");
         jPanelIzquierda.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 320, 290, 40));
 
         jButton2.setBackground(new java.awt.Color(0, 0, 51));
         jButton2.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
         jButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Presentacion/doctor1.png"))); // NOI18N
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Utils/doctor1.png"))); // NOI18N
         jButton2.setText("Mi Perfil");
         jPanelIzquierda.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 120, 290, 40));
 
         jButton3.setBackground(new java.awt.Color(0, 0, 51));
         jButton3.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
         jButton3.setForeground(new java.awt.Color(255, 255, 255));
-        jButton3.setIcon(new javax.swing.ImageIcon("C:\\Users\\usuario\\Desktop\\java EE\\MediComp\\Imagenes\\corazon.png")); // NOI18N
+        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Utils/corazon.png"))); // NOI18N
         jButton3.setText("Pacientes");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -109,21 +108,21 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jButton4.setBackground(new java.awt.Color(0, 0, 51));
         jButton4.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
         jButton4.setForeground(new java.awt.Color(255, 255, 255));
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Presentacion/historial-medico.png"))); // NOI18N
+        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Utils/historial-medico.png"))); // NOI18N
         jButton4.setText("Estudios");
         jPanelIzquierda.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 290, 40));
 
         jButton5.setBackground(new java.awt.Color(0, 0, 51));
         jButton5.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
         jButton5.setForeground(new java.awt.Color(255, 255, 255));
-        jButton5.setIcon(new javax.swing.ImageIcon("C:\\Users\\usuario\\Desktop\\java EE\\MediComp\\Imagenes\\calendario.png")); // NOI18N
+        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Utils/calendario.png"))); // NOI18N
         jButton5.setText("Jornadas");
         jPanelIzquierda.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 240, 290, 40));
 
         jButton6.setBackground(new java.awt.Color(0, 0, 51));
         jButton6.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
         jButton6.setForeground(new java.awt.Color(255, 255, 255));
-        jButton6.setIcon(new javax.swing.ImageIcon("C:\\Users\\usuario\\Desktop\\java EE\\MediComp\\Imagenes\\hospital.png")); // NOI18N
+        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Utils/hospital.png"))); // NOI18N
         jButton6.setText("Entidades");
         jPanelIzquierda.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 280, 290, 40));
 
@@ -133,16 +132,12 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         jPanelSuperior.setBackground(new java.awt.Color(0, 204, 204));
 
-        jLabel22.setFont(new java.awt.Font("Verdana", 1, 24)); // NOI18N
-        jLabel22.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel22.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-
         jLabel23.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
         jLabel23.setForeground(new java.awt.Color(255, 255, 255));
         jLabel23.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel23.setText("Bienvenido ¨Nombre¨");
 
-        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\usuario\\Desktop\\java EE\\MediComp\\Imagenes\\avatar.png")); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Utils/avatar.png"))); // NOI18N
 
         jLabel32.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
         jLabel32.setForeground(new java.awt.Color(255, 255, 255));
@@ -159,20 +154,13 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 .addComponent(jLabel32, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(46, 46, 46)
                 .addComponent(jLabel1)
-                .addGap(365, 365, 365)
-                .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 333, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(83, Short.MAX_VALUE))
         );
         jPanelSuperiorLayout.setVerticalGroup(
             jPanelSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelSuperiorLayout.createSequentialGroup()
-                .addGroup(jPanelSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanelSuperiorLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel22))
-                    .addGroup(jPanelSuperiorLayout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(21, 21, 21)
+                .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(49, Short.MAX_VALUE))
             .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelSuperiorLayout.createSequentialGroup()
@@ -268,7 +256,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         jPanelTercero.setBackground(new java.awt.Color(0, 204, 204));
 
-        jLabel37.setIcon(new javax.swing.ImageIcon("C:\\Users\\usuario\\Desktop\\java EE\\MediComp\\Imagenes\\avatar.png")); // NOI18N
+        jLabel37.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Utils/avatar.png"))); // NOI18N
 
         jLabel38.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
         jLabel38.setForeground(new java.awt.Color(255, 255, 255));
@@ -302,7 +290,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jLabel40.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
         jLabel40.setText("Agregar asistentes");
 
-        jLabel41.setIcon(new javax.swing.ImageIcon("C:\\Users\\usuario\\Desktop\\java EE\\MediComp\\Imagenes\\agregar-usuario.png")); // NOI18N
+        jLabel41.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Utils/agregar-usuario.png"))); // NOI18N
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -334,7 +322,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jLabel43.setText("Listar asistentes");
         jLabel43.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
-        jLabel36.setIcon(new javax.swing.ImageIcon("C:\\Users\\usuario\\Desktop\\java EE\\MediComp\\Imagenes\\grupo.png")); // NOI18N
+        jLabel36.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Utils/grupo.png"))); // NOI18N
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -390,7 +378,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
             .addGroup(jPanelDerechaLayout.createSequentialGroup()
                 .addGroup(jPanelDerechaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jPanelUltimo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanelSuperior, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 640, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanelSuperior, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanelSegundo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanelTercero, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(0, 0, Short.MAX_VALUE))
@@ -473,7 +461,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel32;
