@@ -203,7 +203,7 @@ public class Principal extends JPanelConFondo {
             }
         });
 
-        Registrarse3.setBackground(new java.awt.Color(0, 0, 51));
+        Registrarse3.setBackground(new java.awt.Color(0, 0, 153));
         Registrarse3.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         Registrarse3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -445,7 +445,9 @@ public class Principal extends JPanelConFondo {
         for (int i=0;i<passw.length;i++)
             pass = pass + passw[i];
         if (User.login(ci, pass)){
-            javax.swing.JOptionPane.showMessageDialog(null,"El usuario existe");
+            javax.swing.JOptionPane.showMessageDialog(null,"Sesión Iniciada");
+            MenuPrincipal nuevo = new MenuPrincipal();
+            nuevo.setVisible(true);
         }
         else{
             javax.swing.JOptionPane.showMessageDialog(null,"Credenciales Inválidas");
