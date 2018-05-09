@@ -440,7 +440,8 @@ public class Principal extends JPanelConFondo {
         for (int i=0;i<passw.length;i++)
             pass = pass + passw[i];
         if (User.login(ci, pass)){
-            javax.swing.JOptionPane.showMessageDialog(null,"El usuario existe");
+            MenuPrincipal nuevo = new MenuPrincipal();
+            nuevo.setVisible(true);
         }
         else{
             javax.swing.JOptionPane.showMessageDialog(null,"Credenciales Inválidas");
