@@ -84,7 +84,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Utils/dar-dinero.png"))); // NOI18N
         jButton1.setText("Deudas");
-        jPanelIzquierda.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 320, 290, 40));
+        jPanelIzquierda.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 340, 290, 40));
 
         jButton2.setBackground(new java.awt.Color(0, 0, 51));
         jButton2.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
@@ -96,7 +96,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 jButton2ActionPerformed(evt);
             }
         });
-        jPanelIzquierda.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 120, 290, 40));
+        jPanelIzquierda.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 140, 290, 40));
 
         jButton3.setBackground(new java.awt.Color(0, 0, 51));
         jButton3.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
@@ -108,7 +108,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 jButton3ActionPerformed(evt);
             }
         });
-        jPanelIzquierda.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 160, 290, 40));
+        jPanelIzquierda.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 180, 290, 40));
 
         jButton4.setBackground(new java.awt.Color(0, 0, 51));
         jButton4.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
@@ -120,21 +120,21 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 jButton4ActionPerformed(evt);
             }
         });
-        jPanelIzquierda.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 290, 40));
+        jPanelIzquierda.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 220, 290, 40));
 
         jButton5.setBackground(new java.awt.Color(0, 0, 51));
         jButton5.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
         jButton5.setForeground(new java.awt.Color(255, 255, 255));
         jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Utils/calendario.png"))); // NOI18N
         jButton5.setText("Jornadas");
-        jPanelIzquierda.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 240, 290, 40));
+        jPanelIzquierda.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 260, 290, 40));
 
         jButton6.setBackground(new java.awt.Color(0, 0, 51));
         jButton6.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
         jButton6.setForeground(new java.awt.Color(255, 255, 255));
         jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Utils/hospital.png"))); // NOI18N
         jButton6.setText("Entidades");
-        jPanelIzquierda.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 280, 290, 40));
+        jPanelIzquierda.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 300, 290, 40));
 
         jPanelPrincipal.add(jPanelIzquierda, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 290, 530));
 
@@ -371,13 +371,10 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jPanelUltimoLayout.setVerticalGroup(
             jPanelUltimoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelUltimoLayout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanelUltimoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanelUltimoLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanelUltimoLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 

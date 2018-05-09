@@ -35,6 +35,7 @@ import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.Timer;
 import javax.swing.border.Border;
 
@@ -55,6 +56,7 @@ public class Principal extends JPanelConFondo {
     public Principal(int x, int y, Principall j) {
         initComponents(); 
                
+        
         escritorio = j;
         User = Fabrica.getUsuario();
         
@@ -63,7 +65,7 @@ public class Principal extends JPanelConFondo {
         jPanel3.setLocation(x/4*3-jPanel3.getWidth()/2, y/2-jPanel3.getHeight()/2);
         jPanel3.repaint();
         jPanel2.setLocation(x/4-jPanel2.getWidth()/2, y/2-jPanel2.getHeight()/2);
-        
+        jPanel4.setAlignmentY(JPanel.RIGHT_ALIGNMENT);
         
         
     }
@@ -82,9 +84,10 @@ public class Principal extends JPanelConFondo {
         jLabel3 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
+        jPanel4 = new javax.swing.JPanel();
+        jButton3 = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -147,25 +150,7 @@ public class Principal extends JPanelConFondo {
         jPanel1.add(jPanel2);
         jPanel2.setBounds(15, 38, 420, 480);
 
-        jButton1.setBackground(new java.awt.Color(51, 153, 255));
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Utils/Mages/FrameResize.png"))); // NOI18N
-        jButton1.setPreferredSize(new java.awt.Dimension(25, 25));
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jButton1);
-        jButton1.setBounds(40, 10, 25, 25);
-
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Utils/Mages/minimizar-activo.png"))); // NOI18N
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jButton2);
-        jButton2.setBounds(10, 10, 25, 25);
+        jPanel4.setOpaque(false);
 
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Utils/Mages/cerrar-normal.png"))); // NOI18N
         jButton3.setPreferredSize(new java.awt.Dimension(25, 25));
@@ -174,8 +159,47 @@ public class Principal extends JPanelConFondo {
                 jButton3ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton3);
-        jButton3.setBounds(70, 10, 25, 25);
+
+        jButton1.setBackground(new java.awt.Color(51, 153, 255));
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Utils/Mages/FrameResize.png"))); // NOI18N
+        jButton1.setPreferredSize(new java.awt.Dimension(25, 25));
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Utils/Mages/minimizar-activo.png"))); // NOI18N
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
+        );
+
+        jPanel1.add(jPanel4);
+        jPanel4.setBounds(10, 10, 90, 25);
 
         add(jPanel1);
         jPanel1.setBounds(0, 0, 460, 620);
@@ -457,11 +481,13 @@ public class Principal extends JPanelConFondo {
             JOptionPane.QUESTION_MESSAGE,null,options,options[0]);
             if (x==0){
                 String correo = javax.swing.JOptionPane.showInputDialog(null,"Ingrese el correo de su cuenta, para enviarle una nueva contraseña", "Restaurar Contraseña",JOptionPane.QUESTION_MESSAGE);
-                if (User.enviarcorreo(correo)){
-                    JOptionPane.showMessageDialog(null, "Se te enviará un correo en breve a tu casilla", "Correo Válido", JOptionPane.INFORMATION_MESSAGE);
+                if (correo!=null){
+                    if (User.enviarcorreo(correo)){
+                        JOptionPane.showMessageDialog(null, "Se te enviará un correo en breve a tu casilla", "Correo Válido", JOptionPane.INFORMATION_MESSAGE);
+                    }
+                    else
+                        JOptionPane.showMessageDialog(null, "Tu correo no esta registrado", "Error", JOptionPane.ERROR_MESSAGE);
                 }
-                else
-                    JOptionPane.showMessageDialog(null, "Tu correo no esta registrado", "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
         
@@ -551,6 +577,7 @@ public class Principal extends JPanelConFondo {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator4;

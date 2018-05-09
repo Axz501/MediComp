@@ -3,6 +3,7 @@ package Utils;
 import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Paths;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -18,11 +19,13 @@ public class JFrameConFondo extends JFrame {
         JMoverFrame mueve1 = new JMoverFrame(contenedor);
         contenedor.addMouseListener(mueve1);
         contenedor.addMouseMotionListener(mueve1);
-        try{
-        this.setContentPane(new JLabel(new ImageIcon(ImageIO.read(new File("D:\\ProyectoJavaEE\\MediComp\\src\\Utils\\Fondo.jpg")))));
-        }catch (IOException e){
-            System.out.println(e.getMessage());
-        }
+        
+//        try{
+//        String path = Paths.get("").toAbsolutePath().toString() + "/src/Utils/Fondo.jpg";
+//        this.setContentPane(new JLabel(new ImageIcon(ImageIO.read(new File(path)))));
+//        }catch (IOException e){
+//            System.out.println(e.getMessage());
+//        }
     }
 
     public void setImagen(String nombreImagen) {

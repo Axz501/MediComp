@@ -17,6 +17,7 @@ import java.awt.GraphicsConfiguration;
 import java.awt.Image;
 import java.text.ParseException;
 import javax.swing.ImageIcon;
+import javax.swing.UnsupportedLookAndFeelException;
 import sun.java2d.SunGraphicsEnvironment;
 
 
@@ -33,13 +34,12 @@ public class Principall extends JFrameConFondo {
     int x;
     int y;
     public Principall() {
-        if (!this.isUndecorated()){
-            this.setUndecorated(true);
-        }
         initComponents();
+        
         User = Fabrica.getUsuario();
         User.getUsuariosdeBD();
         
+        //this.setUndecorated(false);
         this.repaint();
         x = (int) (Toolkit.getDefaultToolkit().getScreenSize().getWidth());
         y = (int) (Toolkit.getDefaultToolkit().getScreenSize().getHeight());
@@ -69,12 +69,12 @@ public class Principall extends JFrameConFondo {
     private void initComponents() {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
         addWindowStateListener(new java.awt.event.WindowStateListener() {
             public void windowStateChanged(java.awt.event.WindowEvent evt) {
                 formWindowStateChanged(evt);
             }
         });
-        getContentPane().setLayout(null);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -113,7 +113,7 @@ public class Principall extends JFrameConFondo {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) throws ParseException {
+    public static void main(String args[]) throws UnsupportedLookAndFeelException {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -140,11 +140,11 @@ public class Principall extends JFrameConFondo {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Principall().setVisible(true);
-            }
-        });
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                new Principall().setVisible(true);
+//            }
+//        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
