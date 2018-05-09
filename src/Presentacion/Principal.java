@@ -196,6 +196,7 @@ public class Principal extends JPanelConFondo {
         contra.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         contra.setForeground(new java.awt.Color(255, 255, 255));
         contra.setBorder(null);
+        contra.setCaretColor(new java.awt.Color(255, 255, 255));
         contra.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 contraFocusGained(evt);
@@ -271,6 +272,7 @@ public class Principal extends JPanelConFondo {
         cedula.setForeground(new java.awt.Color(255, 255, 255));
         cedula.setToolTipText("Introduzca su cédula sin puntos ni guiones");
         cedula.setBorder(null);
+        cedula.setCaretColor(new java.awt.Color(255, 255, 255));
         cedula.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         cedula.setSelectedTextColor(new java.awt.Color(0, 0, 0));
         cedula.setSelectionColor(new java.awt.Color(153, 255, 255));
@@ -385,14 +387,17 @@ public class Principal extends JPanelConFondo {
     }//GEN-LAST:event_cedulaActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        if (this.getWidth()!=910)
-            this.escritorio.minimizar();
-        else
-            this.escritorio.maximizar();
+        if (this.escritorio.getExtendedState()==JFrame.MAXIMIZED_BOTH){
+            this.escritorio.setState(Frame.NORMAL);
+            this.escritorio.setExtendedState(Frame.NORMAL);
+        }
+        else{
+            this.escritorio.setState(Frame.MAXIMIZED_BOTH);
+            this.escritorio.setExtendedState(Frame.MAXIMIZED_BOTH);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        this.escritorio.minimizar();
         this.escritorio.setState(Frame.ICONIFIED);
         //this.escritorio.setExtendedState(Frame.ICONIFIED);
         //this.setVisible(false);

@@ -15,8 +15,10 @@ import Utils.JMoverFrame;
 import com.seaglasslookandfeel.SeaGlassLookAndFeel;
 import java.awt.GraphicsConfiguration;
 import java.awt.Image;
+import java.text.ParseException;
 import javax.swing.ImageIcon;
 import sun.java2d.SunGraphicsEnvironment;
+
 
 /**
  *
@@ -86,14 +88,12 @@ public class Principall extends JFrameConFondo {
         JMoverFrame mueve1 = new JMoverFrame(p);
         p.addMouseListener(mueve1);
         p.addMouseMotionListener(mueve1);
-       
         }
-        if(evt.getNewState()!=JFrame.ICONIFIED && evt.getNewState()!=JFrame.NORMAL){
+        else if(evt.getNewState()==JFrame.MAXIMIZED_BOTH){
             x = (int) (Toolkit.getDefaultToolkit().getScreenSize().getWidth());
             y = (int) (Toolkit.getDefaultToolkit().getScreenSize().getHeight());
             this.setContentPane(new Principal(x,y,this));
             setLocationRelativeTo(null);
-            setExtendedState(MAXIMIZED_BOTH);
         }
     }//GEN-LAST:event_formWindowStateChanged
 
@@ -113,7 +113,7 @@ public class Principall extends JFrameConFondo {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void main(String args[]) throws ParseException {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.

@@ -1,7 +1,12 @@
 package Utils;
 
 import java.awt.Image;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 
 public class JFrameConFondo extends JFrame {
 
@@ -13,6 +18,11 @@ public class JFrameConFondo extends JFrame {
         JMoverFrame mueve1 = new JMoverFrame(contenedor);
         contenedor.addMouseListener(mueve1);
         contenedor.addMouseMotionListener(mueve1);
+        try{
+        this.setContentPane(new JLabel(new ImageIcon(ImageIO.read(new File("D:\\ProyectoJavaEE\\MediComp\\src\\Utils\\Fondo.jpg")))));
+        }catch (IOException e){
+            System.out.println(e.getMessage());
+        }
     }
 
     public void setImagen(String nombreImagen) {
