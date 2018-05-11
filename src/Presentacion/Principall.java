@@ -12,6 +12,7 @@ import java.awt.Toolkit;
 import javax.swing.JFrame;
 import Utils.JFrameConFondo;
 import Utils.JMoverFrame;
+import com.nilo.plaf.nimrod.NimRODLookAndFeel;
 import com.seaglasslookandfeel.SeaGlassLookAndFeel;
 import java.awt.GraphicsConfiguration;
 import java.awt.Image;
@@ -35,10 +36,9 @@ public class Principall extends JFrameConFondo {
     int y;
     public Principall() {
         initComponents();
-        
+        this.changefeel();
         User = Fabrica.getUsuario();
         User.getUsuariosdeBD();
-        
         //this.setUndecorated(false);
         this.repaint();
         x = (int) (Toolkit.getDefaultToolkit().getScreenSize().getWidth());
@@ -109,6 +109,14 @@ public class Principall extends JFrameConFondo {
         this.setContentPane(new Principal(x,y,this));
         setLocationRelativeTo(null);
         setExtendedState(MAXIMIZED_BOTH);
+    }
+    public void changefeel(){
+            try {
+                javax.swing.UIManager.setLookAndFeel(new SeaGlassLookAndFeel());
+                }
+            catch (javax.swing.UnsupportedLookAndFeelException ex) {
+                java.util.logging.Logger.getLogger(Principall.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            }
     }
     /**
      * @param args the command line arguments

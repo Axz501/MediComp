@@ -55,7 +55,7 @@ public class Principal extends JPanelConFondo {
 
     public Principal(int x, int y, Principall j) {
         initComponents(); 
-               
+        
         
         escritorio = j;
         User = Fabrica.getUsuario();
@@ -65,7 +65,8 @@ public class Principal extends JPanelConFondo {
         jPanel3.setLocation(x/4*3-jPanel3.getWidth()/2, y/2-jPanel3.getHeight()/2);
         jPanel3.repaint();
         jPanel2.setLocation(x/4-jPanel2.getWidth()/2, y/2-jPanel2.getHeight()/2);
-        jPanel4.setAlignmentY(JPanel.RIGHT_ALIGNMENT);
+        jPanel2.repaint();
+        //jPanel4.setAlignmentX(JPanel.RIGHT_ALIGNMENT);
         
         
     }
@@ -414,6 +415,7 @@ public class Principal extends JPanelConFondo {
         if (this.escritorio.getExtendedState()==JFrame.MAXIMIZED_BOTH){
             this.escritorio.setState(Frame.NORMAL);
             this.escritorio.setExtendedState(Frame.NORMAL);
+            
         }
         else{
             this.escritorio.setState(Frame.MAXIMIZED_BOTH);
@@ -555,7 +557,6 @@ public class Principal extends JPanelConFondo {
         String texto = jcd.getSelectedItem().toString();
         cedula.setText(texto);
         diag.dispose();
-        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
