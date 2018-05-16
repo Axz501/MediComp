@@ -42,15 +42,18 @@ public class ControladorUsuarios  implements IContUsuario{
     private Map<String, Usuario> usuarios = new HashMap();
     private Usuario sesionactiva;
 
+    @Override
     public Map<String, Usuario> getUsuarios() {
         return usuarios;
     }
 
+    @Override
     public void setUsuarios(Map<String, Usuario> usuarios) {
         this.usuarios = usuarios;
     }
     
 
+    @Override
     public Usuario getSesionactiva() {
         return sesionactiva;
     }

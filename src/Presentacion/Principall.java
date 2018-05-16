@@ -34,9 +34,10 @@ public class Principall extends JFrameConFondo {
     private IContUsuario User;
     int x;
     int y;
+    int laf=0;
     public Principall() {
         initComponents();
-        this.changefeel();
+        this.changefeeltoSeaGlass();
         User = Fabrica.getUsuario();
         User.getUsuariosdeBD();
         //this.setUndecorated(false);
@@ -110,14 +111,24 @@ public class Principall extends JFrameConFondo {
         setLocationRelativeTo(null);
         setExtendedState(MAXIMIZED_BOTH);
     }
-    public void changefeel(){
-            try {
-                javax.swing.UIManager.setLookAndFeel(new SeaGlassLookAndFeel());
-                }
-            catch (javax.swing.UnsupportedLookAndFeelException ex) {
-                java.util.logging.Logger.getLogger(Principall.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+    public void changefeeltoSeaGlass(){
+        try {
+            javax.swing.UIManager.setLookAndFeel(new SeaGlassLookAndFeel());
             }
+        catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(Principall.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
     }
+            
+    public void changefeeltoNimrod(){
+        try {
+            javax.swing.UIManager.setLookAndFeel(new NimRODLookAndFeel());
+            }
+        catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(Principall.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -127,14 +138,14 @@ public class Principall extends JFrameConFondo {
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
-        try {
+        //try {
 //            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
 //                if ("Nimbus".equals(info.getName())) {
 //                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
 //                    break;
 //                }
-            javax.swing.UIManager.setLookAndFeel(new SeaGlassLookAndFeel());
-            }
+            //javax.swing.UIManager.setLookAndFeel(new SeaGlassLookAndFeel());
+//            }
 //        } catch (ClassNotFoundException ex) {
 //            java.util.logging.Logger.getLogger(Principall.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 //        } catch (InstantiationException ex) {
@@ -142,9 +153,9 @@ public class Principall extends JFrameConFondo {
 //        } catch (IllegalAccessException ex) {
 //            java.util.logging.Logger.getLogger(Principall.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 //        } 
-        catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Principall.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
+//        catch (javax.swing.UnsupportedLookAndFeelException ex) {
+//            java.util.logging.Logger.getLogger(Principall.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        }
         //</editor-fold>
 
         /* Create and display the form */

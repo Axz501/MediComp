@@ -23,4 +23,6 @@ public interface IContUsuario {
     public abstract String get_SHA_512_SecurePassword(String passwordToHash);
     public abstract Map<String, Usuario> getUsuarios();
     public abstract void setUsuarios(Map<String, Usuario> usuarios);
+    public abstract Usuario getSesionactiva();
+    public abstract void setSesionactiva(Usuario usr);
 }

@@ -472,8 +472,11 @@ public class Principal extends JPanelConFondo {
             pass = pass + passw[i];
         if (User.login(ci, pass)){
             javax.swing.JOptionPane.showMessageDialog(null,"Sesión Iniciada");
+            this.escritorio.changefeeltoNimrod();
             MenuPrincipal nuevo = new MenuPrincipal();
             nuevo.setVisible(true);
+            nuevo.changefeeltoSeaGlass();
+            this.escritorio.dispose();
         }
         else{
             javax.swing.JOptionPane.showMessageDialog(null,"Credenciales Inválidas");
