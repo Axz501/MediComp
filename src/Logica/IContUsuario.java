@@ -5,6 +5,7 @@
  */
 package Logica;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 /**
@@ -26,4 +27,6 @@ public interface IContUsuario {
     public abstract Usuario getSesionactiva();
     public abstract void setSesionactiva(Usuario usr);
     public abstract boolean ModificarUSR(String nombre,String apellido,String contrasenia, String RutaImagen);
+    public abstract ArrayList<Asistente> listarAsistentes();
+    public abstract ArrayList<Asistente> BuscarAsistente(String palabra);
 }

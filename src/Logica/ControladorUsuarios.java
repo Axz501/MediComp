@@ -402,4 +402,33 @@ ControladorUsuarios.getInstance().getEntityManager().getTransaction().commit();
     
     }
     
+    public ArrayList<Asistente> listarAsistentes() {
+        ArrayList<Asistente> retornar = new ArrayList<>();
+        for(Map.Entry<String,Usuario> u : usuarios.entrySet()){
+            if(u.getValue() instanceof Asistente){
+            retornar.add(((Asistente) u.getValue()).getDatos());
+        }}
+        return retornar;
+
+    }
+    
+     public ArrayList<Asistente> BuscarAsistente(String ci) {
+        ArrayList<Asistente> retornar = new ArrayList<>();
+        Iterator iterador = this.usuarios.values().iterator();
+        if (ci.equals("") == false) {
+             for(Map.Entry<String,Usuario> u : usuarios.entrySet()){
+            if(u.getValue() instanceof Asistente){
+                if (u.getValue().getCi().startsWith(ci) == true) {
+                    retornar.add(((Asistente) u.getValue()).getDatos());
+                }
+            }
+             }
+
+        } else {
+            System.out.println("campo vacio");
+        }
+
+        return retornar;
+    }
+    
 }

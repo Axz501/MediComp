@@ -2961,7 +2961,9 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jPanel5MouseClicked
 
     private void jPanel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel6MouseClicked
-        // TODO add your handling code here:
+        ListaAsistentes nuevo = new ListaAsistentes();
+        nuevo.setVisible(true);
+        nuevo.centrar();
         efectoclick(Color.LIGHT_GRAY,evt);
     }//GEN-LAST:event_jPanel6MouseClicked
 
