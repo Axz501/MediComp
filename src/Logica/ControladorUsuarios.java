@@ -350,7 +350,7 @@ public class ControladorUsuarios  implements IContUsuario{
         return generatedPassword;
     }
     
-    public boolean ModificarUSR(String nombre,String apellido,String contrasenia){
+    public boolean ModificarUSR(String nombre,String apellido,String contrasenia, String RutaImagen){
         ControladorUsuarios.getInstance().getEntityManager().getTransaction().begin();
         String nuevapas = this.get_SHA_512_SecurePassword(contrasenia);
         try{
@@ -368,11 +368,32 @@ public class ControladorUsuarios  implements IContUsuario{
                 if (!contrasenia.equals("")) {
                     u.setContrasenia(nuevapas);
                 }
-//        if(RutaImagen.equals("")){
-//            u.setImagen(imagen);
-//        }
+                if (RutaImagen.equals("")) {
+                    if (RutaImagen != null) {
+                        //Divide el string por el punto, tambien elimina el punto
+                        String[] aux = RutaImagen.split("\\."); // al punto(.) se le agregan las dos barras (\\) porque es un caracter especial
+
+                        //toma la segunda parte porque es la extension
+                        //Ej. "C:\Imagenes\imagen.jpg" -> aux[0] = "C:\Imagenes\imagen" y aux[1] = "jpg"
+                        String extension = aux[1];
+
+                        //Ruta donde se va a copiar el archivo de imagen
+                        String rutaDestino = "Imagenes/Usuarios/Asistente/" + ci + "." + extension; // se le agrega el punto(.) porque la hacer el split tambien se borra
+
+                        //esa funcion retorna un booleano que indica si la imagen se pudo crear correctamente
+                        //la funcion ya esta definida en el controlador de cliente porque ahi se usa, entocnces no hay que declararla otra vez en este controlador
+                        if (Fabrica.getUsuario().copiarArchivo(RutaImagen, rutaDestino) == true) {
+                            RutaImagen = rutaDestino; //la ruta que hay que guardar es la del archivo nuevo que fue copiado dentro del servidor
+                        } else {
+                            RutaImagen = null; // no se pudo copiar la imagen, queda en null
+                        }
+                        Imagen img = new Imagen(RutaImagen);
+                        u.setImagen(img);
+                    }
+                }
             }
-        }     
+        }
+             
 ControladorUsuarios.getInstance().getEntityManager().getTransaction().commit();
         return true;
         } catch (Exception ex) {
