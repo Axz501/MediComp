@@ -71,6 +71,8 @@ public class ControladorUsuarios  implements IContUsuario{
         return instancia;
     }
 
+
+
 //    public static ControladorUsuarios getInstance() {
 //        return ControladorUsuariosHolder.INSTANCE;
 //    }
@@ -348,5 +350,35 @@ public class ControladorUsuarios  implements IContUsuario{
         return generatedPassword;
     }
     
+    public boolean ModificarUSR(String nombre,String apellido,String contrasenia){
+        ControladorUsuarios.getInstance().getEntityManager().getTransaction().begin();
+        String nuevapas = this.get_SHA_512_SecurePassword(contrasenia);
+        try{
+            String ci = this.getSesionactiva().getCi();
+        Iterator it = this.usuarios.values().iterator();
+        while (it.hasNext()) {
+            Usuario u = (Usuario) it.next();
+            if (u.getCi().equals(ci)) {
+                if (!nombre.equals("")) {
+                    u.setNombre(nombre);
+                }
+                if (!apellido.equals("")) {
+                    u.setApellido(apellido);
+                }
+                if (!contrasenia.equals("")) {
+                    u.setContrasenia(nuevapas);
+                }
+//        if(RutaImagen.equals("")){
+//            u.setImagen(imagen);
+//        }
+            }
+        }     
+ControladorUsuarios.getInstance().getEntityManager().getTransaction().commit();
+        return true;
+        } catch (Exception ex) {
+                return false;
+            }
+    
+    }
     
 }

@@ -747,6 +747,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jLabel91.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
         jLabel91.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel91.setText("Modificar Perfil");
+        jLabel91.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel91MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel35Layout = new javax.swing.GroupLayout(jPanel35);
         jPanel35.setLayout(jPanel35Layout);
@@ -2966,7 +2971,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jPanel30MouseClicked
 
     private void jPanel35MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel35MouseClicked
-        // TODO add your handling code here:
+        
         efectoclick(Color.LIGHT_GRAY,evt);
         
     }//GEN-LAST:event_jPanel35MouseClicked
@@ -3483,6 +3488,17 @@ public class MenuPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton2MouseClicked
 
+    private void jLabel91MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel91MouseClicked
+        ModificarPerfil nuevo = new ModificarPerfil();
+        nuevo.setVisible(true);
+        nuevo.centrar();
+//        this.efectoclick2(Color.yellow, evt);
+//        setExtendedState(Frame.ICONIFIED);
+
+
+    }//GEN-LAST:event_jLabel91MouseClicked
+
+
     /**
      * @param args the command line arguments
      */
@@ -3561,7 +3577,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         timer.setRepeats(false); // Only execute once
         timer.start();
     }
-    
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
