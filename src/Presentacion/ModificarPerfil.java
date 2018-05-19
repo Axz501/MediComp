@@ -268,7 +268,7 @@ public class ModificarPerfil extends javax.swing.JFrame {
             if(formatOk){
 
                 boolean Ok;
-                    Ok = Usr.ModificarUSR(nombre,apellido,contrasenia,RutaImagen);
+                    Ok = Usr.ModificarUSR(nombre,apellido,contrasenia, RutaImagen);
                     if(Ok){
                         javax.swing.JOptionPane.showMessageDialog(this,"El Usuario ha sido modificado");
                         this.dispose();
