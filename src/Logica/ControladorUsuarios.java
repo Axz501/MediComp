@@ -83,7 +83,7 @@ public class ControladorUsuarios  implements IContUsuario{
         private static final ControladorUsuarios INSTANCE = new ControladorUsuarios();
     }
     
-    private static EntityManager getEntityManager(){
+    public static EntityManager getEntityManager(){
         return ControladorUsuariosHolder.em;
     }
     
@@ -430,5 +430,21 @@ ControladorUsuarios.getInstance().getEntityManager().getTransaction().commit();
 
         return retornar;
     }
-    
+    public Asistente BuscarAsist(String correo) {
+
+        if (correo.equals("") == false) {
+             for(Map.Entry<String,Usuario> u : usuarios.entrySet()){
+            if(u.getValue() instanceof Asistente){
+                if (u.getValue().getCi().equals(correo)) {
+                    return ((Asistente) u.getValue());
+                }
+            }
+             }
+
+        } else {
+            System.out.println("no existe");
+        }
+
+        return null;
+    }
 }

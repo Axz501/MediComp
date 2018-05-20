@@ -29,4 +29,5 @@ public interface IContUsuario {
     public abstract boolean ModificarUSR(String nombre,String apellido,String contrasenia, String RutaImagen);
     public abstract ArrayList<Asistente> listarAsistentes();
     public abstract ArrayList<Asistente> BuscarAsistente(String palabra);
+    public abstract Asistente BuscarAsist(String correo);
 }

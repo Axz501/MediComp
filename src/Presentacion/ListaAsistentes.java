@@ -9,10 +9,13 @@ import Logica.Asistente;
 import Logica.ControladorUsuarios;
 import Logica.Fabrica;
 import Logica.IContUsuario;
+import Logica.Medico;
 import Logica.Usuario;
 import java.awt.Toolkit;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import Presentacion.ModificarAsistente;
 
 
 /**
@@ -24,8 +27,10 @@ public class ListaAsistentes extends javax.swing.JFrame {
     /**
      * Creates new form ListaAsistentes
      */
+    private ModificarAsistente mod;
     private IContUsuario Usr;
-    ArrayList<Asistente> asi;   
+    ArrayList<Asistente> asi; 
+    Asistente assi;
     public ListaAsistentes() {
         initComponents();
         Usr = ControladorUsuarios.getInstance();
@@ -65,6 +70,7 @@ public class ListaAsistentes extends javax.swing.JFrame {
         AsistTable = new javax.swing.JTable();
         buscarIngTextField = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
+        Modificar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -106,6 +112,18 @@ public class ListaAsistentes extends javax.swing.JFrame {
 
         jLabel1.setText("Buscar Asistente:");
 
+        Modificar.setText("Modificar");
+        Modificar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ModificarMouseClicked(evt);
+            }
+        });
+        Modificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ModificarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -117,20 +135,22 @@ public class ListaAsistentes extends javax.swing.JFrame {
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(buscarIngTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(Modificar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 592, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(21, 21, 21)
+                .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(buscarIngTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(buscarIngTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Modificar))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(58, Short.MAX_VALUE))
+                .addContainerGap(56, Short.MAX_VALUE))
         );
 
         pack();
@@ -147,6 +167,24 @@ public class ListaAsistentes extends javax.swing.JFrame {
     private void buscarIngTextFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_buscarIngTextFieldKeyReleased
         listarAsistentes(buscarIngTextField.getText());
     }//GEN-LAST:event_buscarIngTextFieldKeyReleased
+
+    private void ModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ModificarActionPerformed
+        
+
+    }//GEN-LAST:event_ModificarActionPerformed
+
+    private void ModificarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ModificarMouseClicked
+        if (AsistTable.getSelectedRow() > -1) {
+            String correo = (String) AsistTable.getValueAt(AsistTable.getSelectedRow(), 2);
+            assi = Usr.BuscarAsist(correo);
+            Usuario u = Usr.getSesionactiva();
+            if (u instanceof Medico) {
+                ModificarAsistente nuevo = new ModificarAsistente();
+                nuevo.setVisible(true);
+                nuevo.centrar();
+            }
+        }
+    }//GEN-LAST:event_ModificarMouseClicked
 
     /**
      * @param args the command line arguments
@@ -185,6 +223,7 @@ public class ListaAsistentes extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable AsistTable;
+    private javax.swing.JButton Modificar;
     private javax.swing.JTextField buscarIngTextField;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane2;
