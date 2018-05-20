@@ -71,6 +71,8 @@ public class ControladorUsuarios  implements IContUsuario{
         return instancia;
     }
 
+
+
 //    public static ControladorUsuarios getInstance() {
 //        return ControladorUsuariosHolder.INSTANCE;
 //    }
@@ -81,7 +83,7 @@ public class ControladorUsuarios  implements IContUsuario{
         private static final ControladorUsuarios INSTANCE = new ControladorUsuarios();
     }
     
-    private static EntityManager getEntityManager(){
+    public static EntityManager getEntityManager(){
         return ControladorUsuariosHolder.em;
     }
     
@@ -362,5 +364,101 @@ public class ControladorUsuarios  implements IContUsuario{
         return generatedPassword;
     }
     
+    public boolean ModificarUSR(String nombre,String apellido,String contrasenia, String RutaImagen){
+        ControladorUsuarios.getInstance().getEntityManager().getTransaction().begin();
+        String nuevapas = this.get_SHA_512_SecurePassword(contrasenia);
+        try{
+            String ci = this.getSesionactiva().getCi();
+        Iterator it = this.usuarios.values().iterator();
+        while (it.hasNext()) {
+            Usuario u = (Usuario) it.next();
+            if (u.getCi().equals(ci)) {
+                if (!nombre.equals("")) {
+                    u.setNombre(nombre);
+                }
+                if (!apellido.equals("")) {
+                    u.setApellido(apellido);
+                }
+                if (!contrasenia.equals("")) {
+                    u.setContrasenia(nuevapas);
+                }
+                if (RutaImagen.equals("")) {
+                    if (RutaImagen != null) {
+                        //Divide el string por el punto, tambien elimina el punto
+                        String[] aux = RutaImagen.split("\\."); // al punto(.) se le agregan las dos barras (\\) porque es un caracter especial
+
+                        //toma la segunda parte porque es la extension
+                        //Ej. "C:\Imagenes\imagen.jpg" -> aux[0] = "C:\Imagenes\imagen" y aux[1] = "jpg"
+                        String extension = aux[1];
+
+                        //Ruta donde se va a copiar el archivo de imagen
+                        String rutaDestino = "Imagenes/Usuarios/Asistente/" + ci + "." + extension; // se le agrega el punto(.) porque la hacer el split tambien se borra
+
+                        //esa funcion retorna un booleano que indica si la imagen se pudo crear correctamente
+                        //la funcion ya esta definida en el controlador de cliente porque ahi se usa, entocnces no hay que declararla otra vez en este controlador
+                        if (Fabrica.getUsuario().copiarArchivo(RutaImagen, rutaDestino) == true) {
+                            RutaImagen = rutaDestino; //la ruta que hay que guardar es la del archivo nuevo que fue copiado dentro del servidor
+                        } else {
+                            RutaImagen = null; // no se pudo copiar la imagen, queda en null
+                        }
+                        Imagen img = new Imagen(RutaImagen);
+                        u.setImagen(img);
+                    }
+                }
+            }
+        }
+             
+ControladorUsuarios.getInstance().getEntityManager().getTransaction().commit();
+        return true;
+        } catch (Exception ex) {
+                return false;
+            }
     
+    }
+    
+    public ArrayList<Asistente> listarAsistentes() {
+        ArrayList<Asistente> retornar = new ArrayList<>();
+        for(Map.Entry<String,Usuario> u : usuarios.entrySet()){
+            if(u.getValue() instanceof Asistente){
+            retornar.add(((Asistente) u.getValue()).getDatos());
+        }}
+        return retornar;
+
+    }
+    
+     public ArrayList<Asistente> BuscarAsistente(String ci) {
+        ArrayList<Asistente> retornar = new ArrayList<>();
+        Iterator iterador = this.usuarios.values().iterator();
+        if (ci.equals("") == false) {
+             for(Map.Entry<String,Usuario> u : usuarios.entrySet()){
+            if(u.getValue() instanceof Asistente){
+                if (u.getValue().getCi().startsWith(ci) == true) {
+                    retornar.add(((Asistente) u.getValue()).getDatos());
+                }
+            }
+             }
+
+        } else {
+            System.out.println("campo vacio");
+        }
+
+        return retornar;
+    }
+    public Asistente BuscarAsist(String correo) {
+
+        if (correo.equals("") == false) {
+             for(Map.Entry<String,Usuario> u : usuarios.entrySet()){
+            if(u.getValue() instanceof Asistente){
+                if (u.getValue().getCorreo().equals(correo)) {
+                    return ((Asistente) u.getValue());
+                }
+            }
+             }
+
+        } else {
+            System.out.println("no existe");
+        }
+
+        return null;
+    }
 }

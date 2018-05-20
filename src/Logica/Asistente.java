@@ -84,5 +84,8 @@ public class Asistente extends Usuario implements Serializable {
     public String toString() {
         return "Logica.Asistente[ id=" + this.getCi() + " ]";
     }
+    public Asistente getDatos(){ 
+        return new Asistente(this.renumerado,this.getHoras_trabajadas(),this.getHoras_renumeradas(),this.getCi(),this.getContrasenia(),this.getNombre(),this.getApellido(),this.getCorreo());
+    }
     
 }
