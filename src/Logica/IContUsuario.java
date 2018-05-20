@@ -5,6 +5,7 @@
  */
 package Logica;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -25,4 +26,6 @@ public interface IContUsuario {
     public abstract void setUsuarios(Map<String, Usuario> usuarios);
     public abstract Usuario getSesionactiva();
     public abstract void setSesionactiva(Usuario usr);
+    public abstract void persist(Object o);
+    public abstract List<Asistente> getAsistentes();
 }

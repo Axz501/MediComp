@@ -6,14 +6,19 @@
 package Presentacion;
 import Logica.Fabrica;
 import Logica.IContUsuario;
+import Logica.Imagen;
 import Utils.JFrameConFondo;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FileDialog;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.io.File;
+import java.io.IOException;
 import java.nio.file.Paths;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -399,29 +404,46 @@ public class Registrarse extends JFrameConFondo {
     }//GEN-LAST:event_txt_CiActionPerformed
 
     private void CargarImgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CargarImgActionPerformed
-        FileNameExtensionFilter filtro = new FileNameExtensionFilter("Imagenes", "jpg", "png", "JPG", "PNG"); // filtro para el Filechooser
-        Buscar.setFileFilter(filtro);
-        int a = Buscar.showOpenDialog(this); // guarda la accion que se realiza en el filechooser
-
-        if (a == JFileChooser.APPROVE_OPTION) { // la accion si se le da a abrir
-            File archivo = Buscar.getSelectedFile(); // capturar el nombre y ruta
-
-            RutaImagen = archivo.getPath();
-            String rutaMostrar = RutaImagen;
-
-            //Si la ruta es muy larga, la corta y le ponde los puntos suspesivos para mostrarla
-            if (RutaImagen.length() > 35) {
-                rutaMostrar = RutaImagen.substring(0, 35) + "...";
-            }
-
-            rutaImg.setText(rutaMostrar);
+        java.util.Properties p = System.getProperties(); 
+        String cadena = p.getProperty("user.dir"); 
+        System.out.println(cadena); 
+        this.setAlwaysOnTop(false);
+        FileDialog fd = new FileDialog(new JFrame(), "Choose a file", FileDialog.LOAD);
+        fd.setDirectory("C:\\");
+        fd.setFile("*.jpg;*.png");
+        fd.setAlwaysOnTop(true);
+        fd.setVisible(true);
+        String filename = fd.getFile();
+        if (filename != null){
+            RutaImagen = fd.getDirectory()+filename;
+            rutaImg.setText(RutaImagen);
             ImageIcon imagen = new ImageIcon(RutaImagen); //genera la imagen que seleccionamos
             Icon icono = new ImageIcon(imagen.getImage().getScaledInstance(Img.getWidth(), Img.getHeight(), Image.SCALE_DEFAULT));
-
             this.Img.setIcon(icono); // coloca la imagen en el label
-
-            this.pack();
         }
+//        FileNameExtensionFilter filtro = new FileNameExtensionFilter("Imagenes", "jpg", "png", "JPG", "PNG"); // filtro para el Filechooser
+//        Buscar.setFileFilter(filtro);
+//        int a = Buscar.showOpenDialog(this); // guarda la accion que se realiza en el filechooser
+//
+//        if (a == JFileChooser.APPROVE_OPTION) { // la accion si se le da a abrir
+//            File archivo = Buscar.getSelectedFile(); // capturar el nombre y ruta
+//
+//            RutaImagen = archivo.getPath();
+//            String rutaMostrar = RutaImagen;
+//
+//            //Si la ruta es muy larga, la corta y le ponde los puntos suspesivos para mostrarla
+//            if (RutaImagen.length() > 35) {
+//                rutaMostrar = RutaImagen.substring(0, 35) + "...";
+//            }
+//
+//            rutaImg.setText(rutaMostrar);
+//            ImageIcon imagen = new ImageIcon(RutaImagen); //genera la imagen que seleccionamos
+//            Icon icono = new ImageIcon(imagen.getImage().getScaledInstance(Img.getWidth(), Img.getHeight(), Image.SCALE_DEFAULT));
+//
+//            this.Img.setIcon(icono); // coloca la imagen en el label
+//
+//            this.pack();
+//        }
     }//GEN-LAST:event_CargarImgActionPerformed
 
     private void CargarImg1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CargarImg1ActionPerformed

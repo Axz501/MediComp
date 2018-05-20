@@ -164,7 +164,7 @@ public class ControladorUsuarios  implements IContUsuario{
     }
         
     @Override
-    public boolean IngresarMedico(String ci, String nombre, String apellido, String correo, String contrasenia, String Img) {
+    public boolean IngresarMedico(String ci, String nombre, String apellido, String correo, String contrasenia, String Img) {        
         if (Fabrica.getUsuario().verificarDatos(ci, correo) == false) { // si ya existe un cliente con ese nickname o correo
             return false;
         } else {
@@ -178,22 +178,22 @@ public class ControladorUsuarios  implements IContUsuario{
         //Si no retorno false antes, entonces los datos están bien
         if (Img != null) {
             //Divide el string por el punto, tambien elimina el punto
-            String[] aux = Img.split("\\."); // al punto(.) se le agregan las dos barras (\\) porque es un caracter especial
-
-            //toma la segunda parte porque es la extension
-            //Ej. "C:\Imagenes\imagen.jpg" -> aux[0] = "C:\Imagenes\imagen" y aux[1] = "jpg"
-            String extension = aux[1];
-
-            //Ruta donde se va a copiar el archivo de imagen
-            String rutaDestino = "Imagenes/Usuarios/Medicos/" + ci + "." + extension; // se le agrega el punto(.) porque la hacer el split tambien se borra
-
-            //esa funcion retorna un booleano que indica si la imagen se pudo crear correctamente
-            //la funcion ya esta definida en el controlador de cliente porque ahi se usa, entocnces no hay que declararla otra vez en este controlador
-            if (Fabrica.getUsuario().copiarArchivo(Img, rutaDestino) == true) {
-                Img = rutaDestino; //la ruta que hay que guardar es la del archivo nuevo que fue copiado dentro del servidor
-            } else {
-                Img = null; // no se pudo copiar la imagen, queda en null
-            }
+//            String[] aux = Img.split("\\."); // al punto(.) se le agregan las dos barras (\\) porque es un caracter especial
+//
+//            //toma la segunda parte porque es la extension
+//            //Ej. "C:\Imagenes\imagen.jpg" -> aux[0] = "C:\Imagenes\imagen" y aux[1] = "jpg"
+//            String extension = aux[1];
+//
+//            //Ruta donde se va a copiar el archivo de imagen
+//            String rutaDestino = "Imagenes/Usuarios/Medicos/" + ci + "." + extension; // se le agrega el punto(.) porque la hacer el split tambien se borra
+//
+//            //esa funcion retorna un booleano que indica si la imagen se pudo crear correctamente
+//            //la funcion ya esta definida en el controlador de cliente porque ahi se usa, entocnces no hay que declararla otra vez en este controlador
+//            if (Fabrica.getUsuario().copiarArchivo(Img, rutaDestino) == true) {
+//                Img = rutaDestino; //la ruta que hay que guardar es la del archivo nuevo que fue copiado dentro del servidor
+//            } else {
+//                Img = null; // no se pudo copiar la imagen, queda en null
+//            }
             Imagen img = new Imagen(Img);
             Medico m = new Medico(ci, nombre, apellido, correo,passhash ,img);
             this.usuarios.put(ci, m);
@@ -232,22 +232,22 @@ public class ControladorUsuarios  implements IContUsuario{
         //Si no retorno false antes, entonces los datos están bien
         if (Img != null) {
             //Divide el string por el punto, tambien elimina el punto
-            String[] aux = Img.split("\\."); // al punto(.) se le agregan las dos barras (\\) porque es un caracter especial
-
-            //toma la segunda parte porque es la extension
-            //Ej. "C:\Imagenes\imagen.jpg" -> aux[0] = "C:\Imagenes\imagen" y aux[1] = "jpg"
-            String extension = aux[1];
-
-            //Ruta donde se va a copiar el archivo de imagen
-            String rutaDestino = "Imagenes/Usuarios/Asistente/" + ci + "." + extension; // se le agrega el punto(.) porque la hacer el split tambien se borra
-
-            //esa funcion retorna un booleano que indica si la imagen se pudo crear correctamente
-            //la funcion ya esta definida en el controlador de cliente porque ahi se usa, entocnces no hay que declararla otra vez en este controlador
-            if (Fabrica.getUsuario().copiarArchivo(Img, rutaDestino) == true) {
-                Img = rutaDestino; //la ruta que hay que guardar es la del archivo nuevo que fue copiado dentro del servidor
-            } else {
-                Img = null; // no se pudo copiar la imagen, queda en null
-            }
+//            String[] aux = Img.split("\\."); // al punto(.) se le agregan las dos barras (\\) porque es un caracter especial
+//
+//            //toma la segunda parte porque es la extension
+//            //Ej. "C:\Imagenes\imagen.jpg" -> aux[0] = "C:\Imagenes\imagen" y aux[1] = "jpg"
+//            String extension = aux[1];
+//
+//            //Ruta donde se va a copiar el archivo de imagen
+//            String rutaDestino = "Imagenes/Usuarios/Asistente/" + ci + "." + extension; // se le agrega el punto(.) porque la hacer el split tambien se borra
+//
+//            //esa funcion retorna un booleano que indica si la imagen se pudo crear correctamente
+//            //la funcion ya esta definida en el controlador de cliente porque ahi se usa, entocnces no hay que declararla otra vez en este controlador
+//            if (Fabrica.getUsuario().copiarArchivo(Img, rutaDestino) == true) {
+//                Img = rutaDestino; //la ruta que hay que guardar es la del archivo nuevo que fue copiado dentro del servidor
+//            } else {
+//                Img = null; // no se pudo copiar la imagen, queda en null
+//            }
             Imagen img = new Imagen(Img);
             Asistente a = new Asistente(renumerado, horas_trabajadas, horas_renumeradas, ci, nombre, apellido, correo,passhash, img);
             this.usuarios.put(ci, a);
@@ -317,6 +317,20 @@ public class ControladorUsuarios  implements IContUsuario{
             }
         }
     }
+    
+    public List<Asistente> getAsistentes(){
+        List<Asistente> asis = new ArrayList();
+        Iterator it = this.usuarios.entrySet().iterator();
+        while (it.hasNext()){
+            Usuario u = (Usuario) it.next();
+            if (u instanceof Asistente){
+                Asistente a = (Asistente) u;
+                asis.add(a);
+            }
+        }
+        return asis;
+    }
+    
     @Override
     public void prueba(){
         Imagen i = new Imagen("123.jpg");

@@ -177,14 +177,16 @@ public class MenuPrincipal extends javax.swing.JFrame {
         this.setMaximizedBounds(SunGraphicsEnvironment.getUsableBounds(config.getDevice()));
         
         User = Fabrica.getUsuario();
-        String rutaimagen = User.getSesionactiva().getImagen().getUrl();
+        if (User.getSesionactiva().getImagen() != null){
+            ImageIcon imagen = User.getSesionactiva().getImagen().getImagen();
+            //ImageIcon imagen = new ImageIcon(rutaimagen); //genera la imagen que seleccionamos
+            Icon imagenperfil = new ImageIcon(imagen.getImage().getScaledInstance(jLabelImagen.getWidth(), jLabelImagen.getHeight(), Image.SCALE_DEFAULT));
+            jLabelImagen.setIcon(imagenperfil);
+        }
         String nombre = User.getSesionactiva().getNombre();
         String apellido = User.getSesionactiva().getApellido();
         String ci = User.getSesionactiva().getCi();
         String correo = User.getSesionactiva().getCorreo();
-        ImageIcon imagen = new ImageIcon(rutaimagen); //genera la imagen que seleccionamos
-        Icon imagenperfil = new ImageIcon(imagen.getImage().getScaledInstance(jLabelImagen.getWidth(), jLabelImagen.getHeight(), Image.SCALE_DEFAULT));
-        jLabelImagen.setIcon(imagenperfil);
         jLabelNombre.setText(nombre);
         jLabelApellido.setText(apellido);
         jLabelCedula.setText(ci);
@@ -2952,7 +2954,9 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowDeiconified
 
     private void jPanel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel5MouseClicked
+        //Agregar Asistente
         efectoclick(Color.LIGHT_GRAY,evt);
+        
     }//GEN-LAST:event_jPanel5MouseClicked
 
     private void jPanel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel6MouseClicked
@@ -2966,9 +2970,13 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jPanel30MouseClicked
 
     private void jPanel35MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel35MouseClicked
-        // TODO add your handling code here:
+        // MODIFICAR PERFIL
         efectoclick(Color.LIGHT_GRAY,evt);
-        
+        ModificarPerfil vent = new ModificarPerfil();
+        vent.centrar();
+        Image icono = new ImageIcon(getClass().getResource("/Utils/logomini.png")).getImage();
+        vent.setIconImage(icono);
+        vent.setVisible(true);
     }//GEN-LAST:event_jPanel35MouseClicked
 
     private void jPanel39MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel39MouseClicked

@@ -31,7 +31,7 @@ public class Usuario implements Serializable {
     private String correo;
     private String contrasenia;
     @OneToOne
-    private Imagen imagen;
+    private Imagen imagen = null;
     @OneToMany
     private List<Jornada> jornadas;
 
