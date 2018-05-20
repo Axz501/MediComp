@@ -135,6 +135,7 @@ public class ModificarAsistente extends javax.swing.JFrame {
             Query q2 = ControladorUsuarios.getEntityManager().createNativeQuery("UPDATE medicomp.usuario SET horas_trabajadas=  "+ traba + " WHERE correo='" + c + "';");
             q1.executeUpdate();
             q2.executeUpdate();
+            ControladorUsuarios.getEntityManager().getTransaction().commit();
         } catch (Exception e) {
             ControladorUsuarios.getEntityManager().getTransaction().rollback();
         }
