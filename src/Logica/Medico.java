@@ -6,12 +6,14 @@
 package Logica;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
 /**
@@ -28,6 +30,21 @@ public class Medico extends Usuario implements Serializable {
     private List<Entidad> entidades;
     @OneToMany
     private List<Paciente> pacientes;
+    
+    @OneToMany(mappedBy = "medico")
+    private ArrayList<Asistente> asistentes;
+
+    public ArrayList<Asistente> getAsistentes() {
+        return asistentes;
+    }
+
+    public void setAsistentes(ArrayList<Asistente> asistentes) {
+        this.asistentes = asistentes;
+    }
+
+    public Medico(ArrayList<Asistente> asistentes) {
+        this.asistentes = asistentes;
+    }
     
     public Medico(){}
 
@@ -98,5 +115,10 @@ public class Medico extends Usuario implements Serializable {
     public String toString() {
         return "Logica.Medico[ id=" +  this.getCi() + " ]";
     }
-    
+    public void AgregarAsistente(Asistente a){
+        if(asistentes==null){
+            asistentes=new ArrayList<>();
+        }
+        asistentes.add(a);
+    }
 }

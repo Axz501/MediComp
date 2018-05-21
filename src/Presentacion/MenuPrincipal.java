@@ -2953,12 +2953,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
         this.setExtendedState(MAXIMIZED_BOTH);
     }//GEN-LAST:event_formWindowDeiconified
 
-    private void jPanel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel5MouseClicked
-        //Agregar Asistente
-        efectoclick(Color.LIGHT_GRAY,evt);
-        
-    }//GEN-LAST:event_jPanel5MouseClicked
-
     private void jPanel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel6MouseClicked
         ListaAsistentes nuevo = new ListaAsistentes();
         nuevo.setVisible(true);
@@ -3415,16 +3409,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
         efectohoversalir(new Color(153,255,255),evt);
     }//GEN-LAST:event_jPanel66MouseExited
 
-    private void jPanel5MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel5MouseEntered
-        // TODO add your handling code here:
-        efectohoverentrar(new Color(102,153,255),evt);
-    }//GEN-LAST:event_jPanel5MouseEntered
-
-    private void jPanel5MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel5MouseExited
-        // TODO add your handling code here:
-        efectohoversalir(new Color(153,255,255),evt);
-    }//GEN-LAST:event_jPanel5MouseExited
-
     private void jPanel6MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel6MouseEntered
         // TODO add your handling code here:
         efectohoverentrar(new Color(102,153,255),evt);
@@ -3492,6 +3476,22 @@ public class MenuPrincipal extends javax.swing.JFrame {
             System.exit(0);
         }
     }//GEN-LAST:event_jButton2MouseClicked
+
+    private void jPanel5MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel5MouseExited
+        // TODO add your handling code here:
+        efectohoversalir(new Color(153,255,255),evt);
+    }//GEN-LAST:event_jPanel5MouseExited
+
+    private void jPanel5MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel5MouseEntered
+        // TODO add your handling code here:
+        efectohoverentrar(new Color(102,153,255),evt);
+    }//GEN-LAST:event_jPanel5MouseEntered
+
+    private void jPanel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel5MouseClicked
+        //Agregar Asistente
+        efectoclick(Color.LIGHT_GRAY,evt);
+
+    }//GEN-LAST:event_jPanel5MouseClicked
 
 
     /**

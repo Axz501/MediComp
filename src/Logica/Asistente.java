@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 /**
  *
@@ -19,6 +20,20 @@ public class Asistente extends Usuario implements Serializable {
     private boolean renumerado;
     private int horas_trabajadas;
     private int horas_renumeradas;
+    @ManyToOne
+    private Medico medico;
+
+    public Asistente(Medico medico) {
+        this.medico = medico;
+    }
+
+    public Medico getMedico() {
+        return medico;
+    }
+
+    public void setMedico(Medico medico) {
+        this.medico = medico;
+    }
     
     public Asistente(){}
 

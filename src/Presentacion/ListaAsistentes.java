@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import Presentacion.ModificarAsistente;
+import java.util.List;
 
 
 /**
@@ -44,11 +45,17 @@ public class ListaAsistentes extends javax.swing.JFrame {
         while (modelo.getRowCount() > 0) {
             modelo.removeRow(0);
         }
-        
-        if(!ci.equals("")){
-        asi = Usr.BuscarAsistente(ci);}else{
-        asi = Usr.listarAsistentes();
-        }
+         List<Asistente> asit = Usr.getAsistentes();
+         if (!ci.equals("")) {
+             asi = Usr.BuscarAsistente(ci);
+         } else {
+             for (Asistente a : asit) {
+                 if (a.getCi().equals(ci)) {
+                     asi = Usr.listarAsistentes();
+                 }
+             }
+
+         }
 
         for (Asistente a : asi) {
             String[] datos = {a.getNombre() + " " + a.getApellido(), a.getCorreo(),String.valueOf(a.getHoras_renumeradas()),String.valueOf(a.getHoras_trabajadas())};
@@ -71,6 +78,7 @@ public class ListaAsistentes extends javax.swing.JFrame {
         buscarIngTextField = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         Modificar = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -124,6 +132,13 @@ public class ListaAsistentes extends javax.swing.JFrame {
             }
         });
 
+        jButton1.setText("Agregar");
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton1MouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -136,6 +151,8 @@ public class ListaAsistentes extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(buscarIngTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addComponent(Modificar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 592, Short.MAX_VALUE))
                 .addContainerGap())
@@ -147,10 +164,11 @@ public class ListaAsistentes extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(buscarIngTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Modificar))
+                    .addComponent(Modificar)
+                    .addComponent(jButton1))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(56, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -185,6 +203,17 @@ public class ListaAsistentes extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_ModificarMouseClicked
+
+    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+        if (AsistTable.getSelectedRow() > -1) {
+            String correo = (String) AsistTable.getValueAt(AsistTable.getSelectedRow(), 1);
+            assi = Usr.BuscarAsist(correo);
+            Usuario u = Usr.getSesionactiva();
+              if (u instanceof Medico) {
+                  ((Medico) u).AgregarAsistente(assi);
+            }
+        }
+    }//GEN-LAST:event_jButton1MouseClicked
 
     /**
      * @param args the command line arguments
@@ -225,6 +254,7 @@ public class ListaAsistentes extends javax.swing.JFrame {
     private javax.swing.JTable AsistTable;
     private javax.swing.JButton Modificar;
     private javax.swing.JTextField buscarIngTextField;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane2;
     // End of variables declaration//GEN-END:variables
