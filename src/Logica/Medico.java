@@ -37,6 +37,7 @@ public class Medico extends Usuario implements Serializable {
     public ArrayList<Asistente> getAsistentes() {
         return asistentes;
     }
+    
 
     public void setAsistentes(ArrayList<Asistente> asistentes) {
         this.asistentes = asistentes;
