@@ -23,7 +23,7 @@ import java.util.List;
  *
  * @author ninoh
  */
-public class ListaAsistentes extends javax.swing.JFrame {
+public class ListaAsistentes2 extends javax.swing.JFrame {
 
     /**
      * Creates new form ListaAsistentes
@@ -32,7 +32,7 @@ public class ListaAsistentes extends javax.swing.JFrame {
     private IContUsuario Usr;
     ArrayList<Asistente> asi; 
     Asistente assi;
-    public ListaAsistentes() {
+    public ListaAsistentes2() {
         initComponents();
         Usr = ControladorUsuarios.getInstance();
         setTitle("Lista de Asistentes");
@@ -73,7 +73,7 @@ public class ListaAsistentes extends javax.swing.JFrame {
         AsistTable = new javax.swing.JTable();
         buscarIngTextField = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        Modificar = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -115,15 +115,10 @@ public class ListaAsistentes extends javax.swing.JFrame {
 
         jLabel1.setText("Buscar Asistente:");
 
-        Modificar.setText("Modificar");
-        Modificar.addMouseListener(new java.awt.event.MouseAdapter() {
+        jButton1.setText("Agregar");
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                ModificarMouseClicked(evt);
-            }
-        });
-        Modificar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ModificarActionPerformed(evt);
+                jButton1MouseClicked(evt);
             }
         });
 
@@ -139,7 +134,7 @@ public class ListaAsistentes extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(buscarIngTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(Modificar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 592, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -150,7 +145,7 @@ public class ListaAsistentes extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(buscarIngTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Modificar))
+                    .addComponent(jButton1))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -171,23 +166,17 @@ public class ListaAsistentes extends javax.swing.JFrame {
         listarAsistentes(buscarIngTextField.getText());
     }//GEN-LAST:event_buscarIngTextFieldKeyReleased
 
-    private void ModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ModificarActionPerformed
-        
-
-    }//GEN-LAST:event_ModificarActionPerformed
-
-    private void ModificarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ModificarMouseClicked
+    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
         if (AsistTable.getSelectedRow() > -1) {
             String correo = (String) AsistTable.getValueAt(AsistTable.getSelectedRow(), 1);
             assi = Usr.BuscarAsist(correo);
             Usuario u = Usr.getSesionactiva();
             if (u instanceof Medico) {
-                ModificarAsistente nuevo = new ModificarAsistente(this);
-                nuevo.setVisible(true);
-                nuevo.centrar();
+                ((Medico) u).AgregarAsistente(assi);
+                javax.swing.JOptionPane.showMessageDialog(this, "El Asistente ha sido agregado");
             }
         }
-    }//GEN-LAST:event_ModificarMouseClicked
+    }//GEN-LAST:event_jButton1MouseClicked
 
     /**
      * @param args the command line arguments
@@ -206,28 +195,29 @@ public class ListaAsistentes extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ListaAsistentes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListaAsistentes2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ListaAsistentes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListaAsistentes2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ListaAsistentes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListaAsistentes2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ListaAsistentes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListaAsistentes2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ListaAsistentes().setVisible(true);
+                new ListaAsistentes2().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable AsistTable;
-    private javax.swing.JButton Modificar;
     private javax.swing.JTextField buscarIngTextField;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane2;
     // End of variables declaration//GEN-END:variables

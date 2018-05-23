@@ -23,10 +23,6 @@ public class Asistente extends Usuario implements Serializable {
     @ManyToOne
     private Medico medico;
 
-    public Asistente(Medico medico) {
-        this.medico = medico;
-    }
-
     public Medico getMedico() {
         return medico;
     }
@@ -34,6 +30,7 @@ public class Asistente extends Usuario implements Serializable {
     public void setMedico(Medico medico) {
         this.medico = medico;
     }
+
     
     public Asistente(){}
 

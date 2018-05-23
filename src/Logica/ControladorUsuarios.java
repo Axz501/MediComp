@@ -320,9 +320,10 @@ public class ControladorUsuarios  implements IContUsuario{
         }
     }
     
+    @Override
     public List<Asistente> getAsistentes(){
         List<Asistente> asis = new ArrayList();
-        Iterator it = this.usuarios.entrySet().iterator();
+        Iterator it = this.usuarios.values().iterator();
         while (it.hasNext()){
             Usuario u = (Usuario) it.next();
             if (u instanceof Asistente){

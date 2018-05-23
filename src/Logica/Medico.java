@@ -31,19 +31,20 @@ public class Medico extends Usuario implements Serializable {
     @OneToMany
     private List<Paciente> pacientes;
     
-    @OneToMany(mappedBy = "medico")
-    private ArrayList<Asistente> asistentes;
 
-    public ArrayList<Asistente> getAsistentes() {
+    @OneToMany(mappedBy = "medico")
+    private List<Asistente> asistentes;
+
+    public List<Asistente> getAsistentes() {
         return asistentes;
     }
     
 
-    public void setAsistentes(ArrayList<Asistente> asistentes) {
+    public void setAsistentes(List<Asistente> asistentes) {
         this.asistentes = asistentes;
     }
 
-    public Medico(ArrayList<Asistente> asistentes) {
+    public Medico(List<Asistente> asistentes) {
         this.asistentes = asistentes;
     }
     
