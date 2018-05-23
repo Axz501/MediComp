@@ -30,7 +30,7 @@ public class ListaAsistentes extends javax.swing.JFrame {
      */
     private ModificarAsistente mod;
     private IContUsuario Usr;
-    ArrayList<Asistente> asi; 
+    List<Asistente> asii;
     Asistente assi;
     public ListaAsistentes() {
         initComponents();
@@ -45,19 +45,19 @@ public class ListaAsistentes extends javax.swing.JFrame {
         while (modelo.getRowCount() > 0) {
             modelo.removeRow(0);
         }
-         List<Asistente> asit = Usr.getAsistentes();
+        
          if (!ci.equals("")) {
-             asi = Usr.BuscarAsistente(ci);
+             asii = Usr.BuscarAsistente(ci);
          } else {
-             asi = Usr.listarAsistentes();
+             asii = Usr.listarAsistentesMedico();
          }
+         
 
-
-        for (Asistente a : asi) {
+        for (Asistente a : asii) {
             String[] datos = {a.getNombre() + " " + a.getApellido(), a.getCorreo(),String.valueOf(a.getHoras_renumeradas()),String.valueOf(a.getHoras_trabajadas())};
             modelo.addRow(datos);
         }
-
+        
     }
 
     /**
@@ -171,23 +171,22 @@ public class ListaAsistentes extends javax.swing.JFrame {
         listarAsistentes(buscarIngTextField.getText());
     }//GEN-LAST:event_buscarIngTextFieldKeyReleased
 
-    private void ModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ModificarActionPerformed
-        
-
-    }//GEN-LAST:event_ModificarActionPerformed
-
     private void ModificarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ModificarMouseClicked
         if (AsistTable.getSelectedRow() > -1) {
             String correo = (String) AsistTable.getValueAt(AsistTable.getSelectedRow(), 1);
             assi = Usr.BuscarAsist(correo);
             Usuario u = Usr.getSesionactiva();
             if (u instanceof Medico) {
-                ModificarAsistente nuevo = new ModificarAsistente(this);
+                ModificarAsistente nuevo = new ModificarAsistente(null,this);
                 nuevo.setVisible(true);
                 nuevo.centrar();
             }
         }
     }//GEN-LAST:event_ModificarMouseClicked
+
+    private void ModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ModificarActionPerformed
+
+    }//GEN-LAST:event_ModificarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -214,6 +213,9 @@ public class ListaAsistentes extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(ListaAsistentes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */

@@ -2956,7 +2956,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowDeiconified
 
     private void jPanel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel6MouseClicked
-        ListaAsistentes nuevo = new ListaAsistentes();
+        AgregarAsistentes nuevo = new AgregarAsistentes();
         nuevo.setVisible(true);
         nuevo.centrar();
         efectoclick(Color.LIGHT_GRAY,evt);
@@ -3490,7 +3490,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jPanel5MouseEntered
 
     private void jPanel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel5MouseClicked
-        ListaAsistentes2 nuevo = new ListaAsistentes2();
+        ListaAsistentes nuevo = new ListaAsistentes();
         nuevo.setVisible(true);
         nuevo.centrar();
         efectoclick(Color.LIGHT_GRAY,evt);

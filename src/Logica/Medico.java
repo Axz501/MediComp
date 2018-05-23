@@ -93,6 +93,7 @@ public class Medico extends Usuario implements Serializable {
     }
     
 
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -123,4 +124,15 @@ public class Medico extends Usuario implements Serializable {
         }
         asistentes.add(a);
     }
+        public List<Asistente> getAsistente(String ci) {
+            List<Asistente> asis = new ArrayList();
+            for (Asistente a : this.getAsistentes()) {
+                if (a.getCi().equals(ci)) {
+                    Asistente as = a;
+                    asis.add(as);
+                }
+            return asis;
+            }
+            return null;
+        }
 }

@@ -10,7 +10,7 @@ import Logica.ControladorUsuarios;
 import Logica.IContUsuario;
 import Logica.Medico;
 import Logica.Usuario;
-import Presentacion.ListaAsistentes;
+import Presentacion.AgregarAsistentes;
 import java.awt.Toolkit;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -25,11 +25,13 @@ public class ModificarAsistente extends javax.swing.JFrame {
     /**
      * Creates new form ModificarAsistente
      */
-    ListaAsistentes asisi;
+    AgregarAsistentes asisi;
+    ListaAsistentes asi;
     private IContUsuario Usr;
-    public ModificarAsistente(ListaAsistentes asd) {
+    public ModificarAsistente(AgregarAsistentes asd,ListaAsistentes dsa ) {
         initComponents();
         asisi = asd;
+        asi = dsa;
         Usr = ControladorUsuarios.getInstance();
         setTitle("Modificar Asistente");
         setResizable(false);

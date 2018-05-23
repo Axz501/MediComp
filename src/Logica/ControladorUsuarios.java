@@ -73,6 +73,7 @@ public class ControladorUsuarios  implements IContUsuario{
 
 
 
+
 //    public static ControladorUsuarios getInstance() {
 //        return ControladorUsuariosHolder.INSTANCE;
 //    }
@@ -320,19 +321,7 @@ public class ControladorUsuarios  implements IContUsuario{
         }
     }
     
-    @Override
-    public List<Asistente> getAsistentes(){
-        List<Asistente> asis = new ArrayList();
-        Iterator it = this.usuarios.values().iterator();
-        while (it.hasNext()){
-            Usuario u = (Usuario) it.next();
-            if (u instanceof Asistente){
-                Asistente a = (Asistente) u;
-                asis.add(a);
-            }
-        }
-        return asis;
-    }
+
     
     @Override
     public void prueba(){
@@ -426,6 +415,19 @@ ControladorUsuarios.getInstance().getEntityManager().getTransaction().commit();
         return retornar;
 
     }
+        public List<Asistente> listarAsistentesMedico() {
+        List<Asistente> asis = new ArrayList();
+        Iterator it = this.usuarios.values().iterator();
+        while (it.hasNext()){
+            Usuario u = sesionactiva;
+            Medico m = (Medico) u;
+            Usuario ur = (Usuario) it.next();
+            if (ur instanceof Asistente){
+                asis = m.getAsistentes();
+            }
+        }
+        return asis;
+    }
     
      public ArrayList<Asistente> BuscarAsistente(String ci) {
         ArrayList<Asistente> retornar = new ArrayList<>();
@@ -462,4 +464,5 @@ ControladorUsuarios.getInstance().getEntityManager().getTransaction().commit();
 
         return null;
     }
+
 }

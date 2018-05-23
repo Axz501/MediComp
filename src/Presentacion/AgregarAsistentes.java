@@ -18,43 +18,43 @@ import javax.swing.table.DefaultTableModel;
 import Presentacion.ModificarAsistente;
 import java.util.List;
 
-
 /**
  *
  * @author ninoh
  */
-public class ListaAsistentes2 extends javax.swing.JFrame {
+public class AgregarAsistentes extends javax.swing.JFrame {
 
     /**
-     * Creates new form ListaAsistentes
+     * Creates new form AgregarAsistentes
      */
     private ModificarAsistente mod;
     private IContUsuario Usr;
-    ArrayList<Asistente> asi; 
+    ArrayList<Asistente> asi;
     Asistente assi;
-    public ListaAsistentes2() {
+
+    public AgregarAsistentes() {
         initComponents();
         Usr = ControladorUsuarios.getInstance();
-        setTitle("Lista de Asistentes");
+        setTitle("Agregar Asistentes");
         setResizable(false);
         listarAsistentes("");
     }
-     public void listarAsistentes(String ci) {
+
+    public void listarAsistentes(String ci) {
 
         DefaultTableModel modelo = (DefaultTableModel) AsistTable.getModel();
         while (modelo.getRowCount() > 0) {
             modelo.removeRow(0);
         }
-         List<Asistente> asit = Usr.getAsistentes();
-         if (!ci.equals("")) {
-             asi = Usr.BuscarAsistente(ci);
-         } else {
-             asi = Usr.listarAsistentes();
-         }
 
+        if (!ci.equals("")) {
+            asi = Usr.BuscarAsistente(ci);
+        } else {
+            asi = Usr.listarAsistentes();
+        }
 
         for (Asistente a : asi) {
-            String[] datos = {a.getNombre() + " " + a.getApellido(), a.getCorreo(),String.valueOf(a.getHoras_renumeradas()),String.valueOf(a.getHoras_trabajadas())};
+            String[] datos = {a.getNombre() + " " + a.getApellido(), a.getCorreo(), String.valueOf(a.getHoras_renumeradas()), String.valueOf(a.getHoras_trabajadas())};
             modelo.addRow(datos);
         }
 
@@ -129,13 +129,13 @@ public class ListaAsistentes2 extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 576, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(buscarIngTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 592, Short.MAX_VALUE))
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -167,14 +167,32 @@ public class ListaAsistentes2 extends javax.swing.JFrame {
     }//GEN-LAST:event_buscarIngTextFieldKeyReleased
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+        List<Asistente> asis = new ArrayList<>();
+        boolean b = true;
         if (AsistTable.getSelectedRow() > -1) {
             String correo = (String) AsistTable.getValueAt(AsistTable.getSelectedRow(), 1);
             assi = Usr.BuscarAsist(correo);
             Usuario u = Usr.getSesionactiva();
             if (u instanceof Medico) {
+                asis = ((Medico) u).getAsistentes();
+
+                if (asis.isEmpty()) {
+                    ((Medico) u).AgregarAsistente(assi);
+                    javax.swing.JOptionPane.showMessageDialog(this, "El Asistente ha sido agregado");
+                }else{
+
+                for (Asistente a : asis) {
+                    if (a.getCorreo().equals(correo)) {
+                        b=false;
+                        }
+                }
+                if(b){
                 ((Medico) u).AgregarAsistente(assi);
-                javax.swing.JOptionPane.showMessageDialog(this, "El Asistente ha sido agregado");
-            }
+                        javax.swing.JOptionPane.showMessageDialog(this, "El Asistente ha sido agregado");
+                        return;
+                }else{
+                javax.swing.JOptionPane.showMessageDialog(this, "El Asistente ya esta asociado a este medico");
+                }}}
         }
     }//GEN-LAST:event_jButton1MouseClicked
 
@@ -195,13 +213,13 @@ public class ListaAsistentes2 extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ListaAsistentes2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AgregarAsistentes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ListaAsistentes2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AgregarAsistentes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ListaAsistentes2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AgregarAsistentes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ListaAsistentes2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AgregarAsistentes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -209,7 +227,7 @@ public class ListaAsistentes2 extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ListaAsistentes2().setVisible(true);
+                new AgregarAsistentes().setVisible(true);
             }
         });
     }
@@ -221,13 +239,13 @@ public class ListaAsistentes2 extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane2;
     // End of variables declaration//GEN-END:variables
-public void centrar(){
+public void centrar() {
         //este metodo devuelve el tamaÃ±o de la pantalla
         int x = (int) (Toolkit.getDefaultToolkit().getScreenSize().getWidth());
         int y = (int) (Toolkit.getDefaultToolkit().getScreenSize().getHeight());
         int h = this.getHeight();
         int z = this.getWidth();
-        this.setLocation(x/2-z/2,y/2-h/2);
-        
+        this.setLocation(x / 2 - z / 2, y / 2 - h / 2);
+
     }
 }
