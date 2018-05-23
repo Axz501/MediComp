@@ -96,7 +96,8 @@ public class ControladorUsuarios  implements IContUsuario{
 
     public void persist(Object object) {
         EntityManager em = ControladorUsuarios.getEntityManager();
-        em.getTransaction().begin();
+        if (!em.getTransaction().isActive())
+            em.getTransaction().begin();
         try {
             em.persist(object);
             em.getTransaction().commit();
@@ -109,7 +110,6 @@ public class ControladorUsuarios  implements IContUsuario{
     }
     public void close(){
         ControladorUsuarios.getEntityManager().close();
-    
     }
     @Override
     public boolean copiarArchivo(String rutaOrigenArchivo, String rutaDestino) {
@@ -288,7 +288,7 @@ public class ControladorUsuarios  implements IContUsuario{
                 ControladorUsuarios.getEntityManager().getTransaction().begin();
                 Query q = ControladorUsuarios.getEntityManager().createNativeQuery("UPDATE medicomp.usuario SET contrasenia='"+nuevapass+"' WHERE correo='"+correo+"';");
                 q.executeUpdate();
-                //ControladorUsuarios.getEntityManager().getTransaction().commit();
+                ControladorUsuarios.getEntityManager().getTransaction().commit();
             } catch (Exception e) {
                 ControladorUsuarios.getEntityManager().getTransaction().rollback();
             }
@@ -307,7 +307,7 @@ public class ControladorUsuarios  implements IContUsuario{
         List<Usuario> resultado = null;
         ControladorUsuarios.getInstance().getEntityManager().getTransaction().begin();
         try {
-            resultado = ControladorUsuarios.getEntityManager().createNativeQuery("SELECT * FROM usuario ;", Usuario.class).getResultList();
+            resultado = ControladorUsuarios.getEntityManager().createNativeQuery("SELECT * FROM medicomp.usuario ;", Usuario.class).getResultList();
             ControladorUsuarios.getEntityManager().getTransaction().commit();
         } catch (Exception e) {
             ControladorUsuarios.getEntityManager().getTransaction().rollback();
@@ -364,56 +364,56 @@ public class ControladorUsuarios  implements IContUsuario{
         return generatedPassword;
     }
     
-    public boolean ModificarUSR(String nombre,String apellido,String contrasenia, String RutaImagen){
-        ControladorUsuarios.getInstance().getEntityManager().getTransaction().begin();
-        String nuevapas = this.get_SHA_512_SecurePassword(contrasenia);
+    public boolean ModificarUSR(String nombre,String apellido,String contrasenia, String RutaImagen, boolean elim){
+        if (!ControladorUsuarios.getInstance().getEntityManager().getTransaction().isActive())
+            ControladorUsuarios.getInstance().getEntityManager().getTransaction().begin();
         try{
-            String ci = this.getSesionactiva().getCi();
-        Iterator it = this.usuarios.values().iterator();
-        while (it.hasNext()) {
-            Usuario u = (Usuario) it.next();
-            if (u.getCi().equals(ci)) {
-                if (!nombre.equals("")) {
-                    u.setNombre(nombre);
-                }
-                if (!apellido.equals("")) {
-                    u.setApellido(apellido);
-                }
-                if (!contrasenia.equals("")) {
-                    u.setContrasenia(nuevapas);
-                }
-                if (RutaImagen.equals("")) {
-                    if (RutaImagen != null) {
-                        //Divide el string por el punto, tambien elimina el punto
-                        String[] aux = RutaImagen.split("\\."); // al punto(.) se le agregan las dos barras (\\) porque es un caracter especial
-
-                        //toma la segunda parte porque es la extension
-                        //Ej. "C:\Imagenes\imagen.jpg" -> aux[0] = "C:\Imagenes\imagen" y aux[1] = "jpg"
-                        String extension = aux[1];
-
-                        //Ruta donde se va a copiar el archivo de imagen
-                        String rutaDestino = "Imagenes/Usuarios/Asistente/" + ci + "." + extension; // se le agrega el punto(.) porque la hacer el split tambien se borra
-
-                        //esa funcion retorna un booleano que indica si la imagen se pudo crear correctamente
-                        //la funcion ya esta definida en el controlador de cliente porque ahi se usa, entocnces no hay que declararla otra vez en este controlador
-                        if (Fabrica.getUsuario().copiarArchivo(RutaImagen, rutaDestino) == true) {
-                            RutaImagen = rutaDestino; //la ruta que hay que guardar es la del archivo nuevo que fue copiado dentro del servidor
-                        } else {
-                            RutaImagen = null; // no se pudo copiar la imagen, queda en null
-                        }
-                        Imagen img = new Imagen(RutaImagen);
-                        u.setImagen(img);
-                    }
+            Usuario u = this.getSesionactiva();
+            if (elim){
+                if (u.getImagen()!=null){
+                    Long id = u.getImagen().getId();
+                    Query q1 = ControladorUsuarios.getEntityManager().createNativeQuery("UPDATE medicomp.usuario SET imagen_id=null WHERE correo='"+u.getCorreo()+"';");
+                    Query q2 = ControladorUsuarios.getEntityManager().createNativeQuery("DELETE FROM medicomp.imagen WHERE id = "+id+";");
+                    q1.executeUpdate();
+                    q2.executeUpdate();
+                    u.setImagen(null);
                 }
             }
-        }
-             
-ControladorUsuarios.getInstance().getEntityManager().getTransaction().commit();
+            if (!nombre.equals("")) {
+                Query q = ControladorUsuarios.getEntityManager().createNativeQuery("UPDATE medicomp.usuario SET nombre='"+nombre+"' WHERE correo='"+u.getCorreo()+"';");
+                q.executeUpdate();
+                u.setNombre(nombre);
+            }
+            if (!apellido.equals("")) {
+                Query q = ControladorUsuarios.getEntityManager().createNativeQuery("UPDATE medicomp.usuario SET apellido='"+apellido+"' WHERE correo='"+u.getCorreo()+"';");
+                q.executeUpdate();
+                u.setApellido(apellido);
+            }
+            if (!contrasenia.equals("")) {
+                String nuevapas = this.get_SHA_512_SecurePassword(contrasenia);
+                Query q = ControladorUsuarios.getEntityManager().createNativeQuery("UPDATE medicomp.usuario SET contrasenia='"+nuevapas+"' WHERE correo='"+u.getCorreo()+"';");
+                q.executeUpdate();
+                u.setContrasenia(nuevapas);
+            }
+            if (!RutaImagen.equals("")) {
+                if (u.getImagen()!=null){
+                    Long id = u.getImagen().getId();
+                    Query q1 = ControladorUsuarios.getEntityManager().createNativeQuery("UPDATE medicomp.usuario SET imagen_id=null WHERE correo='"+u.getCorreo()+"';");
+                    Query q2 = ControladorUsuarios.getEntityManager().createNativeQuery("DELETE FROM medicomp.imagen WHERE id = "+id+";");
+                    q1.executeUpdate();
+                    q2.executeUpdate();
+                }
+                Imagen i = new Imagen(RutaImagen);
+                u.setImagen(i);
+                this.persist(i);
+            }
+        if (ControladorUsuarios.getInstance().getEntityManager().getTransaction().isActive())
+            ControladorUsuarios.getInstance().getEntityManager().getTransaction().commit();
         return true;
         } catch (Exception ex) {
-                return false;
-            }
-    
+            System.out.println(ex.getMessage());
+            return false;
+        }
     }
     
     public ArrayList<Asistente> listarAsistentes() {

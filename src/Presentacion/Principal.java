@@ -270,6 +270,11 @@ public class Principal extends JPanelConFondo {
                 EntrarMouseClicked(evt);
             }
         });
+        Entrar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                EntrarKeyPressed(evt);
+            }
+        });
 
         jLabel8.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
@@ -556,6 +561,11 @@ public class Principal extends JPanelConFondo {
             }
         });
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void EntrarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_EntrarKeyPressed
+        // TODO add your handling code here:
+        JOptionPane.showMessageDialog(this, "Has click aquí");
+    }//GEN-LAST:event_EntrarKeyPressed
     private void jcdActionPerformed(java.awt.event.ActionEvent evt){
         String texto = jcd.getSelectedItem().toString();
         cedula.setText(texto);

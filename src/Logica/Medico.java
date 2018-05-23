@@ -12,6 +12,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
 /**
@@ -28,6 +29,8 @@ public class Medico extends Usuario implements Serializable {
     private List<Entidad> entidades;
     @OneToMany
     private List<Paciente> pacientes;
+    @ManyToMany
+    private List<Asistente> asistentes = null;
     
     public Medico(){}
 

@@ -6,6 +6,7 @@
 package Presentacion;
 import Logica.Fabrica;
 import Logica.IContUsuario;
+import Utils.JFrameConFondo;
 import java.awt.Color;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -21,20 +22,22 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  *
  * @author ninoh
  */
-public class ModificarPerfil extends javax.swing.JFrame {
+public class ModificarPerfil extends JFrameConFondo {
 
     /**
      * Creates new form ModificarPerfil
      */
-    String RutaImagen;
+    String RutaImagen = "";
+    private MenuPrincipal principal;
     private IContUsuario Usr;
-    public ModificarPerfil() {
+    public ModificarPerfil(MenuPrincipal principal) {
         initComponents();
+        this.principal = principal;
         this.Usr = Fabrica.getUsuario();
         setTitle("Modificar Perfil");
         setResizable(false);
         getRootPane().setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED,Color.cyan,Color.white));
-
+        this.setImagen("Fondo.jpg");
     }
 
     /**
@@ -62,6 +65,9 @@ public class ModificarPerfil extends javax.swing.JFrame {
         rutaImg = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        jLabel11 = new javax.swing.JLabel();
+        txt_Contra2 = new javax.swing.JPasswordField();
+        eliminarimagen = new javax.swing.JCheckBox();
 
         javax.swing.GroupLayout jLayeredPane1Layout = new javax.swing.GroupLayout(jLayeredPane1);
         jLayeredPane1.setLayout(jLayeredPane1Layout);
@@ -75,6 +81,7 @@ public class ModificarPerfil extends javax.swing.JFrame {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setResizable(false);
 
         jLabel3.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
         jLabel3.setText("Nombre:");
@@ -89,9 +96,10 @@ public class ModificarPerfil extends javax.swing.JFrame {
         jLabel4.setText("Apellido:");
 
         jLabel6.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
-        jLabel6.setText("Contraseña:");
+        jLabel6.setText("Contraseña Nueva:");
 
         jLabel10.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
+        jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel10.setText("Verificacion Contraseña: ");
 
         Img.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -124,58 +132,64 @@ public class ModificarPerfil extends javax.swing.JFrame {
             }
         });
 
+        jLabel11.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
+        jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel11.setText("Contraseña actual:");
+
+        eliminarimagen.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
+        eliminarimagen.setText("Eliminar Imagen actual");
+        eliminarimagen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                eliminarimagenActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(rutaImg, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(CargarImg)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(CargarImg1, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(170, 170, 170)
-                                .addComponent(txt_Apellido, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(38, 38, 38))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel4)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel3)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(txt_Nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(39, 39, 39))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel6)
-                                    .addComponent(jLabel10)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(32, 32, 32)
-                                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                                    .addComponent(txt_Contra)
-                                    .addComponent(txt_Contra1)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(0, 0, Short.MAX_VALUE)))
-                                .addGap(38, 38, 38)))
-                        .addComponent(Img, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jLabel11)
+                    .addComponent(jLabel10)
+                    .addComponent(jLabel6)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(eliminarimagen)
+                    .addComponent(txt_Contra2)
+                    .addComponent(txt_Contra1)
+                    .addComponent(txt_Contra)
+                    .addComponent(txt_Apellido)
+                    .addComponent(txt_Nombre))
+                .addGap(46, 46, 46)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addComponent(CargarImg)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(CargarImg1, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(Img, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(rutaImg, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(24, 24, 24))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(42, 42, 42)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(180, 180, 180)
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(30, Short.MAX_VALUE)
+                .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(Img, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
@@ -185,26 +199,28 @@ public class ModificarPerfil extends javax.swing.JFrame {
                             .addComponent(jLabel4)
                             .addComponent(txt_Apellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel6)
-                                .addGap(23, 23, 23)
-                                .addComponent(jLabel10))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(txt_Contra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(txt_Contra1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(Img, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(22, 22, 22)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(CargarImg1)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(CargarImg)
-                                .addComponent(jButton1)
-                                .addComponent(jButton2)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel6)
+                            .addComponent(txt_Contra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(19, 19, 19)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txt_Contra1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel10))
                         .addGap(18, 18, 18)
-                        .addComponent(rutaImg, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel11)
+                            .addComponent(txt_Contra2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(22, 22, 22)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(eliminarimagen)
+                    .addComponent(CargarImg1)
+                    .addComponent(CargarImg))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(jButton2))
+                .addGap(18, 18, 18)
+                .addComponent(rutaImg, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -251,11 +267,13 @@ public class ModificarPerfil extends javax.swing.JFrame {
         String nombre, apellido;
         String contrasenia = new String(txt_Contra.getPassword());
         String contrasenia2 = new String(txt_Contra1.getPassword());
-
+        String contraseniaactual = new String(txt_Contra2.getPassword());
+        //eliminarimagen.isSelected();
         nombre = txt_Nombre.getText();
         apellido = txt_Apellido.getText();
+        
 
-
+        if (Usr.login(Usr.getSesionactiva().getCi(), contraseniaactual)){
             if (!contrasenia.equals(contrasenia2)) {
                 javax.swing.JOptionPane.showMessageDialog(this, "Las contraseñas no coinciden");
                 formatOk = false;
@@ -268,9 +286,25 @@ public class ModificarPerfil extends javax.swing.JFrame {
             if(formatOk){
 
                 boolean Ok;
-                    Ok = Usr.ModificarUSR(nombre,apellido,contrasenia, RutaImagen);
+                    Ok = Usr.ModificarUSR(nombre,apellido,contrasenia, RutaImagen,eliminarimagen.isSelected());
                     if(Ok){
                         javax.swing.JOptionPane.showMessageDialog(this,"El Usuario ha sido modificado");
+                        principal.getNombrePerfil().setText(Usr.getSesionactiva().getNombre());
+                        principal.getApellidoPerfil().setText(Usr.getSesionactiva().getApellido());
+                        if (Usr.getSesionactiva().getImagen() != null){
+                            ImageIcon imagen = Usr.getSesionactiva().getImagen().getImagen();
+                            //ImageIcon imagen = new ImageIcon(rutaimagen); //genera la imagen que seleccionamos
+                            Icon imagenperfil = new ImageIcon(imagen.getImage().getScaledInstance(this.principal.getImagenPerfil().getWidth(), this.principal.getImagenPerfil().getHeight(), Image.SCALE_DEFAULT));
+                            this.principal.getImagenPerfil().setIcon(imagenperfil);
+                        }
+                        else{
+                            java.util.Properties p = System.getProperties(); 
+                            String cadena = p.getProperty("user.dir"); 
+                            ImageIcon imagen = new ImageIcon(cadena+"/src/Utils/iconoUsuario.jpg"); //genera la imagen que seleccionamos
+                            Icon imagenperfil = new ImageIcon(imagen.getImage().getScaledInstance(principal.getImagenPerfil().getWidth(), principal.getImagenPerfil().getHeight(), Image.SCALE_DEFAULT));
+                            principal.getImagenPerfil().setIcon(imagenperfil);
+                        }
+                            
                         this.dispose();
                     }
                     else{
@@ -278,12 +312,19 @@ public class ModificarPerfil extends javax.swing.JFrame {
                     }
                
             }
-        
+        }
+        else{
+            javax.swing.JOptionPane.showMessageDialog(this, "La contraseña actual no es correcta");
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void eliminarimagenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarimagenActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_eliminarimagenActionPerformed
 
     /**
      * @param args the command line arguments
@@ -315,7 +356,7 @@ public class ModificarPerfil extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ModificarPerfil().setVisible(true);
+                //new ModificarPerfil().setVisible(true);
             }
         });
     }
@@ -325,9 +366,11 @@ public class ModificarPerfil extends javax.swing.JFrame {
     private javax.swing.JButton CargarImg;
     private javax.swing.JButton CargarImg1;
     private javax.swing.JLabel Img;
+    private javax.swing.JCheckBox eliminarimagen;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
@@ -336,6 +379,7 @@ public class ModificarPerfil extends javax.swing.JFrame {
     private javax.swing.JTextField txt_Apellido;
     private javax.swing.JPasswordField txt_Contra;
     private javax.swing.JPasswordField txt_Contra1;
+    private javax.swing.JPasswordField txt_Contra2;
     private javax.swing.JTextField txt_Nombre;
     // End of variables declaration//GEN-END:variables
 

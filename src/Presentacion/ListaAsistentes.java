@@ -27,7 +27,6 @@ public class ListaAsistentes extends javax.swing.JFrame {
     /**
      * Creates new form ListaAsistentes
      */
-    private ModificarAsistente mod;
     private IContUsuario Usr;
     ArrayList<Asistente> asi; 
     Asistente assi;
@@ -46,8 +45,9 @@ public class ListaAsistentes extends javax.swing.JFrame {
         }
         
         if(!ci.equals("")){
-        asi = Usr.BuscarAsistente(ci);}else{
-        asi = Usr.listarAsistentes();
+            asi = Usr.BuscarAsistente(ci);}
+        else{
+            asi = Usr.listarAsistentes();
         }
 
         for (Asistente a : asi) {
@@ -113,11 +113,6 @@ public class ListaAsistentes extends javax.swing.JFrame {
         jLabel1.setText("Buscar Asistente:");
 
         Modificar.setText("Modificar");
-        Modificar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                ModificarMouseClicked(evt);
-            }
-        });
         Modificar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ModificarActionPerformed(evt);
@@ -169,11 +164,6 @@ public class ListaAsistentes extends javax.swing.JFrame {
     }//GEN-LAST:event_buscarIngTextFieldKeyReleased
 
     private void ModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ModificarActionPerformed
-        
-
-    }//GEN-LAST:event_ModificarActionPerformed
-
-    private void ModificarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ModificarMouseClicked
         if (AsistTable.getSelectedRow() > -1) {
             String correo = (String) AsistTable.getValueAt(AsistTable.getSelectedRow(), 1);
             assi = Usr.BuscarAsist(correo);
@@ -184,7 +174,7 @@ public class ListaAsistentes extends javax.swing.JFrame {
                 nuevo.centrar();
             }
         }
-    }//GEN-LAST:event_ModificarMouseClicked
+    }//GEN-LAST:event_ModificarActionPerformed
 
     /**
      * @param args the command line arguments

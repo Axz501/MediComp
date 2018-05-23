@@ -183,6 +183,13 @@ public class MenuPrincipal extends javax.swing.JFrame {
             Icon imagenperfil = new ImageIcon(imagen.getImage().getScaledInstance(jLabelImagen.getWidth(), jLabelImagen.getHeight(), Image.SCALE_DEFAULT));
             jLabelImagen.setIcon(imagenperfil);
         }
+        else{
+            java.util.Properties p = System.getProperties(); 
+            String cadena = p.getProperty("user.dir"); 
+            ImageIcon imagen = new ImageIcon(cadena+"/src/Utils/iconoUsuario.jpg"); //genera la imagen que seleccionamos
+            Icon imagenperfil = new ImageIcon(imagen.getImage().getScaledInstance(jLabelImagen.getWidth(), jLabelImagen.getHeight(), Image.SCALE_DEFAULT));
+            jLabelImagen.setIcon(imagenperfil);
+        }
         String nombre = User.getSesionactiva().getNombre();
         String apellido = User.getSesionactiva().getApellido();
         String ci = User.getSesionactiva().getCi();
@@ -199,6 +206,16 @@ public class MenuPrincipal extends javax.swing.JFrame {
             jLabelTipo1.setText("Asistente");
         }
 
+    }
+    
+    public JLabel getImagenPerfil(){
+        return jLabelImagen;
+    }
+    public JLabel getNombrePerfil(){
+        return jLabelNombre;
+    }
+    public JLabel getApellidoPerfil(){
+        return jLabelApellido;
     }
     
 
@@ -728,8 +745,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         jLabelNombre.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
         jLabelNombre.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-
-        jLabelImagen.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jPanel35.setBackground(new java.awt.Color(153, 255, 255));
         jPanel35.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createEtchedBorder(), javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED)));
@@ -2974,7 +2989,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private void jPanel35MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel35MouseClicked
         // MODIFICAR PERFIL
         efectoclick(Color.LIGHT_GRAY,evt);
-        ModificarPerfil vent = new ModificarPerfil();
+        ModificarPerfil vent = new ModificarPerfil(this);
         vent.centrar();
         Image icono = new ImageIcon(getClass().getResource("/Utils/logomini.png")).getImage();
         vent.setIconImage(icono);
