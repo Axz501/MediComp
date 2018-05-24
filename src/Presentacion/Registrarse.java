@@ -404,9 +404,9 @@ public class Registrarse extends JFrameConFondo {
     }//GEN-LAST:event_txt_CiActionPerformed
 
     private void CargarImgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CargarImgActionPerformed
-        java.util.Properties p = System.getProperties(); 
-        String cadena = p.getProperty("user.dir"); 
-        System.out.println(cadena); 
+//        java.util.Properties p = System.getProperties(); 
+//        String cadena = p.getProperty("user.dir"); 
+//        System.out.println(cadena); 
         this.setAlwaysOnTop(false);
         FileDialog fd = new FileDialog(new JFrame(), "Choose a file", FileDialog.LOAD);
         fd.setDirectory("C:\\");
@@ -453,7 +453,7 @@ public class Registrarse extends JFrameConFondo {
     }//GEN-LAST:event_CargarImg1ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        boolean renum=false, formatOk=true, formatocorreo=false;
+        boolean renum=false, formatOk=true, formatocorreo=false, largoci = false;
         String ci, nombre, apellido, correo, comboTipo;
         int  hr_trabajadas, hr_renumeradas;
         String contrasenia = new String(txt_Contra.getPassword());
@@ -480,12 +480,17 @@ public class Registrarse extends JFrameConFondo {
             } else {
                 formatOk = true;
             }
+            if (ci.length()==8)
+                largoci = true;
+            else
+                javax.swing.JOptionPane.showMessageDialog(this, "Tu cédula debe tener 8 dígitos");
+            
             if ((correo.contains("@")) && (correo.contains(".com"))){
                 formatocorreo = true;
             }
             else
                 javax.swing.JOptionPane.showMessageDialog(this, "Formato de correo inválido");
-            if(formatOk && formatocorreo){
+            if(formatOk && formatocorreo && largoci){
 
                 boolean Ok;
                 System.out.println("comboTipo = "+comboTipo);

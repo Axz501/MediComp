@@ -8,6 +8,7 @@ import Logica.Fabrica;
 import Logica.IContUsuario;
 import Utils.JFrameConFondo;
 import java.awt.Color;
+import java.awt.FileDialog;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.io.File;
@@ -15,6 +16,7 @@ import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.border.BevelBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -231,29 +233,43 @@ public class ModificarPerfil extends JFrameConFondo {
     }//GEN-LAST:event_txt_NombreActionPerformed
 
     private void CargarImgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CargarImgActionPerformed
-        FileNameExtensionFilter filtro = new FileNameExtensionFilter("Imagenes", "jpg", "png", "JPG", "PNG"); // filtro para el Filechooser
-        Buscar.setFileFilter(filtro);
-        int a = Buscar.showOpenDialog(this); // guarda la accion que se realiza en el filechooser
-
-        if (a == JFileChooser.APPROVE_OPTION) { // la accion si se le da a abrir
-            File archivo = Buscar.getSelectedFile(); // capturar el nombre y ruta
-
-            RutaImagen = archivo.getPath();
-            String rutaMostrar = RutaImagen;
-
-            //Si la ruta es muy larga, la corta y le ponde los puntos suspesivos para mostrarla
-            if (RutaImagen.length() > 35) {
-                rutaMostrar = RutaImagen.substring(0, 35) + "...";
-            }
-
-            rutaImg.setText(rutaMostrar);
+        FileDialog fd = new FileDialog(new JFrame(), "Choose a file", FileDialog.LOAD);
+        fd.setDirectory("C:\\");
+        fd.setFile("*.jpg;*.png");
+        fd.setAlwaysOnTop(true);
+        fd.setVisible(true);
+        String filename = fd.getFile();
+        if (filename != null){
+            RutaImagen = fd.getDirectory()+filename;
+            rutaImg.setText(RutaImagen);
             ImageIcon imagen = new ImageIcon(RutaImagen); //genera la imagen que seleccionamos
             Icon icono = new ImageIcon(imagen.getImage().getScaledInstance(Img.getWidth(), Img.getHeight(), Image.SCALE_DEFAULT));
-
             this.Img.setIcon(icono); // coloca la imagen en el label
-
-            this.pack();
         }
+        
+//        FileNameExtensionFilter filtro = new FileNameExtensionFilter("Imagenes", "jpg", "png", "JPG", "PNG"); // filtro para el Filechooser
+//        Buscar.setFileFilter(filtro);
+//        int a = Buscar.showOpenDialog(this); // guarda la accion que se realiza en el filechooser
+//
+//        if (a == JFileChooser.APPROVE_OPTION) { // la accion si se le da a abrir
+//            File archivo = Buscar.getSelectedFile(); // capturar el nombre y ruta
+//
+//            RutaImagen = archivo.getPath();
+//            String rutaMostrar = RutaImagen;
+//
+//            //Si la ruta es muy larga, la corta y le ponde los puntos suspesivos para mostrarla
+//            if (RutaImagen.length() > 35) {
+//                rutaMostrar = RutaImagen.substring(0, 35) + "...";
+//            }
+//
+//            rutaImg.setText(rutaMostrar);
+//            ImageIcon imagen = new ImageIcon(RutaImagen); //genera la imagen que seleccionamos
+//            Icon icono = new ImageIcon(imagen.getImage().getScaledInstance(Img.getWidth(), Img.getHeight(), Image.SCALE_DEFAULT));
+//
+//            this.Img.setIcon(icono); // coloca la imagen en el label
+//
+//            this.pack();
+//        }
     }//GEN-LAST:event_CargarImgActionPerformed
 
     private void CargarImg1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CargarImg1ActionPerformed
@@ -289,8 +305,8 @@ public class ModificarPerfil extends JFrameConFondo {
                     Ok = Usr.ModificarUSR(nombre,apellido,contrasenia, RutaImagen,eliminarimagen.isSelected());
                     if(Ok){
                         javax.swing.JOptionPane.showMessageDialog(this,"El Usuario ha sido modificado");
-                        principal.getNombrePerfil().setText(Usr.getSesionactiva().getNombre());
-                        principal.getApellidoPerfil().setText(Usr.getSesionactiva().getApellido());
+                        principal.getNombrePerfil().setText(principal.ConvertirString(Usr.getSesionactiva().getNombre()));
+                        principal.getApellidoPerfil().setText(principal.ConvertirString(Usr.getSesionactiva().getApellido()));
                         if (Usr.getSesionactiva().getImagen() != null){
                             ImageIcon imagen = Usr.getSesionactiva().getImagen().getImagen();
                             //ImageIcon imagen = new ImageIcon(rutaimagen); //genera la imagen que seleccionamos

@@ -6,6 +6,7 @@
 package Logica;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import javax.persistence.Entity;
@@ -101,5 +102,10 @@ public class Medico extends Usuario implements Serializable {
     public String toString() {
         return "Logica.Medico[ id=" +  this.getCi() + " ]";
     }
-    
+    public void AgregarAsistente(Asistente a){
+        if(asistentes==null){
+            asistentes=new ArrayList<>();
+        }
+        asistentes.add(a);
+    }
 }

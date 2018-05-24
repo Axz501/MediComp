@@ -190,10 +190,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
             Icon imagenperfil = new ImageIcon(imagen.getImage().getScaledInstance(jLabelImagen.getWidth(), jLabelImagen.getHeight(), Image.SCALE_DEFAULT));
             jLabelImagen.setIcon(imagenperfil);
         }
-        String nombre = User.getSesionactiva().getNombre();
-        String apellido = User.getSesionactiva().getApellido();
+        String nombre = ConvertirString(User.getSesionactiva().getNombre());
+        String apellido = ConvertirString(User.getSesionactiva().getApellido());
         String ci = User.getSesionactiva().getCi();
         String correo = User.getSesionactiva().getCorreo();
+        String letra = nombre.substring(0,1);
         jLabelNombre.setText(nombre);
         jLabelApellido.setText(apellido);
         jLabelCedula.setText(ci);
@@ -201,11 +202,27 @@ public class MenuPrincipal extends javax.swing.JFrame {
         if (User.getSesionactiva() instanceof Asistente){
             Subtitulo.setText("Médicos");
             jLabel43.setText("Ver Médicos");
-            jPanel5.setVisible(false);
+            //jPanel5.setVisible(false);
             jPanel30.setVisible(false);
+            jPanel6.setVisible(false);
             jLabelTipo1.setText("Asistente");
         }
 
+    }
+    String ConvertirString(String cad) {
+        cad = cad.toLowerCase();
+        String[] palabras = cad.split("\\s+");
+        cad = "";
+        for (int i = 0; i < palabras.length; i++) {
+            palabras[i].toLowerCase();
+            palabras[i] = palabras[i].substring(0, 1).toUpperCase() + palabras[i].substring(1);
+            if (i == 0) {
+                cad = cad + palabras[i];
+            } else {
+                cad = cad + " " + palabras[i];
+            }
+        }
+        return cad;
     }
     
     public JLabel getImagenPerfil(){
@@ -280,11 +297,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jLabel37 = new javax.swing.JLabel();
         Subtitulo = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
-        jLabel40 = new javax.swing.JLabel();
-        jLabel41 = new javax.swing.JLabel();
-        jPanel6 = new javax.swing.JPanel();
-        jLabel43 = new javax.swing.JLabel();
         jLabel36 = new javax.swing.JLabel();
+        jLabel43 = new javax.swing.JLabel();
+        jPanel6 = new javax.swing.JPanel();
+        jLabel41 = new javax.swing.JLabel();
+        jLabel40 = new javax.swing.JLabel();
         jPanel30 = new javax.swing.JPanel();
         jLabel83 = new javax.swing.JLabel();
         jLabel84 = new javax.swing.JLabel();
@@ -959,34 +976,33 @@ public class MenuPrincipal extends javax.swing.JFrame {
             }
         });
 
-        jLabel40.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
-        jLabel40.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel40.setText("Agregar asistentes");
+        jLabel36.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Utils/grupo.png"))); // NOI18N
 
-        jLabel41.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel41.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Utils/agregar-usuario.png"))); // NOI18N
-        jLabel41.setAlignmentX(0.5F);
+        jLabel43.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
+        jLabel43.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel43.setText("Listar asistentes");
+        jLabel43.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel40, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap()
+                .addComponent(jLabel43, javax.swing.GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(54, 54, 54)
-                .addComponent(jLabel41)
+                .addGap(52, 52, 52)
+                .addComponent(jLabel36)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addComponent(jLabel41)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel40, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel36)
+                .addGap(4, 4, 4)
+                .addComponent(jLabel43, javax.swing.GroupLayout.DEFAULT_SIZE, 55, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -1005,33 +1021,35 @@ public class MenuPrincipal extends javax.swing.JFrame {
             }
         });
 
-        jLabel43.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
-        jLabel43.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel43.setText("Listar asistentes");
-        jLabel43.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jLabel41.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel41.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Utils/agregar-usuario.png"))); // NOI18N
+        jLabel41.setAlignmentX(0.5F);
 
-        jLabel36.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Utils/grupo.png"))); // NOI18N
+        jLabel40.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
+        jLabel40.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel40.setText("Agregar asistentes");
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel43, javax.swing.GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE)
-                .addContainerGap())
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGap(53, 53, 53)
-                .addComponent(jLabel36)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel40, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addGap(51, 51, 51)
+                        .addComponent(jLabel41)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+            .addGroup(jPanel6Layout.createSequentialGroup()
                 .addGap(16, 16, 16)
-                .addComponent(jLabel36)
+                .addComponent(jLabel41)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel43, javax.swing.GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE)
+                .addComponent(jLabel40, javax.swing.GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -2968,14 +2986,9 @@ public class MenuPrincipal extends javax.swing.JFrame {
         this.setExtendedState(MAXIMIZED_BOTH);
     }//GEN-LAST:event_formWindowDeiconified
 
-    private void jPanel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel5MouseClicked
-        //Agregar Asistente
-        efectoclick(Color.LIGHT_GRAY,evt);
-        
-    }//GEN-LAST:event_jPanel5MouseClicked
-
     private void jPanel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel6MouseClicked
-        ListaAsistentes nuevo = new ListaAsistentes();
+        //Agregar Asistente
+        AgregarAsistente nuevo = new AgregarAsistente();
         nuevo.setVisible(true);
         nuevo.centrar();
         efectoclick(Color.LIGHT_GRAY,evt);
@@ -3430,16 +3443,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
         efectohoversalir(new Color(153,255,255),evt);
     }//GEN-LAST:event_jPanel66MouseExited
 
-    private void jPanel5MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel5MouseEntered
-        // TODO add your handling code here:
-        efectohoverentrar(new Color(102,153,255),evt);
-    }//GEN-LAST:event_jPanel5MouseEntered
-
-    private void jPanel5MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel5MouseExited
-        // TODO add your handling code here:
-        efectohoversalir(new Color(153,255,255),evt);
-    }//GEN-LAST:event_jPanel5MouseExited
-
     private void jPanel6MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel6MouseEntered
         // TODO add your handling code here:
         efectohoverentrar(new Color(102,153,255),evt);
@@ -3507,6 +3510,25 @@ public class MenuPrincipal extends javax.swing.JFrame {
             System.exit(0);
         }
     }//GEN-LAST:event_jButton2MouseClicked
+
+    private void jPanel5MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel5MouseExited
+        // TODO add your handling code here:
+        efectohoversalir(new Color(153,255,255),evt);
+    }//GEN-LAST:event_jPanel5MouseExited
+
+    private void jPanel5MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel5MouseEntered
+        // TODO add your handling code here:
+        efectohoverentrar(new Color(102,153,255),evt);
+    }//GEN-LAST:event_jPanel5MouseEntered
+
+    private void jPanel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel5MouseClicked
+        //Listar Asistentes
+        ListaAsistentes nuevo = new ListaAsistentes();
+        nuevo.setVisible(true);
+        nuevo.centrar();
+        efectoclick(Color.LIGHT_GRAY,evt);
+
+    }//GEN-LAST:event_jPanel5MouseClicked
 
 
     /**
