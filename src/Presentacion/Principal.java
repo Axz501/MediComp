@@ -227,6 +227,11 @@ public class Principal extends JPanelConFondo {
                 contraFocusGained(evt);
             }
         });
+        contra.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                contraKeyReleased(evt);
+            }
+        });
 
         Registrarse3.setBackground(new java.awt.Color(0, 0, 153));
         Registrarse3.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -268,11 +273,6 @@ public class Principal extends JPanelConFondo {
         Entrar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 EntrarMouseClicked(evt);
-            }
-        });
-        Entrar.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                EntrarKeyPressed(evt);
             }
         });
 
@@ -456,6 +456,10 @@ public class Principal extends JPanelConFondo {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void EntrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EntrarMouseClicked
+        this.iniciarsesion();        
+    }//GEN-LAST:event_EntrarMouseClicked
+
+    public void iniciarsesion(){
         Color c = Entrar.getBackground();
         Border b = Entrar.getBorder();
         Color c2 = Registrarse3.getBackground();
@@ -500,9 +504,8 @@ public class Principal extends JPanelConFondo {
                 }
             }
         }
-        
-    }//GEN-LAST:event_EntrarMouseClicked
-
+    }
+    
     private void Registrarse3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Registrarse3MouseClicked
         Color c = Registrarse3.getBackground();
         Border b = Registrarse3.getBorder();
@@ -562,10 +565,12 @@ public class Principal extends JPanelConFondo {
         });
     }//GEN-LAST:event_jButton4ActionPerformed
 
-    private void EntrarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_EntrarKeyPressed
+    private void contraKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_contraKeyReleased
         // TODO add your handling code here:
-        JOptionPane.showMessageDialog(this, "Has click aquí");
-    }//GEN-LAST:event_EntrarKeyPressed
+        if (evt.getKeyCode()==10){
+            this.iniciarsesion();
+        }
+    }//GEN-LAST:event_contraKeyReleased
     private void jcdActionPerformed(java.awt.event.ActionEvent evt){
         String texto = jcd.getSelectedItem().toString();
         cedula.setText(texto);

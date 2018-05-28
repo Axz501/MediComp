@@ -7,6 +7,7 @@ package Presentacion;
 
 import Logica.Asistente;
 import Logica.ControladorUsuarios;
+import Logica.DtUsuario;
 import Logica.Fabrica;
 import Logica.IContUsuario;
 import Logica.Medico;
@@ -16,26 +17,31 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import Presentacion.ModificarAsistente;
+import Utils.JFrameConFondo;
+import java.awt.Image;
 import java.util.List;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 
 
 /**
  *
  * @author ninoh
  */
-public class ListaAsistentes extends javax.swing.JFrame {
+public class ListaAsistentes extends JFrameConFondo {
 
     /**
      * Creates new form ListaAsistentes
      */
     private IContUsuario Usr;
-    ArrayList<Asistente> asi; 
+    List<DtUsuario> asii;
     Asistente assi;
     public ListaAsistentes() {
         initComponents();
         Usr = ControladorUsuarios.getInstance();
         setTitle("Lista de Asistentes");
         setResizable(false);
+        this.setImagen("Fondo.jpg");
         listarAsistentes("");
     }
      public void listarAsistentes(String ci) {
@@ -44,19 +50,15 @@ public class ListaAsistentes extends javax.swing.JFrame {
         while (modelo.getRowCount() > 0) {
             modelo.removeRow(0);
         }
-         List<Asistente> asit = Usr.getAsistentes();
-         if (!ci.equals("")) {
-             asi = Usr.BuscarAsistente(ci);
-         } else {
-             asi = Usr.listarAsistentes();
-         }
+        asii = Usr.listarAsistentesMedico(ci);
 
+         
 
-        for (Asistente a : asi) {
-            String[] datos = {a.getNombre() + " " + a.getApellido(), a.getCorreo(),String.valueOf(a.getHoras_renumeradas()),String.valueOf(a.getHoras_trabajadas())};
+        for (DtUsuario a : asii) {
+            String[] datos = {a.getNombre(),a.getApellido(),a.getCi(), a.getCorreo(),a.isRenumerado() ? "Si" : "No",String.valueOf(a.getHoras_renum()),String.valueOf(a.getHoras_trab()),  a.getImagen()!=null ? "Si" : "No"};
             modelo.addRow(datos);
         }
-
+        
     }
 
     /**
@@ -73,6 +75,15 @@ public class ListaAsistentes extends javax.swing.JFrame {
         buscarIngTextField = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         Modificar = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        hrsrenum = new javax.swing.JSpinner();
+        hrstrab = new javax.swing.JSpinner();
+        jSeparator1 = new javax.swing.JSeparator();
+        jLabel6 = new javax.swing.JLabel();
+        renumerado = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -82,29 +93,30 @@ public class ListaAsistentes extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Nombre Apellido", "Correo", "Horas renumeradas", "Horas trabajadas"
+                "Nombre", "Apellido", "C.I.", "Correo", "Renumerado", "Horas renumeradas", "Horas trabajadas"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
+        AsistTable.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
         AsistTable.setGridColor(new java.awt.Color(204, 204, 204));
         AsistTable.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 AsistTableMouseClicked(evt);
             }
         });
-        AsistTable.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                AsistTableKeyReleased(evt);
-            }
-        });
         jScrollPane2.setViewportView(AsistTable);
+        if (AsistTable.getColumnModel().getColumnCount() > 0) {
+            AsistTable.getColumnModel().getColumn(0).setPreferredWidth(120);
+            AsistTable.getColumnModel().getColumn(1).setPreferredWidth(120);
+            AsistTable.getColumnModel().getColumn(3).setPreferredWidth(120);
+        }
 
         buscarIngTextField.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -112,12 +124,32 @@ public class ListaAsistentes extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
         jLabel1.setText("Buscar Asistente:");
 
         Modificar.setText("Modificar");
         Modificar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ModificarActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
+        jLabel2.setText("Imagen de Perfil");
+
+        jLabel4.setText("Horas renumeradas:");
+
+        jLabel5.setText("Horas trabajadas:");
+
+        jLabel6.setBackground(new java.awt.Color(0, 0, 255));
+        jLabel6.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
+        jLabel6.setText("Modificar Datos del Asistente Seleccionado");
+        jLabel6.setToolTipText("");
+
+        renumerado.setText("Renumerado");
+        renumerado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                renumeradoActionPerformed(evt);
             }
         });
 
@@ -128,38 +160,97 @@ public class ListaAsistentes extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(buscarIngTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(Modificar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 592, Short.MAX_VALUE))
-                .addContainerGap())
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 578, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLabel1)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(buscarIngTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGap(18, 18, 18)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel2)
+                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addComponent(renumerado)
+                            .addGap(72, 72, 72)
+                            .addComponent(jLabel4)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(hrsrenum, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(49, 49, 49)
+                            .addComponent(jLabel5)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(hrstrab, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(Modificar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jSeparator1))
+                    .addComponent(jLabel6))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(buscarIngTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Modificar))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1)
+                            .addComponent(buscarIngTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel2)))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 183, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Modificar)
+                    .addComponent(jLabel4)
+                    .addComponent(hrsrenum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5)
+                    .addComponent(hrstrab, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(renumerado))
+                .addGap(19, 19, 19))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void AsistTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AsistTableMouseClicked
-
+        if (AsistTable.getSelectedRow() > -1) {
+            for (DtUsuario a : asii){
+                if (a.getCi().equals(AsistTable.getValueAt(AsistTable.getSelectedRow(), 2))){
+                    if (a.getImagen()!=null){
+                        ImageIcon imagen = a.getImagen().getImagen();
+                        Icon imagenperfil = new ImageIcon(imagen.getImage().getScaledInstance(jLabel3.getWidth(), jLabel3.getHeight(), Image.SCALE_DEFAULT));
+                        jLabel3.setIcon(imagenperfil);
+                    }
+                    else{
+                        java.util.Properties p = System.getProperties(); 
+                        String cadena = p.getProperty("user.dir"); 
+                        ImageIcon imagen = new ImageIcon(cadena+"/src/Utils/iconoUsuario.jpg"); //genera la imagen que seleccionamos
+                        Icon imagenperfil = new ImageIcon(imagen.getImage().getScaledInstance(jLabel3.getWidth(), jLabel3.getHeight(), Image.SCALE_DEFAULT));
+                        jLabel3.setIcon(imagenperfil);
+                    }
+                }
+            }
+            int aux1 = Integer.parseInt((String) AsistTable.getValueAt(AsistTable.getSelectedRow(), 6));
+            int aux2 = Integer.parseInt((String) AsistTable.getValueAt(AsistTable.getSelectedRow(), 5));
+            hrstrab.setValue(aux1);
+            hrsrenum.setValue(aux2);
+            String renum = (String) AsistTable.getValueAt(AsistTable.getSelectedRow(), 4);
+            if (renum.equals("Si"))
+                renumerado.setSelected(true);
+            else
+                renumerado.setSelected(false);
+        }
     }//GEN-LAST:event_AsistTableMouseClicked
-
-    private void AsistTableKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_AsistTableKeyReleased
-
-    }//GEN-LAST:event_AsistTableKeyReleased
 
     private void buscarIngTextFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_buscarIngTextFieldKeyReleased
         listarAsistentes(buscarIngTextField.getText());
@@ -167,16 +258,33 @@ public class ListaAsistentes extends javax.swing.JFrame {
 
     private void ModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ModificarActionPerformed
         if (AsistTable.getSelectedRow() > -1) {
-            String correo = (String) AsistTable.getValueAt(AsistTable.getSelectedRow(), 1);
-            assi = Usr.BuscarAsist(correo);
+            String ci = (String) AsistTable.getValueAt(AsistTable.getSelectedRow(), 2);
+            assi = Usr.BuscarAsist(ci);
             Usuario u = Usr.getSesionactiva();
-            if (u instanceof Medico) {
-                ModificarAsistente nuevo = new ModificarAsistente(this);
-                nuevo.setVisible(true);
-                nuevo.centrar();
+            boolean b = renumerado.isSelected();
+            int hrsren = (int) hrsrenum.getValue();
+            int hrstrb = (int) hrstrab.getValue();
+            if (hrsren > hrstrb)
+                JOptionPane.showMessageDialog(this, "Las horas renumeradas no pueden ser mayor a las horas trabajadas", "Error", JOptionPane.ERROR_MESSAGE);
+            else{
+                this.Usr.ModificarAsistente(ci, b, hrsren, hrstrb);
+                JOptionPane.showMessageDialog(this, "Los datos del asistente se han modificado", "Operación Completada", JOptionPane.INFORMATION_MESSAGE);
+                AsistTable.setValueAt(Integer.toString(hrsren), AsistTable.getSelectedRow(),5);
+                AsistTable.setValueAt(Integer.toString(hrstrb), AsistTable.getSelectedRow(),6);
+                if (b)
+                    AsistTable.setValueAt("Si", AsistTable.getSelectedRow(),4);
+                else
+                    AsistTable.setValueAt("No", AsistTable.getSelectedRow(),4);
             }
         }
+        else{
+            JOptionPane.showMessageDialog(this, "No has seleccionado un asistente");
+        }
     }//GEN-LAST:event_ModificarActionPerformed
+
+    private void renumeradoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_renumeradoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_renumeradoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -204,6 +312,9 @@ public class ListaAsistentes extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(ListaAsistentes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -217,8 +328,17 @@ public class ListaAsistentes extends javax.swing.JFrame {
     private javax.swing.JTable AsistTable;
     private javax.swing.JButton Modificar;
     private javax.swing.JTextField buscarIngTextField;
+    private javax.swing.JSpinner hrsrenum;
+    private javax.swing.JSpinner hrstrab;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JCheckBox renumerado;
     // End of variables declaration//GEN-END:variables
 public void centrar(){
         //este metodo devuelve el tamaÃ±o de la pantalla

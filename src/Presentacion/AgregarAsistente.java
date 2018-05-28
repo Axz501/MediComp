@@ -49,13 +49,13 @@ public class AgregarAsistente extends javax.swing.JFrame {
 //            modelo.addRow(dat);
 //            }
 //        }
-        asi = (ArrayList<Asistente>) Usr.getAsistentes();
+//      asi = (ArrayList<Asistente>) Usr.getAsistentes();
         modelo = (DefaultTableModel) AsistTable.getModel();
         modelo.setRowCount(0);
-        for (Asistente a : asi) {
-            String[] datos = {a.getNombre() + " " + a.getApellido(),a.getCi(), a.getCorreo(),String.valueOf(a.getHoras_renumeradas()),String.valueOf(a.getHoras_trabajadas())};
-            modelo.addRow(datos);
-        }       
+//        for (Asistente a : asi) {
+//            String[] datos = {a.getNombre() + " " + a.getApellido(),a.getCi(), a.getCorreo(),String.valueOf(a.getHoras_renumeradas()),String.valueOf(a.getHoras_trabajadas())};
+//            modelo.addRow(datos);
+//        }       
 
         }
 
@@ -174,7 +174,7 @@ public class AgregarAsistente extends javax.swing.JFrame {
             assi = Usr.BuscarAsist(correo);
             Usuario u = Usr.getSesionactiva();
             if (u instanceof Medico) {
-                ((Medico) u).AgregarAsistente(assi);
+                //((Medico) u).AgregarAsistente(assi);
                 javax.swing.JOptionPane.showMessageDialog(this, "El Asistente ha sido agregado");
             }
         }

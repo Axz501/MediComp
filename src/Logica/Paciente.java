@@ -42,6 +42,8 @@ public class Paciente implements Serializable {
     private List<Consulta> consultas;
     @ManyToMany
     private List<Entidad> entidades;
+    @ManyToMany(mappedBy = "pacientes")
+    private List<Medico> medicos;
 
     public Paciente(String ci, String nombre, String apellido, int edad, String genero, Imagen imagen, boolean particular, String correo, String telefono, Direccion direccion) {
         this.ci = ci;

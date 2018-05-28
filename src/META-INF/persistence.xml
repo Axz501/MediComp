@@ -17,6 +17,7 @@
     <class>Logica.EstadoDeuda</class>
     <class>Logica.Cuota</class>
     <class>Logica.Imagen</class>
+    <class>Logica.Rel_Med_Asis</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3308/medicomp?zeroDateTimeBehavior=convertToNull"/>
       <property name="javax.persistence.jdbc.user" value="root"/>

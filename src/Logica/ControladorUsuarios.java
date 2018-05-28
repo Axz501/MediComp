@@ -24,6 +24,7 @@ import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Pattern;
 import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
@@ -70,6 +71,7 @@ public class ControladorUsuarios  implements IContUsuario{
         }
         return instancia;
     }
+
 
 
 
@@ -220,7 +222,7 @@ public class ControladorUsuarios  implements IContUsuario{
     }
     
     @Override
-    public boolean IngresarAsistente(boolean renumerado,int horas_trabajadas,int horas_renumeradas,String ci, String nombre, String apellido, String correo, String contrasenia, String Img) {
+    public boolean IngresarAsistente(String ci, String nombre, String apellido, String correo, String contrasenia, String Img) {
         if (Fabrica.getUsuario().verificarDatos(ci, correo) == false) { // si ya existe un cliente con ese nickname o correo
             return false;
         } else {
@@ -233,25 +235,9 @@ public class ControladorUsuarios  implements IContUsuario{
 
         //Si no retorno false antes, entonces los datos están bien
         if (Img != null) {
-            //Divide el string por el punto, tambien elimina el punto
-//            String[] aux = Img.split("\\."); // al punto(.) se le agregan las dos barras (\\) porque es un caracter especial
-//
-//            //toma la segunda parte porque es la extension
-//            //Ej. "C:\Imagenes\imagen.jpg" -> aux[0] = "C:\Imagenes\imagen" y aux[1] = "jpg"
-//            String extension = aux[1];
-//
-//            //Ruta donde se va a copiar el archivo de imagen
-//            String rutaDestino = "Imagenes/Usuarios/Asistente/" + ci + "." + extension; // se le agrega el punto(.) porque la hacer el split tambien se borra
-//
-//            //esa funcion retorna un booleano que indica si la imagen se pudo crear correctamente
-//            //la funcion ya esta definida en el controlador de cliente porque ahi se usa, entocnces no hay que declararla otra vez en este controlador
-//            if (Fabrica.getUsuario().copiarArchivo(Img, rutaDestino) == true) {
-//                Img = rutaDestino; //la ruta que hay que guardar es la del archivo nuevo que fue copiado dentro del servidor
-//            } else {
-//                Img = null; // no se pudo copiar la imagen, queda en null
-//            }
+            
             Imagen img = new Imagen(Img);
-            Asistente a = new Asistente(renumerado, horas_trabajadas, horas_renumeradas, ci, nombre, apellido, correo,passhash, img);
+            Asistente a = new Asistente( ci, nombre, apellido, correo,passhash, img);
             this.usuarios.put(ci, a);
             try {
                 persist(img);
@@ -261,7 +247,7 @@ public class ControladorUsuarios  implements IContUsuario{
                 return false;
             }
         } else {
-            Asistente a = new Asistente(renumerado, horas_trabajadas, horas_renumeradas, ci, passhash, nombre, apellido, correo);
+            Asistente a = new Asistente(ci, passhash, nombre, apellido, correo);
             this.usuarios.put(ci, a);
             try {
                 persist(a);
@@ -320,28 +306,16 @@ public class ControladorUsuarios  implements IContUsuario{
         }
     }
     
-    @Override
-    public List<Asistente> getAsistentes(){
-        List<Asistente> asis = new ArrayList();
-        Iterator it = this.usuarios.values().iterator();
-        while (it.hasNext()){
-            Usuario u = (Usuario) it.next();
-            if (u instanceof Asistente){
-                Asistente a = (Asistente) u;
-                asis.add(a);
-            }
-        }
-        return asis;
-    }
+
     
     @Override
     public void prueba(){
-        Imagen i = new Imagen("123.jpg");
-        Medico m = new Medico("45678","Cosme","fulanito","hola@gmail.com","123456789",i);
-        Asistente a = new Asistente(false,0,0,"5555","Juan","Perez","juan2@gmail.com","123456789",i);
-        persist(i);
-        persist(m);
-        persist(a);
+//        Imagen i = new Imagen("123.jpg");
+//        Medico m = new Medico("45678","Cosme","fulanito","hola@gmail.com","123456789",i);
+//        Asistente a = new Asistente(false,0,0,"5555","Juan","Perez","juan2@gmail.com","123456789",i);
+//        persist(i);
+//        persist(m);
+//        persist(a);
     }
     
     @Override
@@ -421,39 +395,104 @@ public class ControladorUsuarios  implements IContUsuario{
         ArrayList<Asistente> retornar = new ArrayList<>();
         for(Map.Entry<String,Usuario> u : usuarios.entrySet()){
             if(u.getValue() instanceof Asistente){
-            retornar.add(((Asistente) u.getValue()).getDatos());
+            retornar.add((Asistente) u.getValue());
         }}
         return retornar;
 
     }
     
-     public ArrayList<Asistente> BuscarAsistente(String ci) {
-        ArrayList<Asistente> retornar = new ArrayList<>();
+    
+    
+    @Override
+    public List<DtUsuario> listarAsistentesMedico(String ci) {
+    List<DtUsuario> retornar = new ArrayList<>();
+    Medico m = (Medico) this.sesionactiva;
+    for (Rel_Med_Asis rel : m.getAsistentes()){
+        if (rel.getAsistente().getCi().toLowerCase().contains(ci.toLowerCase()) || rel.getAsistente().getNombre().toLowerCase().contains(ci.toLowerCase()) || rel.getAsistente().getApellido().toLowerCase().contains(ci.toLowerCase()) )
+            retornar.add(rel.getAsistente().getDatos(m.getCi()));
+    }
+//    List<Rel_Med_Asis> asis = new ArrayList();
+//    Iterator it = this.usuarios.values().iterator();
+//    while (it.hasNext()){
+//        Usuario u = sesionactiva;
+//        //Medico m = (Medico) u;
+//        Usuario ur = (Usuario) it.next();
+//        if (ur instanceof Asistente){
+//            asis = m.getAsistentes();
+//        }
+//    }
+    return retornar;
+    }
+    
+    @Override
+    public void AgregarAsistente(String ci){
+        Medico m = (Medico) this.sesionactiva;
+        //Rel_Med_Asis rel = getRelacionMedicoAsistente(m.getCi(),correoasi);
+        Asistente a = (Asistente) this.usuarios.get(ci);
+        Rel_Med_Asis rel = new Rel_Med_Asis();
+        m.AgregarAsistente(rel);
+        a.agregarMedico(rel);
+        rel.setAsistente(a);
+        rel.setMedico(m);
+        persist(rel);
+        
+        if (!ControladorUsuarios.getInstance().getEntityManager().getTransaction().isActive())
+            ControladorUsuarios.getInstance().getEntityManager().getTransaction().begin();
+        
+        if (ControladorUsuarios.getInstance().getEntityManager().getTransaction().isActive())
+            ControladorUsuarios.getInstance().getEntityManager().getTransaction().commit();
+//      
+    }
+    
+    public Rel_Med_Asis getRelacionMedicoAsistente(String cimed,String ciasis){
+        Medico m = (Medico) this.usuarios.get(cimed);
+        Rel_Med_Asis rel = null;
+        for (int i=0; i<m.getAsistentes().size() ; i++){
+            if (m.getAsistentes().get(i).getAsistente().getCi().equals(ciasis)){
+                rel = m.getAsistentes().get(i);
+            }
+        }
+        return rel;
+    }
+    
+    @Override
+    public void ModificarAsistente(String ciasis,boolean b,int hrsr, int hrst){
+        String cimed = this.sesionactiva.getCi();
+        Rel_Med_Asis rel = getRelacionMedicoAsistente(cimed,ciasis);
+        rel.setHoras_renumeradas(hrsr);
+        rel.setHoras_trabajadas(hrst);
+        rel.setRenumerado(b);
+        if (!ControladorUsuarios.getInstance().getEntityManager().getTransaction().isActive()){
+            ControladorUsuarios.getInstance().getEntityManager().getTransaction().begin();
+            ControladorUsuarios.getInstance().getEntityManager().getTransaction().commit();
+        }   
+    }
+
+    
+    @Override
+     public ArrayList<DtUsuario> BuscarAsistente(String ci) {
+        ArrayList<DtUsuario> retornar = new ArrayList<>();
         Iterator iterador = this.usuarios.values().iterator();
-        if (ci.equals("") == false) {
-             for(Map.Entry<String,Usuario> u : usuarios.entrySet()){
-            if(u.getValue() instanceof Asistente){
-                if (u.getValue().getCi().startsWith(ci) == true) {
-                    retornar.add(((Asistente) u.getValue()).getDatos());
+        while (iterador.hasNext()){
+            Usuario u = (Usuario) iterador.next();
+            if (u instanceof Asistente){
+                Asistente a = (Asistente) u;
+                if (a.getCi().toLowerCase().contains(ci.toLowerCase()) || a.getNombre().toLowerCase().contains(ci.toLowerCase()) || a.getApellido().toLowerCase().contains(ci.toLowerCase()) ) {
+                    retornar.add(a.getDatos(this.sesionactiva.getCi()));
                 }
             }
-             }
-
-        } else {
-            System.out.println("campo vacio");
         }
-
         return retornar;
     }
     public Asistente BuscarAsist(String correo) {
 
         if (correo.equals("") == false) {
-             for(Map.Entry<String,Usuario> u : usuarios.entrySet()){
+            for(Map.Entry<String,Usuario> u : usuarios.entrySet()){
             if(u.getValue() instanceof Asistente){
                 if (u.getValue().getCorreo().equals(correo)) {
                     return ((Asistente) u.getValue());
+                    }
                 }
-            }
              }
 
         } else {
@@ -462,4 +501,5 @@ public class ControladorUsuarios  implements IContUsuario{
 
         return null;
     }
+
 }

@@ -26,12 +26,14 @@ public class Medico extends Usuario implements Serializable {
     //private static final long serialVersionUID = 1L;
 //    @Id
 //    private String ci;
-    @OneToMany
-    private List<Entidad> entidades;
-    @OneToMany
-    private List<Paciente> pacientes;
     @ManyToMany
-    private List<Asistente> asistentes = null;
+    private List<Entidad> entidades = new ArrayList();
+    @ManyToMany
+    private List<Paciente> pacientes = new ArrayList() ;
+//    @ManyToMany
+//    private List<Asistente> asistentes = null;
+    @OneToMany(mappedBy = "medico")
+    private List<Rel_Med_Asis> asistentes = new ArrayList();
     
     public Medico(){}
 
@@ -52,6 +54,15 @@ public class Medico extends Usuario implements Serializable {
         this.entidades=null;
         this.pacientes=null;
     }
+
+    public List<Rel_Med_Asis> getAsistentes() {
+        return asistentes;
+    }
+
+    public void setAsistentes(List<Rel_Med_Asis> asistentes) {
+        this.asistentes = asistentes;
+    }
+
     
     public void AgregarEntidad(Entidad e){
         this.entidades.add(e);
@@ -78,6 +89,7 @@ public class Medico extends Usuario implements Serializable {
     }
     
 
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -102,10 +114,21 @@ public class Medico extends Usuario implements Serializable {
     public String toString() {
         return "Logica.Medico[ id=" +  this.getCi() + " ]";
     }
-    public void AgregarAsistente(Asistente a){
+    public void AgregarAsistente(Rel_Med_Asis a){
         if(asistentes==null){
             asistentes=new ArrayList<>();
         }
         asistentes.add(a);
     }
+        public List<Asistente> getAsistente(String ci) {
+            List<Asistente> asis = new ArrayList();
+            for (Rel_Med_Asis a : this.asistentes) {
+                if (a.getAsistente().getCi().equals(ci)) {
+                    Asistente as = a.getAsistente();
+                    asis.add(as);
+                }
+            return asis;
+            }
+            return null;
+        }
 }

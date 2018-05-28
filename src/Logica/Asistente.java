@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 /**
  *
@@ -18,51 +19,38 @@ public class Asistente extends Usuario implements Serializable {
     //private static final long serialVersionUID = 1L;
 //    @Id
 //    private String ci;
-    private boolean renumerado;
-    private int horas_trabajadas;
-    private int horas_renumeradas;
-    @ManyToMany(mappedBy = "asistentes")
-    private List<Medico> medicos = null;
+    
+    @OneToMany(mappedBy = "asistente")
+    private List<Rel_Med_Asis> medicos = null;
     
     public Asistente(){}
 
-    public Asistente(boolean renumerado, int horas_trabajadas, int horas_renumeradas, String ci, String nombre, String apellido, String correo, String contraseña, Imagen imagen) {
+    public Asistente(String ci, String nombre, String apellido, String correo, String contraseña, Imagen imagen) {
         super(ci, nombre, apellido, correo, contraseña, imagen);
-        this.renumerado = renumerado;
-        this.horas_trabajadas = horas_trabajadas;
-        this.horas_renumeradas = horas_renumeradas;
+//        this.renumerado = renumerado;
+//        this.horas_trabajadas = horas_trabajadas;
+//        this.horas_renumeradas = horas_renumeradas;
     }
 
-    Asistente(boolean renumerado, int horas_trabajadas, int horas_renumeradas, String ci, String contrasenia, String nombre, String apellido, String correo) {
+    Asistente(String ci, String contrasenia, String nombre, String apellido, String correo) {
         super(ci, contrasenia, nombre, apellido, correo);
-        this.renumerado = renumerado;
-        this.horas_trabajadas = horas_trabajadas;
-        this.horas_renumeradas = horas_renumeradas;
+//        this.renumerado = renumerado;
+//        this.horas_trabajadas = horas_trabajadas;
+//        this.horas_renumeradas = horas_renumeradas;
     }
 
-    public boolean isRenumerado() {
-        return renumerado;
+    public void agregarMedico(Rel_Med_Asis e){
+        this.medicos.add(e);
+    }
+    
+    public List<Rel_Med_Asis> getMedicos() {
+        return medicos;
     }
 
-    public void setRenumerado(boolean renumerado) {
-        this.renumerado = renumerado;
+    public void setMedicos(List<Rel_Med_Asis> medicos) {
+        this.medicos = medicos;
     }
 
-    public int getHoras_trabajadas() {
-        return horas_trabajadas;
-    }
-
-    public void setHoras_trabajadas(int horas_trabajadas) {
-        this.horas_trabajadas = horas_trabajadas;
-    }
-
-    public int getHoras_renumeradas() {
-        return horas_renumeradas;
-    }
-
-    public void setHoras_renumeradas(int horas_renumeradas) {
-        this.horas_renumeradas = horas_renumeradas;
-    }
     
     @Override
     public int hashCode() {
@@ -88,8 +76,18 @@ public class Asistente extends Usuario implements Serializable {
     public String toString() {
         return "Logica.Asistente[ id=" + this.getCi() + " ]";
     }
-    public Asistente getDatos(){ 
-        return new Asistente(this.renumerado,this.getHoras_trabajadas(),this.getHoras_renumeradas(),this.getCi(),this.getContrasenia(),this.getNombre(),this.getApellido(),this.getCorreo());
+    public DtUsuario getDatos(String ci){
+        Rel_Med_Asis rel = null;
+        for (int i=0; i<this.getMedicos().size();i++){
+            if (getMedicos().get(i).getMedico().getCi().equals(ci))
+                rel = getMedicos().get(i);
+        }
+        DtUsuario a = null;
+        if (rel!=null)
+            a = new DtUsuario(this.getCi(),this.getNombre(),this.getApellido(),this.getCorreo(),this.getImagen(),rel.isRenumerado(),rel.getHoras_renumeradas(),rel.getHoras_trabajadas());
+        else
+            a = new DtUsuario(this.getCi(),this.getNombre(),this.getApellido(),this.getCorreo(),this.getImagen());
+        return a;
     }
     
 }

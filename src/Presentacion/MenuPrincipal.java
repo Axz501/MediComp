@@ -194,14 +194,13 @@ public class MenuPrincipal extends javax.swing.JFrame {
         String apellido = ConvertirString(User.getSesionactiva().getApellido());
         String ci = User.getSesionactiva().getCi();
         String correo = User.getSesionactiva().getCorreo();
-        String letra = nombre.substring(0,1);
         jLabelNombre.setText(nombre);
         jLabelApellido.setText(apellido);
         jLabelCedula.setText(ci);
         jLabelCorreo.setText(correo);
         if (User.getSesionactiva() instanceof Asistente){
             Subtitulo.setText("Médicos");
-            jLabel43.setText("Ver Médicos");
+            jLabel43.setText("Médicos Asociados");
             //jPanel5.setVisible(false);
             jPanel30.setVisible(false);
             jPanel6.setVisible(false);
@@ -762,6 +761,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         jLabelNombre.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
         jLabelNombre.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
+        jLabelImagen.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         jPanel35.setBackground(new java.awt.Color(153, 255, 255));
         jPanel35.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createEtchedBorder(), javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED)));
@@ -2988,7 +2989,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
     private void jPanel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel6MouseClicked
         //Agregar Asistente
-        AgregarAsistente nuevo = new AgregarAsistente();
+        AgregarAsistentes nuevo = new AgregarAsistentes();
         nuevo.setVisible(true);
         nuevo.centrar();
         efectoclick(Color.LIGHT_GRAY,evt);

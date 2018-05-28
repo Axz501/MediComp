@@ -31,7 +31,7 @@ public class Entidad implements Serializable {
     private Direccion direccion;
     private String telefono;
     @ManyToMany(mappedBy = "entidades")
-    private List<Paciente> pacientes;
+    private List<Paciente> pacientes = null;
 
     public Entidad(String correo, String nombre, Direccion direccion, String telefono) {
         this.correo = correo;
