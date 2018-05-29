@@ -3,6 +3,7 @@
 <Form version="1.9" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
+    <Property name="title" type="java.lang.String" value="MediComp"/>
     <Property name="undecorated" type="boolean" value="true"/>
   </Properties>
   <SyntheticProperties>
@@ -1164,7 +1165,7 @@
                           <Font name="Verdana" size="12" style="1"/>
                         </Property>
                         <Property name="horizontalAlignment" type="int" value="0"/>
-                        <Property name="text" type="java.lang.String" value="Listar asistentes"/>
+                        <Property name="text" type="java.lang.String" value="Mis asistentes"/>
                         <Property name="horizontalTextPosition" type="int" value="0"/>
                       </Properties>
                     </Component>

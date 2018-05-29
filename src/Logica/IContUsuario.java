@@ -30,8 +30,10 @@ public interface IContUsuario {
     public abstract boolean ModificarUSR(String nombre,String apellido,String contrasenia, String RutaImagen, boolean elim);
     public abstract ArrayList<Asistente> listarAsistentes();
     public abstract List<DtUsuario> listarAsistentesMedico(String ci);
+    public abstract List<DtUsuario> listarMedicosAsistente(String cimed);
     public abstract ArrayList<DtUsuario> BuscarAsistente(String palabra);
     public abstract Asistente BuscarAsist(String correo);
     public abstract void AgregarAsistente(String correoasi);
     public abstract void ModificarAsistente(String ci,boolean b,int hrsr, int hrst);
+    public abstract void BorrarAsistente(String ci);
 }

@@ -8,6 +8,7 @@ package Presentacion;
 import Logica.Asistente;
 import Logica.Fabrica;
 import Logica.IContUsuario;
+import Logica.Medico;
 import com.nilo.plaf.nimrod.NimRODLookAndFeel;
 import com.seaglasslookandfeel.SeaGlassLookAndFeel;
 import java.awt.BorderLayout;
@@ -42,15 +43,18 @@ public class MenuPrincipal extends javax.swing.JFrame {
     /**
      * Creates new form MenuPrincipal
      */
-    
+    private ListaAsistentes listaasistentes ;
+    private BorrarAsistente borrarasistente ;
+    private AgregarAsistentes agregarasistente ;
     private IContUsuario User;
+    Image icono;
     public MenuPrincipal() {
         initComponents();
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         int x = (int) (Toolkit.getDefaultToolkit().getScreenSize().getWidth());
         int y = (int) (Toolkit.getDefaultToolkit().getScreenSize().getHeight());
         setExtendedState(MAXIMIZED_BOTH);
-        Image icono = new ImageIcon("src/Utils/Logomini.png").getImage();
+        icono = new ImageIcon("src/Utils/Logomini.png").getImage();
         icono = icono.getScaledInstance(200, 200, Image.SCALE_DEFAULT);
         setIconImage(icono);
         //Panel Principal
@@ -200,11 +204,13 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jLabelCorreo.setText(correo);
         if (User.getSesionactiva() instanceof Asistente){
             Subtitulo.setText("Médicos");
-            jLabel43.setText("Médicos Asociados");
+            jLabel43.setText("Mis Médicos");
             //jPanel5.setVisible(false);
             jPanel30.setVisible(false);
             jPanel6.setVisible(false);
             jLabelTipo1.setText("Asistente");
+            jPanel16.setVisible(false);
+            jPanel12.setVisible(false);
         }
 
     }
@@ -425,6 +431,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jLabel151 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("MediComp");
         setUndecorated(true);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowDeiconified(java.awt.event.WindowEvent evt) {
@@ -981,7 +988,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         jLabel43.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
         jLabel43.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel43.setText("Listar asistentes");
+        jLabel43.setText("Mis asistentes");
         jLabel43.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
@@ -2989,15 +2996,28 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
     private void jPanel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel6MouseClicked
         //Agregar Asistente
-        AgregarAsistentes nuevo = new AgregarAsistentes();
-        nuevo.setVisible(true);
-        nuevo.centrar();
         efectoclick(Color.LIGHT_GRAY,evt);
+        agregarasistente = new AgregarAsistentes();
+        agregarasistente.setVisible(true);
+        agregarasistente.centrar();
+        agregarasistente.setIconImage(icono);
+        if (borrarasistente!=null && borrarasistente.isVisible())
+            borrarasistente.dispose();
+        if (listaasistentes!=null && listaasistentes.isVisible())
+            listaasistentes.dispose();
     }//GEN-LAST:event_jPanel6MouseClicked
 
     private void jPanel30MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel30MouseClicked
-        // TODO add your handling code here:
+        // Borrar Asistente
         efectoclick(Color.LIGHT_GRAY,evt);
+        borrarasistente = new BorrarAsistente();
+        borrarasistente.setVisible(true);
+        borrarasistente.centrar();
+        borrarasistente.setIconImage(icono);
+        if (listaasistentes!=null && listaasistentes.isVisible())
+            listaasistentes.dispose();
+        if (agregarasistente!=null && agregarasistente.isVisible())
+            agregarasistente.dispose();
     }//GEN-LAST:event_jPanel30MouseClicked
 
     private void jPanel35MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel35MouseClicked
@@ -3005,7 +3025,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
         efectoclick(Color.LIGHT_GRAY,evt);
         ModificarPerfil vent = new ModificarPerfil(this);
         vent.centrar();
-        Image icono = new ImageIcon(getClass().getResource("/Utils/logomini.png")).getImage();
         vent.setIconImage(icono);
         vent.setVisible(true);
     }//GEN-LAST:event_jPanel35MouseClicked
@@ -3524,11 +3543,23 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
     private void jPanel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel5MouseClicked
         //Listar Asistentes
-        ListaAsistentes nuevo = new ListaAsistentes();
-        nuevo.setVisible(true);
-        nuevo.centrar();
         efectoclick(Color.LIGHT_GRAY,evt);
-
+        if (this.User.getSesionactiva() instanceof Medico){
+            listaasistentes = new ListaAsistentes();
+            listaasistentes.setVisible(true);
+            listaasistentes.centrar();
+            listaasistentes.setIconImage(icono);
+            if (borrarasistente!=null && borrarasistente.isVisible())
+                borrarasistente.dispose() ;
+            if (agregarasistente!=null && agregarasistente.isVisible())
+                agregarasistente.dispose();
+        }
+        else{
+            VerMedicos nuevo = new VerMedicos();
+            nuevo.centrar();
+            nuevo.setIconImage(icono);
+            nuevo.setVisible(true);
+        }
     }//GEN-LAST:event_jPanel5MouseClicked
 
 

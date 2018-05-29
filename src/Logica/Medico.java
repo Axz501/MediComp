@@ -131,4 +131,11 @@ public class Medico extends Usuario implements Serializable {
             }
             return null;
         }
+
+    public DtUsuario getDatos() {
+        DtUsuario a = null;
+        a = new DtUsuario(this.getCi(),this.getNombre(),this.getApellido(),this.getCorreo(),this.getImagen());
+        return a;
+    }
+    
 }

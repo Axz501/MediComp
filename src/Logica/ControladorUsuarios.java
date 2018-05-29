@@ -93,8 +93,20 @@ public class ControladorUsuarios  implements IContUsuario{
         return ControladorUsuariosHolder.emf;
     }
     
-    
-    
+    public void remove(Object object) {
+        EntityManager em = ControladorUsuarios.getEntityManager();
+        if (!em.getTransaction().isActive())
+            em.getTransaction().begin();
+        try {
+            em.remove(object);
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            em.getTransaction().rollback();
+        } finally {
+            //em.close();
+        }
+    }
 
     public void persist(Object object) {
         EntityManager em = ControladorUsuarios.getEntityManager();
@@ -411,16 +423,6 @@ public class ControladorUsuarios  implements IContUsuario{
         if (rel.getAsistente().getCi().toLowerCase().contains(ci.toLowerCase()) || rel.getAsistente().getNombre().toLowerCase().contains(ci.toLowerCase()) || rel.getAsistente().getApellido().toLowerCase().contains(ci.toLowerCase()) )
             retornar.add(rel.getAsistente().getDatos(m.getCi()));
     }
-//    List<Rel_Med_Asis> asis = new ArrayList();
-//    Iterator it = this.usuarios.values().iterator();
-//    while (it.hasNext()){
-//        Usuario u = sesionactiva;
-//        //Medico m = (Medico) u;
-//        Usuario ur = (Usuario) it.next();
-//        if (ur instanceof Asistente){
-//            asis = m.getAsistentes();
-//        }
-//    }
     return retornar;
     }
     
@@ -484,6 +486,28 @@ public class ControladorUsuarios  implements IContUsuario{
         }
         return retornar;
     }
+    
+    @Override
+    public void BorrarAsistente(String ci){
+        Asistente a = (Asistente) this.usuarios.get(ci);
+        Rel_Med_Asis rel = this.getRelacionMedicoAsistente(this.sesionactiva.getCi(), ci);
+        Medico m = (Medico) this.getSesionactiva();
+        m.getAsistentes().remove(rel);
+        a.getMedicos().remove(rel);
+        this.remove(rel);
+    }
+     
+    @Override
+    public List<DtUsuario> listarMedicosAsistente(String cimed){
+        List<DtUsuario> retornar = new ArrayList<>();
+        Asistente a = (Asistente) this.sesionactiva;
+        for (Rel_Med_Asis rel : a.getMedicos()){
+        if (rel.getMedico().getCi().toLowerCase().contains(cimed.toLowerCase()) || rel.getMedico().getNombre().toLowerCase().contains(cimed.toLowerCase()) || rel.getMedico().getApellido().toLowerCase().contains(cimed.toLowerCase()) )
+            retornar.add(rel.getMedico().getDatos());
+    }
+    return retornar;
+    }
+    
     public Asistente BuscarAsist(String correo) {
 
         if (correo.equals("") == false) {
