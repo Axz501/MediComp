@@ -7,6 +7,7 @@ package Logica;
 
 import java.io.Serializable;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -35,8 +36,8 @@ public class Paciente implements Serializable {
     private Imagen imagen;
     private boolean particular;
     private String correo;
-    private String telefono;
-    @OneToOne
+    private int telefono;
+    @OneToOne (cascade = CascadeType.PERSIST)
     private Direccion direccion;
     @OneToMany(mappedBy = "paciente")
     private List<Consulta> consultas;
@@ -45,7 +46,7 @@ public class Paciente implements Serializable {
     @ManyToMany(mappedBy = "pacientes")
     private List<Medico> medicos;
 
-    public Paciente(String ci, String nombre, String apellido, int edad, String genero, Imagen imagen, boolean particular, String correo, String telefono, Direccion direccion) {
+    public Paciente(String ci, String nombre, String apellido, String correo, int edad, int telefono, Direccion direccion, String genero, boolean particular, Imagen imagen) {
         this.ci = ci;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -57,20 +58,29 @@ public class Paciente implements Serializable {
         this.telefono = telefono;
         this.direccion = direccion;
     }
-
-    public Paciente(String ci, String nombre, String apellido, int edad, String genero, Imagen imagen) {
+    public Paciente(String ci, String nombre, String apellido, String correo, int edad, int telefono, Direccion direccion, String genero, boolean particular) {
         this.ci = ci;
         this.nombre = nombre;
         this.apellido = apellido;
         this.edad = edad;
         this.genero = genero;
-        this.imagen = imagen;
-        this.particular=false;
-        this.direccion=null;
-        this.correo=null;
-        this.telefono=null;       
+        this.particular = particular;
+        this.correo = correo;
+        this.telefono = telefono;
+        this.direccion = direccion;
     }
-
+    public Paciente(String ci, String nombre, String apellido, int edad, String genero, boolean particular, Imagen imagen) {
+        this.ci = ci;
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.edad = edad;
+        this.genero = genero;
+        this.particular = particular;
+        this.imagen = imagen;
+        this.correo = null;
+        this.telefono = 0;
+        this.direccion = null;
+    }
     public List<Consulta> getConsultas() {
         return consultas;
     }
@@ -147,11 +157,11 @@ public class Paciente implements Serializable {
         this.correo = correo;
     }
 
-    public String getTelefono() {
+    public int getTelefono() {
         return telefono;
     }
 
-    public void setTelefono(String telefono) {
+    public void setTelefono(int telefono) {
         this.telefono = telefono;
     }
 
