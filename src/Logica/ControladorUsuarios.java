@@ -41,6 +41,7 @@ public class ControladorUsuarios  implements IContUsuario{
     
     private static ControladorUsuarios instancia;
     private Map<String, Usuario> usuarios = new HashMap();
+
     private Usuario sesionactiva;
 
     @Override
@@ -71,7 +72,6 @@ public class ControladorUsuarios  implements IContUsuario{
         }
         return instancia;
     }
-
 
 
 
@@ -178,6 +178,7 @@ public class ControladorUsuarios  implements IContUsuario{
         }
         return true;
     }
+
         
     @Override
     public boolean IngresarMedico(String ci, String nombre, String apellido, String correo, String contrasenia, String Img) {        

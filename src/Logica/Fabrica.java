@@ -15,7 +15,7 @@ public class Fabrica {
     //SINGLETON
     private static Fabrica instancia;
     private static IContUsuario Usuario;
-
+    private static IContPaciente Paciente;
 
     public static Fabrica getInstance() {
         if (instancia == null) {
@@ -29,8 +29,13 @@ public class Fabrica {
         Usuario = ControladorUsuarios.getInstance();
         return Usuario;
     }
+    public static IContPaciente getPaciente() {
+        Paciente = ControladorPacientes.getInstance();
+        return Paciente;
+    }
     private Fabrica() {
         this.getUsuario();
+        this.getPaciente();
     }
 
         

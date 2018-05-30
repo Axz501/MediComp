@@ -1220,6 +1220,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jLabel89.setFont(new java.awt.Font("Verdana", 1, 16)); // NOI18N
         jLabel89.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel89.setText("Agregar Paciente");
+        jLabel89.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel89MouseClicked(evt);
+            }
+        });
 
         jLabel90.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel90.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Utils/agregar-usuario.png"))); // NOI18N
@@ -3561,6 +3566,13 @@ public class MenuPrincipal extends javax.swing.JFrame {
             nuevo.setVisible(true);
         }
     }//GEN-LAST:event_jPanel5MouseClicked
+
+    private void jLabel89MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel89MouseClicked
+        AgregarPaciente nuevo= new AgregarPaciente();
+        nuevo.setVisible(true);
+        nuevo.centrar();
+        nuevo.setIconImage(icono);
+    }//GEN-LAST:event_jLabel89MouseClicked
 
 
     /**

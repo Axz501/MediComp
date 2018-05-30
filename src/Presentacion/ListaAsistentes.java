@@ -159,7 +159,7 @@ public class ListaAsistentes extends JFrameConFondo {
         jLabel6.setText("Modificar Datos del Asistente Seleccionado");
         jLabel6.setToolTipText("");
 
-        renumerado.setText("Renumerado");
+        renumerado.setText("Renumerado?");
         renumerado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 renumeradoActionPerformed(evt);
@@ -270,30 +270,35 @@ public class ListaAsistentes extends JFrameConFondo {
     }//GEN-LAST:event_buscarIngTextFieldKeyReleased
 
     private void ModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ModificarActionPerformed
-        if (AsistTable.getRowCount()<1)
-                JOptionPane.showMessageDialog(this, "No tienes ningún asistente asociado", "Error", JOptionPane.ERROR_MESSAGE);
-        else{
+        if (AsistTable.getRowCount() < 1) {
+            JOptionPane.showMessageDialog(this, "No tienes ningún asistente asociado", "Error", JOptionPane.ERROR_MESSAGE);
+        } else {
             if (AsistTable.getSelectedRow() > -1) {
                 String ci = (String) AsistTable.getValueAt(AsistTable.getSelectedRow(), 2);
+                String renum = (String) AsistTable.getValueAt(AsistTable.getSelectedRow(), 5);
                 //assi = Usr.BuscarAsist(ci);
                 //Usuario u = Usr.getSesionactiva();
                 boolean b = renumerado.isSelected();
                 int hrsren = (int) hrsrenum.getValue();
                 int hrstrb = (int) hrstrab.getValue();
-                if (hrsren > hrstrb)
-                    JOptionPane.showMessageDialog(this, "Las horas renumeradas no pueden ser mayor a las horas trabajadas", "Error", JOptionPane.ERROR_MESSAGE);
-                else{
-                    this.Usr.ModificarAsistente(ci, b, hrsren, hrstrb);
-                    JOptionPane.showMessageDialog(this, "Los datos del asistente se han modificado", "Operación Completada", JOptionPane.INFORMATION_MESSAGE);
-                    AsistTable.setValueAt(Integer.toString(hrsren), AsistTable.getSelectedRow(),6);
-                    AsistTable.setValueAt(Integer.toString(hrstrb), AsistTable.getSelectedRow(),7);
-                    if (b)
-                        AsistTable.setValueAt("Si", AsistTable.getSelectedRow(),5);
-                    else
-                        AsistTable.setValueAt("No", AsistTable.getSelectedRow(),5);
+                if (!renumerado.isSelected() && renum.equals("No")){
+                    JOptionPane.showMessageDialog(this, "Este asistente no es renumerado, no se puede modificar", "Error", JOptionPane.INFORMATION_MESSAGE);
+                }else {
+                    if (hrsren > hrstrb) {
+                        JOptionPane.showMessageDialog(this, "Las horas renumeradas no pueden ser mayor a las horas trabajadas", "Error", JOptionPane.ERROR_MESSAGE);
+                    } else {
+                        this.Usr.ModificarAsistente(ci, b, hrsren, hrstrb);
+                        JOptionPane.showMessageDialog(this, "Los datos del asistente se han modificado", "Operación Completada", JOptionPane.INFORMATION_MESSAGE);
+                        AsistTable.setValueAt(Integer.toString(hrsren), AsistTable.getSelectedRow(), 6);
+                        AsistTable.setValueAt(Integer.toString(hrstrb), AsistTable.getSelectedRow(), 7);
+                        if (b) {
+                            AsistTable.setValueAt("Si", AsistTable.getSelectedRow(), 5);
+                        } else {
+                            AsistTable.setValueAt("No", AsistTable.getSelectedRow(), 5);
+                        }
+                    }
                 }
-            }
-            else{
+            } else {
                 JOptionPane.showMessageDialog(this, "No has seleccionado un asistente");
             }
         }

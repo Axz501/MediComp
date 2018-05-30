@@ -85,5 +85,10 @@ public class Direccion implements Serializable {
     public String toString() {
         return "Logica.Jornada[ id=" + id + " ]";
     }
-    
+    public Direccion getDatos(){ 
+        return new Direccion(ciudad,departamento,calle,numero);
+    }
+    public Direccion setDatos(String ciudad,String departamento,String calle,int numero){ 
+        return new Direccion(this.ciudad,this.departamento,this.calle,this.numero);
+    }
 }
