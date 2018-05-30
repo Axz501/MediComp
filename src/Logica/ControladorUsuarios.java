@@ -214,7 +214,7 @@ public class ControladorUsuarios  implements IContUsuario{
             Medico m = new Medico(ci, nombre, apellido, correo,passhash ,img);
             this.usuarios.put(ci, m);
             try {
-                persist(img);
+                //persist(img);
                 persist(m);
                 return true;
             } catch (Exception ex) {
