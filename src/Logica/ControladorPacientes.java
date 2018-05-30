@@ -144,7 +144,7 @@ public class ControladorPacientes implements IContPaciente{
         
         if (Img != null) {
             Imagen img = new Imagen(Img);
-            Paciente p = new Paciente(ci, nombre, apellido,edad,comboTipo,particular, img);
+            Paciente p = new Paciente(ci, nombre, apellido,correo ,edad,telefono, direccion,comboTipo,particular, img);
             this.pacientes.put(ci, p);
             try {
                 persist(img);
