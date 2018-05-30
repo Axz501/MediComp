@@ -32,12 +32,12 @@ public class Paciente implements Serializable {
     private String apellido;
     private int edad;
     private String genero;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Imagen imagen;
     private boolean particular;
     private String correo;
     private int telefono;
-    @OneToOne (cascade = CascadeType.PERSIST)
+    @OneToOne (cascade = CascadeType.ALL)
     private Direccion direccion;
     @OneToMany(mappedBy = "paciente")
     private List<Consulta> consultas;

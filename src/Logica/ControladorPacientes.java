@@ -103,32 +103,7 @@ public class ControladorPacientes implements IContPaciente{
     public void close(){
         ControladorUsuarios.getEntityManager().close();
     }
-    @Override
-    public boolean copiarArchivo(String rutaOrigenArchivo, String rutaDestino) {
-        try {
-            File archivoOrigen = new File(rutaOrigenArchivo);
-
-            //Archivo de destino auxiliar
-            File dest = new File(rutaDestino);
-
-            //Crea las carpetas en donde va a ser guardado el tema si no estaban creadas todavia
-            dest.getParentFile().mkdirs();
-
-            //Crea el archivo auxiliar primero para despues sobreescribirlo, sino da error
-            dest.createNewFile();
-
-            //Copiar el archivo seleccionado al destino
-            Files.copy(archivoOrigen.toPath(), dest.toPath(), StandardCopyOption.REPLACE_EXISTING);
-
-            return true; // Se pudo copiar la imagen correctamente
-        } catch (IOException ex) {
-            Logger.getLogger(ControladorUsuarios.class.getName()).log(Level.SEVERE, null, ex);
-
-            return false; // Error, no se pudo copiar la imagen
-        }
-    }
-    
-    
+        
     
     @Override
     public boolean IngresarPaciente(String ci, String nombre, String apellido, String correo, int edad, int telefono, Direccion direccion, String comboTipo, boolean particular, String Img) {

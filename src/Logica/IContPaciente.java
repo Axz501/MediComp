@@ -14,7 +14,6 @@ import java.util.Map;
  * @author ninoh
  */
 public interface IContPaciente {
-    public abstract boolean copiarArchivo(String rutaOrigenArchivo, String rutaDestino);    
     public abstract boolean IngresarPaciente(String ci, String nombre, String apellido, String correo, int edad, int telefono, Direccion direccion, String comboTipo, boolean particular, String RutaImagen);
     public abstract boolean verificarDatosP(String ci, String correo);
 }
