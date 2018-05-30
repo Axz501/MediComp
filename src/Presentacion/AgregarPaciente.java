@@ -484,54 +484,61 @@ public class AgregarPaciente extends JFrameConFondo {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        boolean part=false, formatocorreo=false, largoci = false;
+        boolean part = false, formatocorreo = false, largoci = false;
         String ci, nombre, apellido, correo, comboTipo, ciudad, departamento, calle;
         int edad, telefono, numero;
-        ci = txt_Ci.getText();
-        nombre = txt_Nombre.getText();
-        apellido = txt_Apellido.getText();
-        correo = txt_Correo.getText();
-        edad = Integer.valueOf(txt_Edad.getText());
-        telefono = Integer.valueOf(txt_Telefono.getText());
-        ciudad = txt_Ciudad.getText();
-        departamento = txt_Departamento.getText();
-        calle = txt_Calle.getText();
-        numero = Integer.valueOf(txt_Numero.getText());
-        comboTipo = cmb_Tipo.getSelectedItem().toString();
-        part = particular.isSelected();
-        Direccion direccion = new Direccion(ciudad, departamento, calle, numero);
-        if ((txt_Ci.getText().equals("")) || edad == 0 || telefono == 0 || direccion == null || (txt_Nombre.getText().equals("")) || (txt_Apellido.getText().equals("")) || (txt_Correo.getText().equals("")) || ((cmb_Tipo.getSelectedItem() == null))) {
+        if (txt_Ciudad.getText().equals("Ciudad") || txt_Departamento.getText().equals("Departamento") || txt_Calle.getText().equals("Calle") || txt_Numero.getText().equals("Numero")) {
             javax.swing.JOptionPane.showMessageDialog(this, "Debe llenar todos los campos \n", "AVISO!", javax.swing.JOptionPane.INFORMATION_MESSAGE);
             txt_Ci.requestFocus();
         } else {
-            if (ci.length()==8 && ci.matches("[0-9]+"))
-            largoci = true;
-            else{
-                if (ci.length()!=8)
-                javax.swing.JOptionPane.showMessageDialog(this, "Tu cédula debe tener 8 dígitos");
-                if (!ci.matches("[0-9]+"))
-                javax.swing.JOptionPane.showMessageDialog(this, "Tu cédula debe tener solo números");
+
+            ci = txt_Ci.getText();
+            nombre = txt_Nombre.getText();
+            apellido = txt_Apellido.getText();
+            correo = txt_Correo.getText();
+            edad = Integer.valueOf(txt_Edad.getText());
+            telefono = Integer.valueOf(txt_Telefono.getText());
+            ciudad = txt_Ciudad.getText();
+            departamento = txt_Departamento.getText();
+            calle = txt_Calle.getText();
+            numero = Integer.valueOf(txt_Numero.getText());
+            comboTipo = cmb_Tipo.getSelectedItem().toString();
+            part = particular.isSelected();
+            Direccion direccion = new Direccion(ciudad, departamento, calle, numero);
+            if ((txt_Ci.getText().equals("")) || numero == 0 || edad == 0 || telefono == 0 || (txt_Nombre.getText().equals("")) || (txt_Apellido.getText().equals("")) || (txt_Correo.getText().equals("")) || ((cmb_Tipo.getSelectedItem() == null))) {
+                javax.swing.JOptionPane.showMessageDialog(this, "Debe llenar todos los campos \n", "AVISO!", javax.swing.JOptionPane.INFORMATION_MESSAGE);
                 txt_Ci.requestFocus();
-            }
-            if ((correo.contains("@")) && (correo.contains(".com"))){
-                formatocorreo = true;
-            }else{
-                javax.swing.JOptionPane.showMessageDialog(this, "Formato de correo inválido");
-                txt_Correo.requestFocus();
-            }
-            if(formatocorreo && largoci){
-                boolean Ok;
-                System.out.println("comboTipo = "+comboTipo);
-
-                Ok = Pct.IngresarPaciente(ci,nombre,apellido,correo,edad,telefono,direccion,comboTipo,part,RutaImagen);
-                if(Ok){
-                    javax.swing.JOptionPane.showMessageDialog(this,"El Usuario ha sido dado de alta");
-                    this.dispose();
+            } else {
+                if (ci.length() == 8 && ci.matches("[0-9]+")) {
+                    largoci = true;
+                } else {
+                    if (ci.length() != 8) {
+                        javax.swing.JOptionPane.showMessageDialog(this, "Tu cédula debe tener 8 dígitos");
+                    }
+                    if (!ci.matches("[0-9]+")) {
+                        javax.swing.JOptionPane.showMessageDialog(this, "Tu cédula debe tener solo números");
+                    }
+                    txt_Ci.requestFocus();
                 }
-                else{
-                    javax.swing.JOptionPane.showMessageDialog(this,"El Usuario no ha podido ser dado de alta, CI y/o correo en uso", "Datos incorrectos", JOptionPane.WARNING_MESSAGE);
+                if ((correo.contains("@")) && (correo.contains(".com"))) {
+                    formatocorreo = true;
+                } else {
+                    javax.swing.JOptionPane.showMessageDialog(this, "Formato de correo inválido");
+                    txt_Correo.requestFocus();
                 }
+                if (formatocorreo && largoci) {
+                    boolean Ok;
+                    System.out.println("comboTipo = " + comboTipo);
 
+                    Ok = Pct.IngresarPaciente(ci, nombre, apellido, correo, edad, telefono, direccion, comboTipo, part, RutaImagen);
+                    if (Ok) {
+                        javax.swing.JOptionPane.showMessageDialog(this, "El Usuario ha sido dado de alta");
+                        this.dispose();
+                    } else {
+                        javax.swing.JOptionPane.showMessageDialog(this, "El Usuario no ha podido ser dado de alta, CI y/o correo en uso", "Datos incorrectos", JOptionPane.WARNING_MESSAGE);
+                    }
+
+                }
             }
         }
     }//GEN-LAST:event_jButton1ActionPerformed
