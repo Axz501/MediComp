@@ -69,8 +69,8 @@
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                                   <Component id="txt_Departamento" min="-2" pref="114" max="-2" attributes="0"/>
-                                  <Component id="txt_Numero" alignment="0" min="-2" pref="56" max="-2" attributes="0"/>
                                   <Component id="particular" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="txt_Numero" alignment="0" min="-2" pref="63" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -327,6 +327,8 @@
     </Component>
     <Component class="javax.swing.JTextField" name="txt_Calle">
       <Events>
+        <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txt_CalleFocusGained"/>
+        <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txt_CalleFocusLost"/>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txt_CalleActionPerformed"/>
       </Events>
     </Component>
@@ -356,6 +358,8 @@
     </Component>
     <Component class="javax.swing.JTextField" name="txt_Departamento">
       <Events>
+        <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txt_DepartamentoFocusGained"/>
+        <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txt_DepartamentoFocusLost"/>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txt_DepartamentoActionPerformed"/>
       </Events>
     </Component>
@@ -368,12 +372,14 @@
         <Property name="AccessibleContext.accessibleDescription" type="java.lang.String" value=""/>
       </AccessibilityProperties>
       <Events>
+        <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txt_CiudadFocusGained"/>
         <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txt_CiudadFocusLost"/>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txt_CiudadActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="txt_Numero">
       <Events>
+        <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txt_NumeroFocusGained"/>
         <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txt_NumeroFocusLost"/>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txt_NumeroActionPerformed"/>
       </Events>

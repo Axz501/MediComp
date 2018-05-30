@@ -9,12 +9,12 @@ import Logica.ControladorPacientes;
 import Logica.Direccion;
 import Logica.IContPaciente;
 import Utils.JFrameConFondo;
+import java.awt.Color;
 import java.awt.FileDialog;
 import java.awt.Image;
 import java.awt.Toolkit;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
-import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -31,6 +31,14 @@ public class AgregarPaciente extends JFrameConFondo {
     private IContPaciente Pct;
     public AgregarPaciente() {
         initComponents();
+        txt_Ciudad.setText("Ciudad");
+        txt_Ciudad.setForeground(Color.LIGHT_GRAY);
+        txt_Departamento.setText("Departamento");
+        txt_Departamento.setForeground(Color.LIGHT_GRAY);
+        txt_Calle.setText("Calle");
+        txt_Calle.setForeground(Color.LIGHT_GRAY);
+        txt_Numero.setText("Numero");
+        txt_Numero.setForeground(Color.LIGHT_GRAY);
         Pct = ControladorPacientes.getInstance();
         setTitle("Agregar Paciente");
         setResizable(false);
@@ -171,6 +179,14 @@ public class AgregarPaciente extends JFrameConFondo {
         jLabel9.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
         jLabel9.setText("Direccion:");
 
+        txt_Calle.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txt_CalleFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txt_CalleFocusLost(evt);
+            }
+        });
         txt_Calle.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_CalleActionPerformed(evt);
@@ -202,6 +218,14 @@ public class AgregarPaciente extends JFrameConFondo {
             }
         });
 
+        txt_Departamento.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txt_DepartamentoFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txt_DepartamentoFocusLost(evt);
+            }
+        });
         txt_Departamento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_DepartamentoActionPerformed(evt);
@@ -210,6 +234,9 @@ public class AgregarPaciente extends JFrameConFondo {
 
         txt_Ciudad.setToolTipText("");
         txt_Ciudad.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txt_CiudadFocusGained(evt);
+            }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txt_CiudadFocusLost(evt);
             }
@@ -221,6 +248,9 @@ public class AgregarPaciente extends JFrameConFondo {
         });
 
         txt_Numero.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txt_NumeroFocusGained(evt);
+            }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txt_NumeroFocusLost(evt);
             }
@@ -274,8 +304,8 @@ public class AgregarPaciente extends JFrameConFondo {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel1)
                                     .addComponent(txt_Departamento, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txt_Numero, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(particular)))))
+                                    .addComponent(particular)
+                                    .addComponent(txt_Numero, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addComponent(jLabel7)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(369, 369, 369)
@@ -548,11 +578,60 @@ public class AgregarPaciente extends JFrameConFondo {
             javax.swing.JOptionPane.showMessageDialog(this, "Este campo debe tener solo números");
             txt_Numero.setText("");
         }
+        if (txt_Numero.getText().equalsIgnoreCase("")) {
+            txt_Numero.setText("Numero");
+            txt_Numero.setForeground(Color.LIGHT_GRAY);
+        }
     }//GEN-LAST:event_txt_NumeroFocusLost
 
     private void txt_CiudadFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_CiudadFocusLost
-        // TODO add your handling code here:
+        if (txt_Ciudad.getText().equalsIgnoreCase("")) {
+            txt_Ciudad.setText("Ciudad");
+            txt_Ciudad.setForeground(Color.LIGHT_GRAY);
+  }
     }//GEN-LAST:event_txt_CiudadFocusLost
+
+    private void txt_CiudadFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_CiudadFocusGained
+        if (txt_Ciudad.getText().equalsIgnoreCase("Ciudad")) {
+            txt_Ciudad.setText("");
+            txt_Ciudad.setForeground(Color.black);
+  }
+    }//GEN-LAST:event_txt_CiudadFocusGained
+
+    private void txt_DepartamentoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_DepartamentoFocusLost
+        if (txt_Departamento.getText().equalsIgnoreCase("")) {
+            txt_Departamento.setText("Departamento");
+            txt_Departamento.setForeground(Color.LIGHT_GRAY);
+        }
+    }//GEN-LAST:event_txt_DepartamentoFocusLost
+
+    private void txt_DepartamentoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_DepartamentoFocusGained
+        if (txt_Departamento.getText().equalsIgnoreCase("Departamento")) {
+            txt_Departamento.setText("");
+            txt_Departamento.setForeground(Color.black);
+        }
+    }//GEN-LAST:event_txt_DepartamentoFocusGained
+
+    private void txt_CalleFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_CalleFocusLost
+        if (txt_Calle.getText().equalsIgnoreCase("")) {
+            txt_Calle.setText("Calle");
+            txt_Calle.setForeground(Color.LIGHT_GRAY);
+        }
+    }//GEN-LAST:event_txt_CalleFocusLost
+
+    private void txt_CalleFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_CalleFocusGained
+        if (txt_Calle.getText().equalsIgnoreCase("Calle")) {
+            txt_Calle.setText("");
+            txt_Calle.setForeground(Color.black);
+        }
+    }//GEN-LAST:event_txt_CalleFocusGained
+
+    private void txt_NumeroFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_NumeroFocusGained
+        if (txt_Numero.getText().equalsIgnoreCase("Numero")) {
+            txt_Numero.setText("");
+            txt_Numero.setForeground(Color.black);
+        }
+    }//GEN-LAST:event_txt_NumeroFocusGained
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
