@@ -1219,7 +1219,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         jLabel89.setFont(new java.awt.Font("Verdana", 1, 16)); // NOI18N
         jLabel89.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel89.setText("Agregar Paciente");
+        jLabel89.setText("Registrar Paciente");
         jLabel89.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel89MouseClicked(evt);
@@ -1281,8 +1281,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 .addGap(21, 21, 21)
                 .addComponent(jLabel103, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel102, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE)
-                .addGap(18, 18, 18))
+                .addComponent(jLabel102, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(37, Short.MAX_VALUE))
         );
         jPanel42Layout.setVerticalGroup(
             jPanel42Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1396,7 +1396,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         jLabel106.setFont(new java.awt.Font("Verdana", 1, 16)); // NOI18N
         jLabel106.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel106.setText("Listar Pacientes");
+        jLabel106.setText("Mis Pacientes");
 
         jLabel107.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel107.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Utils/grupo.png"))); // NOI18N
@@ -1410,8 +1410,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 .addGap(21, 21, 21)
                 .addComponent(jLabel107, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel106, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE)
-                .addGap(18, 18, 18))
+                .addComponent(jLabel106, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(45, Short.MAX_VALUE))
         );
         jPanel44Layout.setVerticalGroup(
             jPanel44Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -3064,7 +3064,10 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jPanel33MouseClicked
 
     private void jPanel44MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel44MouseClicked
-        // TODO add your handling code here:
+        MisPacientes nuevo = new MisPacientes();
+        nuevo.setVisible(true);
+        nuevo.centrar();
+        nuevo.setIconImage(icono);  
         efectoclick(Color.LIGHT_GRAY,evt);
     }//GEN-LAST:event_jPanel44MouseClicked
 
@@ -3084,7 +3087,10 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jPanel43MouseEntered
 
     private void jPanel43MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel43MouseClicked
-        // TODO add your handling code here:
+        EditarPaciente nuevo = new EditarPaciente();
+        nuevo.setVisible(true);
+        nuevo.centrar();
+        nuevo.setIconImage(icono);
         efectoclick(Color.LIGHT_GRAY,evt);
     }//GEN-LAST:event_jPanel43MouseClicked
 

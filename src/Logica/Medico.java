@@ -87,7 +87,7 @@ public class Medico extends Usuario implements Serializable {
     public void setPacientes(List<Paciente> pacientes) {
         this.pacientes = pacientes;
     }
-    
+
 
 
     @Override

@@ -17,4 +17,9 @@ public interface IContPaciente {
     public abstract boolean copiarArchivo(String rutaOrigenArchivo, String rutaDestino);    
     public abstract boolean IngresarPaciente(String ci, String nombre, String apellido, String correo, int edad, int telefono, Direccion direccion, String comboTipo, boolean particular, String RutaImagen);
     public abstract boolean verificarDatosP(String ci, String correo);
+    public abstract ArrayList<Paciente> listarPacientes();
+    public abstract List<DtPaciente> listarPacientesMedico(String ci);
+    public abstract boolean ModificarPCT(String ci, String nombre, String apellido, int edad, int telefono, Direccion direccion, String comboTipo, boolean particular, String Img, boolean elim);
+    public abstract void AgregarPaciente(String ci);    
+    public abstract void getPacientesdeBD();
 }

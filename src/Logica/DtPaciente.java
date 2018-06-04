@@ -21,12 +21,8 @@ import javax.persistence.OneToOne;
  * @author Admin
  */
 @Entity
-public class Paciente implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+public class DtPaciente{
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
     private String ci;
     private String nombre;
     private String apellido;
@@ -37,18 +33,10 @@ public class Paciente implements Serializable {
     private boolean particular;
     private String correo;
     private int telefono;
-    @OneToOne (cascade = CascadeType.PERSIST)
+    @OneToOne(cascade = CascadeType.PERSIST)
     private Direccion direccion;
-    @OneToMany(mappedBy = "paciente")
-    private List<Consulta> consultas;
-    @ManyToMany
-    private List<Entidad> entidades;
-    @ManyToMany(mappedBy = "pacientes")
-    private List<Medico> medicos;
-
-    public Paciente() {}
-
-    public Paciente(String ci, String nombre, String apellido, String correo, int edad, int telefono, Direccion direccion, String genero, boolean particular, Imagen imagen) {
+    
+    public DtPaciente(String ci, String nombre, String apellido, String correo, int edad, int telefono, Direccion direccion, String genero, boolean particular, Imagen imagen) {
         this.ci = ci;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -60,7 +48,7 @@ public class Paciente implements Serializable {
         this.telefono = telefono;
         this.direccion = direccion;
     }
-    public Paciente(String ci, String nombre, String apellido, String correo, int edad, int telefono, Direccion direccion, String genero, boolean particular) {
+    public DtPaciente(String ci, String nombre, String apellido, String correo, int edad, int telefono, Direccion direccion, String genero, boolean particular) {
         this.ci = ci;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -70,17 +58,6 @@ public class Paciente implements Serializable {
         this.correo = correo;
         this.telefono = telefono;
         this.direccion = direccion;
-    }
-    public List<Consulta> getConsultas() {
-        return consultas;
-    }
-
-    public void setConsultas(List<Consulta> consultas) {
-        this.consultas = consultas;
-    }
-    
-    private void AgregarConsulta(Consulta c){
-        this.consultas.add(c);
     }
 
     public String getCi() {
@@ -163,54 +140,4 @@ public class Paciente implements Serializable {
         this.direccion = direccion;
     }
     
-    
-    
-    
-            
-    
-    
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Paciente)) {
-            return false;
-        }
-        Paciente other = (Paciente) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "Logica.Paciente[ id=" + id + " ]";
-    }
-    public DtPaciente getDatos(String ci){
-               
-        for (Medico m : medicos){
-            if (m.getCi().equals(ci)){
-            DtPaciente p; 
-            p = new DtPaciente(this.ci,this.nombre, this.apellido,this.correo,this.edad,this.telefono,this.direccion,this.genero,this.particular,this.imagen);
-        
-            return p;}
-        }
-        return null;
-    }
 }

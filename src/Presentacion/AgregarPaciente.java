@@ -491,7 +491,6 @@ public class AgregarPaciente extends JFrameConFondo {
             javax.swing.JOptionPane.showMessageDialog(this, "Debe llenar todos los campos \n", "AVISO!", javax.swing.JOptionPane.INFORMATION_MESSAGE);
             txt_Ci.requestFocus();
         } else {
-
             ci = txt_Ci.getText();
             nombre = txt_Nombre.getText();
             apellido = txt_Apellido.getText();

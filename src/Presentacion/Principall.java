@@ -7,6 +7,7 @@ package Presentacion;
 
 
 import Logica.Fabrica;
+import Logica.IContPaciente;
 import Logica.IContUsuario;
 import java.awt.Toolkit;
 import javax.swing.JFrame;
@@ -32,6 +33,7 @@ public class Principall extends JFrameConFondo {
      * Creates new form Principall
      */
     private IContUsuario User;
+    private IContPaciente Pac;
     int x;
     int y;
     int laf=0;
@@ -39,7 +41,9 @@ public class Principall extends JFrameConFondo {
         initComponents();
         this.changefeeltoSeaGlass();
         User = Fabrica.getUsuario();
+        Pac = Fabrica.getPaciente();
         User.getUsuariosdeBD();
+        Pac.getPacientesdeBD();
         //this.setUndecorated(false);
         this.repaint();
         x = (int) (Toolkit.getDefaultToolkit().getScreenSize().getWidth());

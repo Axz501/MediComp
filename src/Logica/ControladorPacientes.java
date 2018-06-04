@@ -10,13 +10,16 @@ import Logica.IContPaciente;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 
 /**
  *
@@ -25,8 +28,9 @@ import javax.persistence.Persistence;
 public class ControladorPacientes implements IContPaciente{
 
     private static ControladorPacientes instancia;
+    private ControladorUsuarios User = ControladorUsuarios.getInstance();
     private Map<String, Paciente> pacientes = new HashMap();
-
+    
     public Map<String, Paciente> getPacientes() {
         return pacientes;
     }
@@ -92,6 +96,7 @@ public class ControladorPacientes implements IContPaciente{
             em.getTransaction().begin();
         try {
             em.persist(object);
+            if (!em.getTransaction().isActive())
             em.getTransaction().commit();
         } catch (Exception e) {
             e.printStackTrace();
@@ -128,7 +133,22 @@ public class ControladorPacientes implements IContPaciente{
         }
     }
     
-    
+    @Override
+    public void getPacientesdeBD(){
+        List<Paciente> resultado = null;
+        ControladorPacientes.getInstance().getEntityManager().getTransaction().begin();
+        try {
+            resultado = ControladorPacientes.getEntityManager().createNativeQuery("SELECT * FROM medicomp.paciente ;", Paciente.class).getResultList();
+            ControladorPacientes.getEntityManager().getTransaction().commit();
+        } catch (Exception e) {
+            ControladorPacientes.getEntityManager().getTransaction().rollback();
+        }
+        if (resultado!=null && !resultado.isEmpty()){
+            for (int i=0;i<resultado.size();i++){
+                this.getPacientes().put(resultado.get(i).getCi(), resultado.get(i));
+            }
+        }
+    }
     
     @Override
     public boolean IngresarPaciente(String ci, String nombre, String apellido, String correo, int edad, int telefono, Direccion direccion, String comboTipo, boolean particular, String Img) {
@@ -164,6 +184,113 @@ public class ControladorPacientes implements IContPaciente{
         }
 
     }
-
 }
+    @Override
+    public List<DtPaciente> listarPacientesMedico(String ci) {
+        List<DtPaciente> retornar = new ArrayList<>();
+        Medico m = (Medico) User.getSesionactiva();
+        for (Paciente pac : m.getPacientes()) {
+            if (pac.getCi().toLowerCase().contains(ci.toLowerCase()) || pac.getNombre().toLowerCase().contains(ci.toLowerCase()) || pac.getApellido().toLowerCase().contains(ci.toLowerCase())) {
+                retornar.add(pac.getDatos(m.getCi()));
+            }
+        }
+        return retornar;
+    }
+    @Override
+        public ArrayList<Paciente> listarPacientes() {
+        ArrayList<Paciente> retornar = new ArrayList<>();
+        for(Map.Entry<String,Paciente> p : pacientes.entrySet()){
+            retornar.add((Paciente) p.getValue());
+        }
+        return retornar;
+
+    }
+    @Override
+        public boolean ModificarPCT(String ci, String nombre, String apellido, int edad, int telefono, Direccion direccion, String comboTipo, boolean particular, String Img, boolean elim){
+        if (!ControladorUsuarios.getInstance().getEntityManager().getTransaction().isActive())
+            ControladorUsuarios.getInstance().getEntityManager().getTransaction().begin();
+        try{
+            Paciente p = this.pacientes.get(ci);
+            if (elim){
+                if (p.getImagen()!=null){
+                    Long id = p.getImagen().getId();
+                    Query q1 = ControladorUsuarios.getEntityManager().createNativeQuery("UPDATE medicomp.paciente SET imagen_id=null WHERE correo='"+p.getCorreo()+"';");
+                    Query q2 = ControladorUsuarios.getEntityManager().createNativeQuery("DELETE FROM medicomp.imagen WHERE id = "+id+";");
+                    q1.executeUpdate();
+                    q2.executeUpdate();
+                    p.setImagen(null);
+                }
+            }
+            if (!nombre.equals("")) {
+                Query q = ControladorUsuarios.getEntityManager().createNativeQuery("UPDATE medicomp.paciente SET nombre='"+nombre+"' WHERE correo='"+p.getCorreo()+"';");
+                q.executeUpdate();
+                p.setNombre(nombre);
+            }
+            if (!apellido.equals("")) {
+                Query q = ControladorUsuarios.getEntityManager().createNativeQuery("UPDATE medicomp.paciente SET apellido='"+apellido+"' WHERE correo='"+p.getCorreo()+"';");
+                q.executeUpdate();
+                p.setApellido(apellido);
+            }
+            if (edad != 0) {
+                Query q = ControladorUsuarios.getEntityManager().createNativeQuery("UPDATE medicomp.paciente SET edad='"+edad+"' WHERE correo='"+p.getCorreo()+"';");
+                q.executeUpdate();
+                p.setEdad(edad);
+            }
+            if (telefono != 0) {
+                Query q = ControladorUsuarios.getEntityManager().createNativeQuery("UPDATE medicomp.paciente SET telefono='"+telefono+"' WHERE correo='"+p.getCorreo()+"';");
+                q.executeUpdate();
+                p.setTelefono(telefono);
+            }
+            if (!direccion.equals("")) {
+                Query q = ControladorUsuarios.getEntityManager().createNativeQuery("UPDATE medicomp.paciente SET direccion_id='"+direccion+"' WHERE correo='"+p.getCorreo()+"';");
+                q.executeUpdate();
+                p.setDireccion(direccion);
+            }
+            if (!comboTipo.equals("")) {
+                Query q = ControladorUsuarios.getEntityManager().createNativeQuery("UPDATE medicomp.paciente SET genero='"+comboTipo+"' WHERE correo='"+p.getCorreo()+"';");
+                q.executeUpdate();
+                p.setGenero(comboTipo);
+            }
+            if (!particular) {
+                Query q = ControladorUsuarios.getEntityManager().createNativeQuery("UPDATE medicomp.paciente SET particular='"+particular+"' WHERE correo='"+p.getCorreo()+"';");
+                q.executeUpdate();
+                p.setParticular(particular);
+            }
+            if (!Img.equals("")) {
+                if (p.getImagen()!=null){
+                    Long id = p.getImagen().getId();
+                    Query q1 = ControladorUsuarios.getEntityManager().createNativeQuery("UPDATE medicomp.paciente SET imagen_id=null WHERE correo='"+p.getCorreo()+"';");
+                    Query q2 = ControladorUsuarios.getEntityManager().createNativeQuery("DELETE FROM medicomp.imagen WHERE id = "+id+";");
+                    q1.executeUpdate();
+                    q2.executeUpdate();
+                }
+                Imagen i = new Imagen(Img);
+                p.setImagen(i);
+                this.persist(i);
+            }
+        if (ControladorUsuarios.getInstance().getEntityManager().getTransaction().isActive())
+            ControladorUsuarios.getInstance().getEntityManager().getTransaction().commit();
+        return true;
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+            return false;
+        }
+    }
+    
+    @Override
+    public void AgregarPaciente(String ci){
+        Medico m = (Medico) User.getSesionactiva();
+        //Rel_Med_Asis rel = getRelacionMedicoAsistente(m.getCi(),correoasi);
+        Paciente p = (Paciente) this.pacientes.get(ci);
+        m.AgregarPaciente(p);
+
+        
+        if (!ControladorUsuarios.getInstance().getEntityManager().getTransaction().isActive())
+            ControladorUsuarios.getInstance().getEntityManager().getTransaction().begin();
+        
+        if (!ControladorUsuarios.getInstance().getEntityManager().getTransaction().isActive())
+            ControladorUsuarios.getInstance().getEntityManager().getTransaction().commit();
+//      
+    }
+    
 }
