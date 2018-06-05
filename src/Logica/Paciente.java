@@ -36,7 +36,7 @@ public class Paciente implements Serializable {
     private Imagen imagen;
     private boolean particular;
     private String correo;
-    private int telefono;
+    private String telefono;
     @OneToOne (cascade = CascadeType.PERSIST)
     private Direccion direccion;
     @OneToMany(mappedBy = "paciente")
@@ -45,10 +45,9 @@ public class Paciente implements Serializable {
     private List<Entidad> entidades;
     @ManyToMany(mappedBy = "pacientes")
     private List<Medico> medicos;
-
     public Paciente() {}
 
-    public Paciente(String ci, String nombre, String apellido, String correo, int edad, int telefono, Direccion direccion, String genero, boolean particular, Imagen imagen) {
+    public Paciente(String ci, String nombre, String apellido, String correo, int edad, String telefono, Direccion direccion, String genero, boolean particular, Imagen imagen) {
         this.ci = ci;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -60,7 +59,7 @@ public class Paciente implements Serializable {
         this.telefono = telefono;
         this.direccion = direccion;
     }
-    public Paciente(String ci, String nombre, String apellido, String correo, int edad, int telefono, Direccion direccion, String genero, boolean particular) {
+    public Paciente(String ci, String nombre, String apellido, String correo, int edad, String telefono, Direccion direccion, String genero, boolean particular) {
         this.ci = ci;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -147,11 +146,11 @@ public class Paciente implements Serializable {
         this.correo = correo;
     }
 
-    public int getTelefono() {
+    public String getTelefono() {
         return telefono;
     }
 
-    public void setTelefono(int telefono) {
+    public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
 
@@ -202,15 +201,9 @@ public class Paciente implements Serializable {
     public String toString() {
         return "Logica.Paciente[ id=" + id + " ]";
     }
-    public DtPaciente getDatos(String ci){
-               
-        for (Medico m : medicos){
-            if (m.getCi().equals(ci)){
+    public DtPaciente getDatos(){        
             DtPaciente p; 
-            p = new DtPaciente(this.ci,this.nombre, this.apellido,this.correo,this.edad,this.telefono,this.direccion,this.genero,this.particular,this.imagen);
-        
-            return p;}
-        }
-        return null;
+            p = new DtPaciente(this.ci,this.nombre, this.apellido,this.correo,this.edad,this.telefono,this.direccion,this.genero,this.particular,this.imagen);        
+            return p;
     }
 }

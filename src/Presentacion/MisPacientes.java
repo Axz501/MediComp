@@ -214,18 +214,18 @@ public void listarPacientes(String ci) {
     }//GEN-LAST:event_buscarIngTextFieldKeyReleased
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
-        List<Paciente> pa;
+        List<Paciente> pac;
         boolean b = true;
         if (PacienteTable.getSelectedRow() > -1) {
             String ci = (String) PacienteTable.getValueAt(PacienteTable.getSelectedRow(), 0);
             Medico u = (Medico) Usr.getSesionactiva();
-            pa = u.getPacientes();
-            if (pa.isEmpty()) {
+            pac = u.getPacientes();
+            if (pac.isEmpty()) {
                 this.Pct.AgregarPaciente(ci);
                 javax.swing.JOptionPane.showMessageDialog(this, "El Paciente ha sido agregado");
             }
             else{
-                for (Paciente p : pa) {
+                for (Paciente p : pac) {
                     if (p.getCi().equals(ci)) {
                         b=false;
                     }

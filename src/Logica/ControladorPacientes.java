@@ -151,7 +151,7 @@ public class ControladorPacientes implements IContPaciente{
     }
     
     @Override
-    public boolean IngresarPaciente(String ci, String nombre, String apellido, String correo, int edad, int telefono, Direccion direccion, String comboTipo, boolean particular, String Img) {
+    public boolean IngresarPaciente(String ci, String nombre, String apellido, String correo, int edad, String telefono, Direccion direccion, String comboTipo, boolean particular, String Img) {
         if (Fabrica.getPaciente().verificarDatosP(ci, correo) == false) { // si ya existe un cliente con ese nickname o correo
             return false;
         } else {
@@ -191,7 +191,7 @@ public class ControladorPacientes implements IContPaciente{
         Medico m = (Medico) User.getSesionactiva();
         for (Paciente pac : m.getPacientes()) {
             if (pac.getCi().toLowerCase().contains(ci.toLowerCase()) || pac.getNombre().toLowerCase().contains(ci.toLowerCase()) || pac.getApellido().toLowerCase().contains(ci.toLowerCase())) {
-                retornar.add(pac.getDatos(m.getCi()));
+                retornar.add(pac.getDatos());
             }
         }
         return retornar;
@@ -206,7 +206,7 @@ public class ControladorPacientes implements IContPaciente{
 
     }
     @Override
-        public boolean ModificarPCT(String ci, String nombre, String apellido, int edad, int telefono, Direccion direccion, String comboTipo, boolean particular, String Img, boolean elim){
+        public boolean ModificarPCT(String ci, String nombre, String apellido, int edad, String telefono, String ciudad, String departamento, String calle, int numero, String comboTipo, boolean particular, String Img, boolean elim){
         if (!ControladorUsuarios.getInstance().getEntityManager().getTransaction().isActive())
             ControladorUsuarios.getInstance().getEntityManager().getTransaction().begin();
         try{
@@ -236,15 +236,30 @@ public class ControladorPacientes implements IContPaciente{
                 q.executeUpdate();
                 p.setEdad(edad);
             }
-            if (telefono != 0) {
+            if (!telefono.equals("")) {
                 Query q = ControladorUsuarios.getEntityManager().createNativeQuery("UPDATE medicomp.paciente SET telefono='"+telefono+"' WHERE correo='"+p.getCorreo()+"';");
                 q.executeUpdate();
                 p.setTelefono(telefono);
             }
-            if (!direccion.equals("")) {
-                Query q = ControladorUsuarios.getEntityManager().createNativeQuery("UPDATE medicomp.paciente SET direccion_id='"+direccion+"' WHERE correo='"+p.getCorreo()+"';");
+            if (!ciudad.equals("")) {
+                Query q = ControladorUsuarios.getEntityManager().createNativeQuery("UPDATE medicomp.direccion SET ciudad='"+ciudad+"' WHERE id='"+p.getDireccion().getId()+"';");
                 q.executeUpdate();
-                p.setDireccion(direccion);
+                p.getDireccion().setCiudad(ciudad);
+            }
+            if (!departamento.equals("")) {
+                Query q = ControladorUsuarios.getEntityManager().createNativeQuery("UPDATE medicomp.direccion SET departamento='" +departamento+ "' WHERE id='" + p.getDireccion().getId() + "';");
+                q.executeUpdate();
+                p.getDireccion().setDepartamento(departamento);
+            }
+            if (!calle.equals("")) {
+                Query q = ControladorUsuarios.getEntityManager().createNativeQuery("UPDATE medicomp.direccion SET calle='" +calle+ "' WHERE id='" + p.getDireccion().getId() + "';");
+                q.executeUpdate();
+                p.getDireccion().setCalle(calle);
+            }
+            if (numero != 0) {
+                Query q = ControladorUsuarios.getEntityManager().createNativeQuery("UPDATE medicomp.direccion SET numero='" +numero+ "' WHERE id='" + p.getDireccion().getId() + "';");
+                q.executeUpdate();
+                p.getDireccion().setNumero(numero);
             }
             if (!comboTipo.equals("")) {
                 Query q = ControladorUsuarios.getEntityManager().createNativeQuery("UPDATE medicomp.paciente SET genero='"+comboTipo+"' WHERE correo='"+p.getCorreo()+"';");
@@ -252,7 +267,11 @@ public class ControladorPacientes implements IContPaciente{
                 p.setGenero(comboTipo);
             }
             if (!particular) {
-                Query q = ControladorUsuarios.getEntityManager().createNativeQuery("UPDATE medicomp.paciente SET particular='"+particular+"' WHERE correo='"+p.getCorreo()+"';");
+                Query q = ControladorUsuarios.getEntityManager().createNativeQuery("UPDATE medicomp.paciente SET particular=false WHERE correo='"+p.getCorreo()+"';");
+                q.executeUpdate();
+                p.setParticular(particular);
+            }else{
+                Query q = ControladorUsuarios.getEntityManager().createNativeQuery("UPDATE medicomp.paciente SET particular=true WHERE correo='"+p.getCorreo()+"';");
                 q.executeUpdate();
                 p.setParticular(particular);
             }
@@ -288,7 +307,7 @@ public class ControladorPacientes implements IContPaciente{
         if (!ControladorUsuarios.getInstance().getEntityManager().getTransaction().isActive())
             ControladorUsuarios.getInstance().getEntityManager().getTransaction().begin();
         
-        if (!ControladorUsuarios.getInstance().getEntityManager().getTransaction().isActive())
+        if (ControladorUsuarios.getInstance().getEntityManager().getTransaction().isActive())
             ControladorUsuarios.getInstance().getEntityManager().getTransaction().commit();
 //      
     }

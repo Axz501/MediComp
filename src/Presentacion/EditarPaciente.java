@@ -17,6 +17,7 @@ import java.awt.Color;
 import java.awt.FileDialog;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.BorderFactory;
 import javax.swing.Icon;
@@ -92,10 +93,8 @@ public final class EditarPaciente extends JFrameConFondo {
 
         jLayeredPane1 = new javax.swing.JLayeredPane();
         Buscar = new javax.swing.JFileChooser();
-        txt_Edad = new javax.swing.JPasswordField();
         eliminarimagen = new javax.swing.JCheckBox();
         jLabel10 = new javax.swing.JLabel();
-        txt_Telefono = new javax.swing.JPasswordField();
         Img = new javax.swing.JLabel();
         CargarImg = new javax.swing.JButton();
         CargarImg1 = new javax.swing.JButton();
@@ -120,6 +119,8 @@ public final class EditarPaciente extends JFrameConFondo {
         PacienteTable = new javax.swing.JTable();
         buscarIngTextField = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
+        txt_Edad = new javax.swing.JTextField();
+        txt_Telefono = new javax.swing.JTextField();
 
         javax.swing.GroupLayout jLayeredPane1Layout = new javax.swing.GroupLayout(jLayeredPane1);
         jLayeredPane1.setLayout(jLayeredPane1Layout);
@@ -316,6 +317,16 @@ public final class EditarPaciente extends JFrameConFondo {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(buscarIngTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel7)
+                                .addGap(66, 66, 66)
+                                .addComponent(cmb_Tipo, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(46, 46, 46)
+                                .addComponent(particular))
+                            .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel11)
                                     .addComponent(jLabel6)
@@ -323,34 +334,20 @@ public final class EditarPaciente extends JFrameConFondo {
                                     .addComponent(jLabel3)
                                     .addComponent(jLabel10))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(txt_Nombre, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 255, Short.MAX_VALUE)
-                                        .addComponent(txt_Apellido, javax.swing.GroupLayout.Alignment.LEADING))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                                .addComponent(txt_Ciudad, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addComponent(txt_Calle, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGap(18, 18, 18)
-                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(txt_Departamento)
-                                                .addComponent(txt_Numero)))
-                                        .addComponent(txt_Telefono, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(txt_Edad, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                        .addComponent(jLabel1)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(buscarIngTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                        .addComponent(jLabel7)
-                                        .addGap(66, 66, 66)
-                                        .addComponent(cmb_Tipo, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(46, 46, 46)
-                                        .addComponent(particular)))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txt_Telefono, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(txt_Edad, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(txt_Nombre)
+                                    .addComponent(txt_Apellido)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(txt_Ciudad, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(txt_Calle, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(18, 18, 18)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(txt_Departamento, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE)
+                                            .addComponent(txt_Numero))))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 92, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(eliminarimagen)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -365,12 +362,12 @@ public final class EditarPaciente extends JFrameConFondo {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(rutaImg1, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 601, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 64, Short.MAX_VALUE))))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(54, Short.MAX_VALUE)
+                .addContainerGap(53, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(buscarIngTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -390,7 +387,7 @@ public final class EditarPaciente extends JFrameConFondo {
                         .addComponent(rutaImg, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(eliminarimagen)
-                        .addGap(33, 82, Short.MAX_VALUE))
+                        .addGap(33, 83, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
@@ -408,11 +405,14 @@ public final class EditarPaciente extends JFrameConFondo {
                             .addComponent(jLabel7)
                             .addComponent(cmb_Tipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(particular))
-                        .addGap(54, 54, 54)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txt_Telefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel10))
-                        .addGap(21, 21, 21)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(55, 55, 55)
+                                .addComponent(jLabel10))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGap(51, 51, 51)
+                                .addComponent(txt_Telefono, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(24, 24, 24)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel11)
                             .addComponent(txt_Ciudad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -421,7 +421,7 @@ public final class EditarPaciente extends JFrameConFondo {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txt_Numero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txt_Calle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jButton2)
                             .addComponent(jButton1))
@@ -461,23 +461,26 @@ public final class EditarPaciente extends JFrameConFondo {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         String ci =  (String) PacienteTable.getValueAt(PacienteTable.getSelectedRow(), 0);
         boolean part=false, elim=false;
-        String nombre, apellido, correo, comboTipo, ciudad, departamento, calle;
-        int edad, telefono, numero;
+        String nombre, apellido, comboTipo, ciudad, departamento, calle, telefono;
+        int edad=0, numero=0;
+        if(!txt_Edad.getText().equals("")){
+            edad = Integer.parseInt(txt_Edad.getText());
+        }
+        if(!txt_Numero.getText().equals("")){
+            numero = Integer.valueOf(txt_Numero.getText());
+        }
         nombre = txt_Nombre.getText();
         apellido = txt_Apellido.getText();
-        edad = Integer.valueOf(txt_Edad.getText());
-        telefono = Integer.valueOf(txt_Telefono.getText());
+        telefono = txt_Telefono.getText();
         ciudad = txt_Ciudad.getText();
         departamento = txt_Departamento.getText();
         calle = txt_Calle.getText();
-        numero = Integer.valueOf(txt_Numero.getText());
         comboTipo = cmb_Tipo.getSelectedItem().toString();
         part = particular.isSelected();
         elim = eliminarimagen.isSelected();
-        Direccion direccion = new Direccion(ciudad, departamento, calle, numero);
 
                 boolean Ok;
-                Ok = Pct.ModificarPCT(ci,nombre,apellido,edad,telefono,direccion,comboTipo,part,RutaImagen,elim);
+                Ok = Pct.ModificarPCT(ci,nombre,apellido,edad,telefono,ciudad,departamento,calle,numero,comboTipo,part,RutaImagen,elim);
                 if(Ok){
                     javax.swing.JOptionPane.showMessageDialog(this,"El Paciente ha sido modificado");
                     this.dispose();
@@ -582,23 +585,21 @@ public final class EditarPaciente extends JFrameConFondo {
 
     private void PacienteTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PacienteTableMouseClicked
         if (PacienteTable.getSelectedRow() > -1) {
-            for (Paciente p : pct.getPacientes()){
-                if (p.getCi().equals(PacienteTable.getValueAt(PacienteTable.getSelectedRow(), 0))){
-                    if (p.getImagen()!=null){
-                        ImageIcon imagen = p.getImagen().getImagen();
-                        Icon imagenperfil = new ImageIcon(imagen.getImage().getScaledInstance(jLabel3.getWidth(), jLabel3.getHeight(), Image.SCALE_DEFAULT));
-                        jLabel3.setIcon(imagenperfil);
-                    }
-                    else{
-                        java.util.Properties pr = System.getProperties();
-                        String cadena = pr.getProperty("user.dir");
-                        ImageIcon imagen = new ImageIcon(cadena+"/src/Utils/iconoUsuario.jpg"); //genera la imagen que seleccionamos
-                        Icon imagenperfil = new ImageIcon(imagen.getImage().getScaledInstance(jLabel3.getWidth(), jLabel3.getHeight(), Image.SCALE_DEFAULT));
-                        jLabel3.setIcon(imagenperfil);
-                    }
-                }
+            DtPaciente a = lp.get(PacienteTable.getSelectedRow());
+            if (a.getImagen() != null) {
+                ImageIcon imagen = a.getImagen().getImagen();
+                Icon imagenperfil = new ImageIcon(imagen.getImage().getScaledInstance(Img.getWidth(), Img.getHeight(), Image.SCALE_DEFAULT));
+                Img.setIcon(imagenperfil);
+            } else {
+                java.util.Properties pr = System.getProperties();
+                String cadena = pr.getProperty("user.dir");
+                ImageIcon imagen = new ImageIcon(cadena + "/src/Utils/iconoUsuario.jpg"); //genera la imagen que seleccionamos
+                Icon imagenperfil = new ImageIcon(imagen.getImage().getScaledInstance(Img.getWidth(), Img.getHeight(), Image.SCALE_DEFAULT));
+                Img.setIcon(imagenperfil);
             }
-            int part = Integer.parseInt((String) PacienteTable.getValueAt(PacienteTable.getSelectedRow(), 8));
+
+
+            boolean part = Boolean.valueOf((String) PacienteTable.getValueAt(PacienteTable.getSelectedRow(), 8));
             String par = String.valueOf(part);
             if(par.equals("Si")){
                 //mostrar direccion y telefono
@@ -681,9 +682,9 @@ public void centrar(){
     private javax.swing.JTextField txt_Calle;
     private javax.swing.JTextField txt_Ciudad;
     private javax.swing.JTextField txt_Departamento;
-    private javax.swing.JPasswordField txt_Edad;
+    private javax.swing.JTextField txt_Edad;
     private javax.swing.JTextField txt_Nombre;
     private javax.swing.JTextField txt_Numero;
-    private javax.swing.JPasswordField txt_Telefono;
+    private javax.swing.JTextField txt_Telefono;
     // End of variables declaration//GEN-END:variables
 }

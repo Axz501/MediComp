@@ -32,11 +32,11 @@ public class DtPaciente{
     private Imagen imagen;
     private boolean particular;
     private String correo;
-    private int telefono;
+    private String telefono;
     @OneToOne(cascade = CascadeType.PERSIST)
     private Direccion direccion;
     
-    public DtPaciente(String ci, String nombre, String apellido, String correo, int edad, int telefono, Direccion direccion, String genero, boolean particular, Imagen imagen) {
+    public DtPaciente(String ci, String nombre, String apellido, String correo, int edad, String telefono, Direccion direccion, String genero, boolean particular, Imagen imagen) {
         this.ci = ci;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -48,7 +48,7 @@ public class DtPaciente{
         this.telefono = telefono;
         this.direccion = direccion;
     }
-    public DtPaciente(String ci, String nombre, String apellido, String correo, int edad, int telefono, Direccion direccion, String genero, boolean particular) {
+    public DtPaciente(String ci, String nombre, String apellido, String correo, int edad, String telefono, Direccion direccion, String genero, boolean particular) {
         this.ci = ci;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -124,11 +124,11 @@ public class DtPaciente{
         this.correo = correo;
     }
 
-    public int getTelefono() {
+    public String getTelefono() {
         return telefono;
     }
 
-    public void setTelefono(int telefono) {
+    public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
 

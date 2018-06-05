@@ -15,7 +15,7 @@
     <class>Logica.Prototipo</class>
     <class>Logica.Deuda</class>
     <class>Logica.EstadoDeuda</class>
-    <class>Logica.Cuota</class>
+    <class>Logica.Cuota</class> 
     <class>Logica.Imagen</class>
     <class>Logica.Rel_Med_Asis</class>
     <properties>

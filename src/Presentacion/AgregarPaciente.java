@@ -417,29 +417,7 @@ public class AgregarPaciente extends JFrameConFondo {
                 Icon icono = new ImageIcon(imagen.getImage().getScaledInstance(Img.getWidth(), Img.getHeight(), Image.SCALE_DEFAULT));
                 this.Img.setIcon(icono); // coloca la imagen en el label
             }
-            //        FileNameExtensionFilter filtro = new FileNameExtensionFilter("Imagenes", "jpg", "png", "JPG", "PNG"); // filtro para el Filechooser
-            //        Buscar.setFileFilter(filtro);
-            //        int a = Buscar.showOpenDialog(this); // guarda la accion que se realiza en el filechooser
-            //
-            //        if (a == JFileChooser.APPROVE_OPTION) { // la accion si se le da a abrir
-                //            File archivo = Buscar.getSelectedFile(); // capturar el nombre y ruta
-                //
-                //            RutaImagen = archivo.getPath();
-                //            String rutaMostrar = RutaImagen;
-                //
-                //            //Si la ruta es muy larga, la corta y le ponde los puntos suspesivos para mostrarla
-                //            if (RutaImagen.length() > 35) {
-                    //                rutaMostrar = RutaImagen.substring(0, 35) + "...";
-                    //            }
-                //
-                //            rutaImg.setText(rutaMostrar);
-                //            ImageIcon imagen = new ImageIcon(RutaImagen); //genera la imagen que seleccionamos
-                //            Icon icono = new ImageIcon(imagen.getImage().getScaledInstance(Img.getWidth(), Img.getHeight(), Image.SCALE_DEFAULT));
-                //
-                //            this.Img.setIcon(icono); // coloca la imagen en el label
-                //
-                //            this.pack();
-                //        }
+
     }//GEN-LAST:event_CargarImgActionPerformed
 
     private void CargarImg1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CargarImg1ActionPerformed
@@ -485,8 +463,8 @@ public class AgregarPaciente extends JFrameConFondo {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         boolean part = false, formatocorreo = false, largoci = false;
-        String ci, nombre, apellido, correo, comboTipo, ciudad, departamento, calle;
-        int edad, telefono, numero;
+        String ci, nombre, telefono, apellido, correo, comboTipo, ciudad, departamento, calle;
+        int edad, numero;
         if (txt_Ciudad.getText().equals("Ciudad") || txt_Departamento.getText().equals("Departamento") || txt_Calle.getText().equals("Calle") || txt_Numero.getText().equals("Numero")) {
             javax.swing.JOptionPane.showMessageDialog(this, "Debe llenar todos los campos \n", "AVISO!", javax.swing.JOptionPane.INFORMATION_MESSAGE);
             txt_Ci.requestFocus();
@@ -496,7 +474,7 @@ public class AgregarPaciente extends JFrameConFondo {
             apellido = txt_Apellido.getText();
             correo = txt_Correo.getText();
             edad = Integer.valueOf(txt_Edad.getText());
-            telefono = Integer.valueOf(txt_Telefono.getText());
+            telefono = txt_Telefono.getText();
             ciudad = txt_Ciudad.getText();
             departamento = txt_Departamento.getText();
             calle = txt_Calle.getText();
@@ -504,7 +482,7 @@ public class AgregarPaciente extends JFrameConFondo {
             comboTipo = cmb_Tipo.getSelectedItem().toString();
             part = particular.isSelected();
             Direccion direccion = new Direccion(ciudad, departamento, calle, numero);
-            if ((txt_Ci.getText().equals("")) || numero == 0 || edad == 0 || telefono == 0 || (txt_Nombre.getText().equals("")) || (txt_Apellido.getText().equals("")) || (txt_Correo.getText().equals("")) || ((cmb_Tipo.getSelectedItem() == null))) {
+            if ((txt_Ci.getText().equals("")) || numero == 0 || edad == 0 || txt_Telefono.getText().equals("") || (txt_Nombre.getText().equals("")) || (txt_Apellido.getText().equals("")) || (txt_Correo.getText().equals("")) || ((cmb_Tipo.getSelectedItem() == null))) {
                 javax.swing.JOptionPane.showMessageDialog(this, "Debe llenar todos los campos \n", "AVISO!", javax.swing.JOptionPane.INFORMATION_MESSAGE);
                 txt_Ci.requestFocus();
             } else {
