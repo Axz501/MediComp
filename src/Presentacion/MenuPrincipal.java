@@ -3072,7 +3072,10 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jPanel44MouseClicked
 
     private void jPanel42MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel42MouseClicked
-        // TODO add your handling code here:
+        BorrarPaciente nuevo = new BorrarPaciente();
+        nuevo.setVisible(true);
+        nuevo.centrar();
+        nuevo.setIconImage(icono); 
         efectoclick(Color.LIGHT_GRAY,evt);
     }//GEN-LAST:event_jPanel42MouseClicked
 

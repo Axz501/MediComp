@@ -70,6 +70,27 @@ public class Paciente implements Serializable {
         this.telefono = telefono;
         this.direccion = direccion;
     }
+
+    Paciente(String ci, String nombre, String apellido, String correo, int edad, String comboTipo, boolean particular) {
+        this.ci = ci;
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.edad = edad;
+        this.genero = comboTipo;
+        this.particular = particular;
+        this.correo = correo;
+    }
+
+    Paciente(String ci, String nombre, String apellido, String correo, int edad, String comboTipo, boolean particular, Imagen img) {
+        this.ci = ci;
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.edad = edad;
+        this.genero = comboTipo;
+        this.imagen = img;
+        this.particular = particular;
+        this.correo = correo;
+    }
     public List<Consulta> getConsultas() {
         return consultas;
     }
