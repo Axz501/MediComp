@@ -6,10 +6,12 @@
 package Logica;
 
 import java.io.Serializable;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 /**
  *
@@ -23,6 +25,19 @@ public class Prototipo implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String prototipo;
+    @ManyToOne 
+    private NombredeEstudio nombredeEstudio;
+
+    public NombredeEstudio getNombredeEstudio() {
+        return nombredeEstudio;
+    }
+
+    public void setNombredeEstudio(NombredeEstudio nombredeEstudio) {
+        this.nombredeEstudio = nombredeEstudio;
+    }
+
+    public Prototipo() {
+    }
 
     public Long getId() {
         return id;
@@ -69,4 +84,8 @@ public class Prototipo implements Serializable {
         return "Logica.Prototipo[ id=" + id + " ]";
     }
     
+    public DtPrototipo getDatos() {
+        DtPrototipo dtp = new DtPrototipo(this.id,this.prototipo);
+        return dtp;
+    }
 }

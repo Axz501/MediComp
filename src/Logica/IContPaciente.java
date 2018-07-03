@@ -25,4 +25,15 @@ public interface IContPaciente {
     public abstract void AgregarPaciente(String ci);    
     public abstract void getPacientesdeBD();
     public abstract void BorrarPaciente(String ci);
+    public abstract void AgregarEstudio(String nombEst, String nomPro);
+    public abstract List<DtEstudio> listarEstudio(String nombre); 
+    public abstract List<DtPrototipo> listarPrototipo(String nombre);
+    public abstract void getEstudiosBD();
+    public abstract void getPrototipoBD();
+    public abstract DtEstudio BuscarEstudio(String nombre);
+    public abstract boolean ModificarEstudio(Long id, String nombre);
+    public abstract DtPrototipo BuscarPrototipo(String informe);
+    public abstract boolean ModificarPrototipo(Long id, String informe);
+    public abstract boolean EliminarEstudio(String ide);
+    public abstract boolean EliminarPrototipo(String idp);
 }

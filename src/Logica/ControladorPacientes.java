@@ -28,8 +28,10 @@ import javax.persistence.Query;
 public class ControladorPacientes implements IContPaciente{
 
     private static ControladorPacientes instancia;
-    private ControladorUsuarios User = ControladorUsuarios.getInstance();
+    private final ControladorUsuarios User = ControladorUsuarios.getInstance();
     private Map<String, Paciente> pacientes = new HashMap();
+    private final Map<Long, NombredeEstudio> estudios = new HashMap();
+    private final Map<Long, Prototipo> prototipos = new HashMap();
     
     public Map<String, Paciente> getPacientes() {
         return pacientes;
@@ -46,6 +48,14 @@ public class ControladorPacientes implements IContPaciente{
         return instancia;
     }
     
+    public Map<Long, NombredeEstudio> getEstudios(){
+        return estudios;
+    }
+    
+    public Map<Long, Prototipo> getPrototipos(){
+        return prototipos;
+    }
+    
     @Override
     public boolean verificarDatosP(String ci, String correo) {
         for (Paciente pct : this.pacientes.values()) {
@@ -59,8 +69,7 @@ public class ControladorPacientes implements IContPaciente{
         }
         return true;
     }
-    
-    
+
     private static class ControladorPacientesHolder {
         private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("MediCompPU");
         private static final EntityManager em = emf.createEntityManager();
@@ -149,7 +158,38 @@ public class ControladorPacientes implements IContPaciente{
             }
         }
     }
-    
+     @Override
+    public void getEstudiosBD(){
+        List<NombredeEstudio> resultado = null;
+        ControladorPacientes.getInstance().getEntityManager().getTransaction().begin();
+        try {
+            resultado = ControladorPacientes.getEntityManager().createNativeQuery("SELECT * FROM medicomp.nombredeestudio ;", NombredeEstudio.class).getResultList();
+            ControladorPacientes.getEntityManager().getTransaction().commit();
+        } catch (Exception e) {
+            ControladorPacientes.getEntityManager().getTransaction().rollback();
+        }
+        if (resultado!=null && !resultado.isEmpty()){
+            for (int i=0;i<resultado.size();i++){
+                this.getEstudios().put(resultado.get((int) i).getId(), resultado.get((int) i));
+            }
+        }
+    }
+     @Override
+    public void getPrototipoBD(){
+        List<Prototipo> resultado = null;
+        ControladorPacientes.getInstance().getEntityManager().getTransaction().begin();
+        try {
+            resultado = ControladorPacientes.getEntityManager().createNativeQuery("SELECT * FROM medicomp.prototipo ;", Prototipo.class).getResultList();
+            ControladorPacientes.getEntityManager().getTransaction().commit();
+        } catch (Exception e) {
+            ControladorPacientes.getEntityManager().getTransaction().rollback();
+        }
+        if (resultado!=null && !resultado.isEmpty()){
+            for (int i=0;i<resultado.size();i++){
+                this.getPrototipos().put(resultado.get((int) i).getId(), resultado.get((int) i));
+            }
+        }
+    }
     @Override
     public boolean IngresarPacienteP(String ci, String nombre, String apellido, String correo, int edad, String telefono, Direccion direccion, String comboTipo, boolean particular, String Img) {
         if (Fabrica.getPaciente().verificarDatosP(ci, correo) == false) { // si ya existe un cliente con ese nickname o correo
@@ -428,5 +468,156 @@ public class ControladorPacientes implements IContPaciente{
         }
 
     }
+    @Override
+    public void AgregarEstudio(String nombEst, String nomPro){
+        NombredeEstudio e = new NombredeEstudio(nombEst);
+        e.setPrototipos(new ArrayList<Prototipo>());
+        Prototipo p = new Prototipo(nomPro);
+        p.setNombredeEstudio(e);
+        e.getPrototipos().add(p);
+        this.persist(e);
+        
+        if (!ControladorPacientes.getInstance().getEntityManager().getTransaction().isActive()) {
+            ControladorPacientes.getInstance().getEntityManager().getTransaction().begin();
+        }
+
+        if (ControladorPacientes.getInstance().getEntityManager().getTransaction().isActive()) {
+            ControladorPacientes.getInstance().getEntityManager().getTransaction().commit();
+        }
+        
+    }
     
+    @Override
+    public List<DtEstudio> listarEstudio(String nombre) {
+        List<DtEstudio> retornar = new ArrayList<>();
+        if(nombre.equals("")){
+        for (NombredeEstudio Ne : this.estudios.values()) {
+                retornar.add(Ne.getDatos());   
+        }
+        }else{
+        for (NombredeEstudio Ne : this.estudios.values()) {
+            if(Ne.getNombre().contains(nombre)){
+                retornar.add(Ne.getDatos());
+            }
+        }}
+        return retornar;
+    }
+    @Override
+    public List<DtPrototipo> listarPrototipo(String nombre) {
+        List<DtPrototipo> retornar = new ArrayList<>();
+        if(nombre.equals("")){
+        for (Prototipo Pr : this.prototipos.values()) {
+                retornar.add(Pr.getDatos());   
+        }
+        }else{
+        for (Prototipo Pr : this.prototipos.values()) {
+            if(Pr.getPrototipo().contains(nombre)){
+                retornar.add(Pr.getDatos());
+            }
+        }}
+        return retornar;
+    }
+    
+    @Override
+    public DtEstudio BuscarEstudio(String nombre){
+        for (NombredeEstudio aux : this.estudios.values()) {
+            Long nombEst = aux.getId();
+            String nomb = String.valueOf(nombEst);
+            if (nomb.equals(nombre)) {
+                return aux.getDatos();
+            }
+        }
+        return null;
+    }
+    
+    @Override
+    public boolean ModificarEstudio(Long id, String nombre){
+        if (!ControladorPacientes.getInstance().getEntityManager().getTransaction().isActive()) {
+            ControladorPacientes.getInstance().getEntityManager().getTransaction().begin();
+        }
+        try {
+            NombredeEstudio ne = this.estudios.get(id);
+            Query q = ControladorPacientes.getEntityManager().createNativeQuery("UPDATE medicomp.nombredeestudio SET nombre='" + nombre + "' WHERE id='" + ne.getId() + "';");
+            q.executeUpdate();
+            ne.setNombre(nombre);
+            if (ControladorPacientes.getInstance().getEntityManager().getTransaction().isActive()) {
+                ControladorPacientes.getInstance().getEntityManager().getTransaction().commit();
+            }
+            return true;
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+            return false;
+        }
+    }
+    
+    @Override
+    public DtPrototipo BuscarPrototipo(String informe){
+        for (Prototipo aux : this.prototipos.values()) {
+            Long id = aux.getId();
+            String inf = String.valueOf(id);
+            if (inf.equals(informe)) {
+                return aux.getDatos();
+            }
+        }
+        return null;
+    }
+    
+    @Override
+    public boolean ModificarPrototipo(Long id, String informe){
+        if (!ControladorPacientes.getInstance().getEntityManager().getTransaction().isActive()) {
+            ControladorPacientes.getInstance().getEntityManager().getTransaction().begin();
+        }
+        try {
+            Prototipo pr = this.prototipos.get(id);
+            Query q = ControladorPacientes.getEntityManager().createNativeQuery("UPDATE medicomp.prototipo SET prototipo='" + informe + "' WHERE id='" + pr.getId() + "';");
+            q.executeUpdate();
+            pr.setPrototipo(informe);
+            if (ControladorPacientes.getInstance().getEntityManager().getTransaction().isActive()) {
+                ControladorPacientes.getInstance().getEntityManager().getTransaction().commit();
+            }
+            return true;
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+            return false;
+        }
+    }
+    
+    @Override
+    public boolean EliminarEstudio(String ide){
+        NombredeEstudio ne = (NombredeEstudio) this.estudios.get(Long.valueOf(ide));
+        if (!ControladorPacientes.getInstance().getEntityManager().getTransaction().isActive()) {
+            ControladorPacientes.getInstance().getEntityManager().getTransaction().begin();
+        }
+        try {
+            Long e = Long.valueOf(ide);
+            this.estudios.remove(e);
+            getEntityManager().remove(ne);
+            if (ControladorPacientes.getInstance().getEntityManager().getTransaction().isActive()) {
+                ControladorPacientes.getInstance().getEntityManager().getTransaction().commit();
+            }
+            return true;
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+            return false;
+        }
+    }
+    @Override
+    public boolean EliminarPrototipo(String idp){
+       if (!ControladorPacientes.getInstance().getEntityManager().getTransaction().isActive()) {
+            ControladorPacientes.getInstance().getEntityManager().getTransaction().begin();
+        }
+        try {
+            Long e = Long.valueOf(idp);
+            this.prototipos.remove(e);
+            Query q = ControladorPacientes.getEntityManager().createNativeQuery("DELETE FROM medicomp.prototipo WHERE id= " + e);
+            q.executeUpdate();
+            if (ControladorPacientes.getInstance().getEntityManager().getTransaction().isActive()) {
+                ControladorPacientes.getInstance().getEntityManager().getTransaction().commit();
+            }
+            return true;
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+            return false;
+        }
+    }
 }
