@@ -13,6 +13,7 @@ import java.util.List;
  * @author Admin
  */
 public class DtConsulta {
+    private long id;
     private Date Fecha;
     private List<EstudioRealizado> estudios = null;
     private String paciente;
@@ -26,15 +27,24 @@ public class DtConsulta {
         this.paciente = paciente;
     }
     
-    public DtConsulta(Date Fecha, DtPaciente paciente,Direccion dir, DtEntidad ent) {
+    public DtConsulta(Date Fecha, DtPaciente paciente,Direccion dir, DtEntidad ent,long id) {
         this.Fecha = Fecha;
         this.dir = dir;
         this.dtp = paciente;
         this.entidad = ent;
+        this.id = id;
     }
 
     public Direccion getDir() {
         return dir;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public void setDir(Direccion dir) {

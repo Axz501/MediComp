@@ -504,8 +504,8 @@ public class AgregarPaciente extends JFrameConFondo {
         edad = Integer.valueOf(txt_Edad.getText());
         comboTipo = cmb_Tipo.getSelectedItem().toString();
         part = particular.isSelected();
-        if (particular.isSelected()==true) {
-            if ((txt_Ci.getText().equals("")) || edad == 0 || txt_Telefono.getText().equals("") || (txt_Nombre.getText().equals("")) || (txt_Apellido.getText().equals("")) || (txt_Correo.getText().equals("")) || ((cmb_Tipo.getSelectedItem() == null))) {
+        if (part==false) {
+            if ((txt_Ci.getText().equals("")) || edad == 0 || (txt_Nombre.getText().equals("")) || (txt_Apellido.getText().equals("")) || (txt_Correo.getText().equals("")) ) {
                 javax.swing.JOptionPane.showMessageDialog(this, "Debe llenar todos los campos \n", "AVISO!", javax.swing.JOptionPane.INFORMATION_MESSAGE);
                 txt_Ci.requestFocus();
             }else{

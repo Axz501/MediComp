@@ -159,11 +159,11 @@ public class ControladorPacientes implements IContPaciente{
     
     @Override
     public void EditarEntidad(long id,String nom,String mail,List<String> listatel,String dpto,String ciudad,String calle, int nro,String rutaimagen,boolean b,boolean elimg){
-        int i=0;
-        while (this.entidades.get(i).getId()!=id){
-            i++;
+        Entidad e = null;
+        for (int i=0;i<entidades.size();i++){
+            if (entidades.get(i).getId()==id)
+                e = this.entidades.get(i);
         }
-        Entidad e = this.entidades.get(i);
         if (!ControladorUsuarios.getInstance().getEntityManager().getTransaction().isActive())
             ControladorUsuarios.getInstance().getEntityManager().getTransaction().begin();
         if (elimg){

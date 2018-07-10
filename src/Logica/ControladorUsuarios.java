@@ -61,11 +61,31 @@ public class ControladorUsuarios  implements IContUsuario{
     }
     
     @Override
-    public List<DtConsulta> getListadoJornadas(){
+    public void EliminarConsulta(long id){
+        Consulta aux = null;
+        Jornada jaux = null;
+        for (Jornada j : this.getSesionactiva().getJornadas()){
+            for (Consulta c : j.getConsultas()){
+                if (c.getId()==id){
+                    aux = c;
+                    jaux = j;
+                }
+            }
+        }
+        if (aux!=null){
+            jaux.getConsultas().remove(aux);
+            this.remove(aux);
+            this.commit();
+        }
+    }
+    
+    @Override
+    public List<DtConsulta> getListadoJornadas(String ci){
        List<DtConsulta> retornar = new ArrayList();
        for (Jornada j : this.getSesionactiva().getJornadas()){
            for (Consulta c : j.getConsultas())
-               retornar.add(new DtConsulta(c.getFecha_Hora(),c.getPaciente().getDatos(),j.getDireccion(),j.getEntidad()!=null ? j.getEntidad().getDatos() : null));
+               if (c.getPaciente().getCi().toLowerCase().contains(ci.toLowerCase()) || c.getPaciente().getApellido().toLowerCase().contains(ci.toLowerCase()) || c.getPaciente().getNombre().toLowerCase().contains(ci.toLowerCase()))
+                retornar.add(new DtConsulta(c.getFecha_Hora(),c.getPaciente().getDatos(),j.getDireccion(),j.getEntidad()!=null ? j.getEntidad().getDatos() : null,c.getId()));
        }
        return retornar;
     }

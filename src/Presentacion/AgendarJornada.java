@@ -339,11 +339,11 @@ public class AgendarJornada extends JFrameConFondo {
 
             },
             new String [] {
-                "Departamento", "Ciudad", "Calle", "Número"
+                "Departamento - Ciudad", "Dirección"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -351,6 +351,7 @@ public class AgendarJornada extends JFrameConFondo {
             }
         });
         DireTable.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
+        DireTable.setColumnSelectionAllowed(true);
         DireTable.setGridColor(new java.awt.Color(204, 204, 204));
         DireTable.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -360,10 +361,8 @@ public class AgendarJornada extends JFrameConFondo {
         jScrollPane8.setViewportView(DireTable);
         DireTable.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
         if (DireTable.getColumnModel().getColumnCount() > 0) {
-            DireTable.getColumnModel().getColumn(0).setPreferredWidth(100);
-            DireTable.getColumnModel().getColumn(1).setPreferredWidth(100);
-            DireTable.getColumnModel().getColumn(2).setPreferredWidth(100);
-            DireTable.getColumnModel().getColumn(3).setPreferredWidth(100);
+            DireTable.getColumnModel().getColumn(0).setPreferredWidth(150);
+            DireTable.getColumnModel().getColumn(1).setPreferredWidth(150);
         }
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);

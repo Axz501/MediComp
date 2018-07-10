@@ -140,6 +140,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jPanelSuperior5.setBounds(0, y-200, horizontal, 200);
         jPanel50.setBounds(200,200,290,60);
         jPanel45.setBounds(200,300,290,60);
+        jPanel45.setVisible(false);
+        jPanel40.setVisible(false);
         jPanel58.setBounds(200,400,290,60);
         jPanel57.setBounds(600,200,290,60);
         jPanel40.setBounds(600,300,290,60);
