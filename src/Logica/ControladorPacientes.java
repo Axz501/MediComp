@@ -145,7 +145,8 @@ public class ControladorPacientes implements IContPaciente{
     @Override
     public void getPacientesdeBD(){
         List<Paciente> resultado = null;
-        ControladorPacientes.getInstance().getEntityManager().getTransaction().begin();
+        if (!ControladorPacientes.getInstance().getEntityManager().getTransaction().isActive()) 
+            ControladorPacientes.getInstance().getEntityManager().getTransaction().begin();
         try {
             resultado = ControladorPacientes.getEntityManager().createNativeQuery("SELECT * FROM medicomp.paciente ;", Paciente.class).getResultList();
             ControladorPacientes.getEntityManager().getTransaction().commit();
@@ -161,7 +162,8 @@ public class ControladorPacientes implements IContPaciente{
      @Override
     public void getEstudiosBD(){
         List<NombredeEstudio> resultado = null;
-        ControladorPacientes.getInstance().getEntityManager().getTransaction().begin();
+        if (!ControladorPacientes.getInstance().getEntityManager().getTransaction().isActive())
+            ControladorPacientes.getInstance().getEntityManager().getTransaction().begin();
         try {
             resultado = ControladorPacientes.getEntityManager().createNativeQuery("SELECT * FROM medicomp.nombredeestudio ;", NombredeEstudio.class).getResultList();
             ControladorPacientes.getEntityManager().getTransaction().commit();
@@ -177,7 +179,8 @@ public class ControladorPacientes implements IContPaciente{
      @Override
     public void getPrototipoBD(){
         List<Prototipo> resultado = null;
-        ControladorPacientes.getInstance().getEntityManager().getTransaction().begin();
+        if (!ControladorPacientes.getInstance().getEntityManager().getTransaction().isActive())
+            ControladorPacientes.getInstance().getEntityManager().getTransaction().begin();
         try {
             resultado = ControladorPacientes.getEntityManager().createNativeQuery("SELECT * FROM medicomp.prototipo ;", Prototipo.class).getResultList();
             ControladorPacientes.getEntityManager().getTransaction().commit();
@@ -619,5 +622,8 @@ public class ControladorPacientes implements IContPaciente{
             System.out.println(ex.getMessage());
             return false;
         }
+    }
+    public boolean AgregarEstudioaPaciente(String ci,String idEst){
+        
     }
 }

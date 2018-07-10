@@ -36,4 +36,5 @@ public interface IContPaciente {
     public abstract boolean ModificarPrototipo(Long id, String informe);
     public abstract boolean EliminarEstudio(String ide);
     public abstract boolean EliminarPrototipo(String idp);
+    public abstract boolean AgregarEstudioaPaciente(String ci,String idEst);
 }
