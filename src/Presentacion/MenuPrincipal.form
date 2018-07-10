@@ -573,9 +573,9 @@
                           <Component id="jPanelTercero" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jPanel6" pref="121" max="32767" attributes="0"/>
+                              <Component id="jPanel6" pref="123" max="32767" attributes="0"/>
                               <Component id="jPanel5" alignment="0" max="32767" attributes="0"/>
-                              <Component id="jPanel30" alignment="0" pref="121" max="32767" attributes="0"/>
+                              <Component id="jPanel30" alignment="0" pref="123" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -700,7 +700,7 @@
                               </Group>
                               <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
                               <Component id="jLabelImagen" min="-2" pref="139" max="-2" attributes="0"/>
-                              <EmptySpace pref="22" max="32767" attributes="0"/>
+                              <EmptySpace pref="282" max="32767" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="jPanel39" min="-2" pref="129" max="-2" attributes="0"/>
                                   <Component id="jPanel35" min="-2" pref="129" max="-2" attributes="0"/>
@@ -1063,7 +1063,7 @@
                               <Component id="Subtitulo" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="307" max="-2" attributes="0"/>
                               <Component id="jLabel37" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="147" max="32767" attributes="0"/>
+                              <EmptySpace pref="407" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -1145,7 +1145,7 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jLabel36" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
-                              <Component id="jLabel43" pref="55" max="32767" attributes="0"/>
+                              <Component id="jLabel43" pref="57" max="32767" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -1222,7 +1222,7 @@
                               <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
                               <Component id="jLabel41" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jLabel40" pref="48" max="32767" attributes="0"/>
+                              <Component id="jLabel40" pref="50" max="32767" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -1569,7 +1569,7 @@
                           <Font name="Verdana" size="16" style="1"/>
                         </Property>
                         <Property name="horizontalAlignment" type="int" value="0"/>
-                        <Property name="text" type="java.lang.String" value="Agregar Paciente"/>
+                        <Property name="text" type="java.lang.String" value="Registrar Paciente"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JLabel" name="jLabel90">
@@ -1614,8 +1614,8 @@
                               <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
                               <Component id="jLabel103" min="-2" pref="40" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="jLabel102" pref="191" max="32767" attributes="0"/>
-                              <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                              <Component id="jLabel102" min="-2" pref="172" max="-2" attributes="0"/>
+                              <EmptySpace pref="37" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -1824,8 +1824,8 @@
                               <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
                               <Component id="jLabel107" min="-2" pref="40" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="jLabel106" pref="191" max="32767" attributes="0"/>
-                              <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                              <Component id="jLabel106" min="-2" pref="164" max="-2" attributes="0"/>
+                              <EmptySpace pref="45" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -1849,7 +1849,7 @@
                           <Font name="Verdana" size="16" style="1"/>
                         </Property>
                         <Property name="horizontalAlignment" type="int" value="0"/>
-                        <Property name="text" type="java.lang.String" value="Listar Pacientes"/>
+                        <Property name="text" type="java.lang.String" value="Mis Pacientes"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JLabel" name="jLabel107">
@@ -1894,10 +1894,8 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="jPanel53" min="-2" max="-2" attributes="0"/>
                               <Component id="jPanel54" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="jPanel55" min="-2" max="-2" attributes="0"/>
-                              <Component id="jPanel56" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace pref="14" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -1918,22 +1916,11 @@
                               <Component id="jPanel54" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jPanel52" min="-2" max="-2" attributes="0"/>
-                              <Component id="jPanel56" min="-2" max="-2" attributes="0"/>
-                          </Group>
+                          <Component id="jPanel52" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" attributes="0">
-                                  <Component id="jPanel49" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace pref="21" max="32767" attributes="0"/>
-                                  <Component id="jPanelSuperior3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" attributes="0">
-                                  <Component id="jPanel55" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                              </Group>
-                          </Group>
+                          <Component id="jPanel49" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace pref="21" max="32767" attributes="0"/>
+                          <Component id="jPanelSuperior3" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -2462,146 +2449,6 @@
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JLabel" name="jLabel127">
-                      <Properties>
-                        <Property name="horizontalAlignment" type="int" value="0"/>
-                        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                          <Image iconType="3" name="/Utils/historial-medico2.png"/>
-                        </Property>
-                        <Property name="alignmentX" type="float" value="0.5"/>
-                      </Properties>
-                    </Component>
-                  </SubComponents>
-                </Container>
-                <Container class="javax.swing.JPanel" name="jPanel55">
-                  <Properties>
-                    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                      <Color blue="ff" green="ff" red="99" type="rgb"/>
-                    </Property>
-                    <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                      <Border info="org.netbeans.modules.form.compat2.border.CompoundBorderInfo">
-                        <CompoundBorder>
-                          <Border PropertyName="outside" info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
-                            <EtchetBorder/>
-                          </Border>
-                          <Border PropertyName="inside" info="org.netbeans.modules.form.compat2.border.BevelBorderInfo">
-                            <BevelBorder/>
-                          </Border>
-                        </CompoundBorder>
-                      </Border>
-                    </Property>
-                  </Properties>
-                  <Events>
-                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jPanel55MouseClicked"/>
-                    <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jPanel55MouseEntered"/>
-                    <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jPanel55MouseExited"/>
-                  </Events>
-
-                  <Layout>
-                    <DimensionLayout dim="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
-                              <Component id="jLabel129" min="-2" pref="40" max="-2" attributes="0"/>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="jLabel128" pref="195" max="32767" attributes="0"/>
-                              <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
-                    </DimensionLayout>
-                    <DimensionLayout dim="1">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="1" attributes="0">
-                              <EmptySpace max="32767" attributes="0"/>
-                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                  <Component id="jLabel128" alignment="1" max="32767" attributes="0"/>
-                                  <Component id="jLabel129" alignment="1" pref="34" max="32767" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
-                    </DimensionLayout>
-                  </Layout>
-                  <SubComponents>
-                    <Component class="javax.swing.JLabel" name="jLabel128">
-                      <Properties>
-                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                          <Font name="Verdana" size="14" style="1"/>
-                        </Property>
-                        <Property name="horizontalAlignment" type="int" value="2"/>
-                        <Property name="text" type="java.lang.String" value="Borrar Tipo de Estudio"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JLabel" name="jLabel129">
-                      <Properties>
-                        <Property name="horizontalAlignment" type="int" value="0"/>
-                        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                          <Image iconType="3" name="/Utils/historial-medico2.png"/>
-                        </Property>
-                        <Property name="alignmentX" type="float" value="0.5"/>
-                      </Properties>
-                    </Component>
-                  </SubComponents>
-                </Container>
-                <Container class="javax.swing.JPanel" name="jPanel56">
-                  <Properties>
-                    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                      <Color blue="ff" green="ff" red="99" type="rgb"/>
-                    </Property>
-                    <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                      <Border info="org.netbeans.modules.form.compat2.border.CompoundBorderInfo">
-                        <CompoundBorder>
-                          <Border PropertyName="outside" info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
-                            <EtchetBorder/>
-                          </Border>
-                          <Border PropertyName="inside" info="org.netbeans.modules.form.compat2.border.BevelBorderInfo">
-                            <BevelBorder/>
-                          </Border>
-                        </CompoundBorder>
-                      </Border>
-                    </Property>
-                  </Properties>
-                  <Events>
-                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jPanel56MouseClicked"/>
-                    <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jPanel56MouseEntered"/>
-                    <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jPanel56MouseExited"/>
-                  </Events>
-
-                  <Layout>
-                    <DimensionLayout dim="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
-                              <Component id="jLabel131" min="-2" pref="40" max="-2" attributes="0"/>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="jLabel130" pref="195" max="32767" attributes="0"/>
-                              <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
-                    </DimensionLayout>
-                    <DimensionLayout dim="1">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="1" attributes="0">
-                              <EmptySpace max="32767" attributes="0"/>
-                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                  <Component id="jLabel130" alignment="1" max="32767" attributes="0"/>
-                                  <Component id="jLabel131" alignment="1" pref="34" max="32767" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
-                    </DimensionLayout>
-                  </Layout>
-                  <SubComponents>
-                    <Component class="javax.swing.JLabel" name="jLabel130">
-                      <Properties>
-                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                          <Font name="Verdana" size="14" style="1"/>
-                        </Property>
-                        <Property name="horizontalAlignment" type="int" value="2"/>
-                        <Property name="text" type="java.lang.String" value="Editar Tipo de Estudio"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JLabel" name="jLabel131">
                       <Properties>
                         <Property name="horizontalAlignment" type="int" value="0"/>
                         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">

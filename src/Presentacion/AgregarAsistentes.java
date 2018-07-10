@@ -30,7 +30,7 @@ import javax.swing.JTable;
  *
  * @author ninoh
  */
-public class AgregarAsistentes extends JFrameConFondo {
+public final class AgregarAsistentes extends JFrameConFondo {
 
     /**
      * Creates new form AgregarAsistentes
@@ -58,13 +58,6 @@ public class AgregarAsistentes extends JFrameConFondo {
             modelo.removeRow(0);
         }
         asi = Usr.BuscarAsistente(ci);
-
-//        if (!ci.equals("")) {
-//        } 
-//        else {
-//            asi = Usr.listarAsistentes();
-//        }
-
         for (DtUsuario a : asi) {
             String[] datos = {ConvertirString(a.getNombre()),ConvertirString(a.getApellido()),a.getCi(), a.getCorreo(),a.getImagen()!=null ? "Si" : "No"};
             modelo.addRow(datos);            
@@ -155,9 +148,16 @@ public class AgregarAsistentes extends JFrameConFondo {
                 jButton1MouseClicked(evt);
             }
         });
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
         jLabel2.setText("Imagen de Perfil");
+
+        jLabel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -255,6 +255,10 @@ public class AgregarAsistentes extends JFrameConFondo {
             }
         }
     }//GEN-LAST:event_AsistTableMouseClicked
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments

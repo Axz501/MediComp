@@ -7,6 +7,7 @@ package Logica;
 
 import java.io.Serializable;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -25,8 +26,27 @@ public class NombredeEstudio implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String nombre;
-    @OneToMany
+    
+    @OneToMany(mappedBy = "nombredeEstudio", cascade = {CascadeType.ALL})
+    
     private List<Prototipo> prototipos;
+
+    public NombredeEstudio() {
+    }
+
+    public NombredeEstudio(Long id, String nombre, List<Prototipo> prototipos) {
+        this.id = id;
+        this.nombre = nombre;
+        this.prototipos = prototipos;
+    }
+
+    public List<Prototipo> getPrototipos() {
+        return prototipos;
+    }
+
+    public void setPrototipos(List<Prototipo> prototipos) {
+        this.prototipos = prototipos;
+    }
 
     public NombredeEstudio(String nombre) {
         this.nombre = nombre;
@@ -73,4 +93,11 @@ public class NombredeEstudio implements Serializable {
         return "Logica.NombredeEstudio[ id=" + id + " ]";
     }
     
+    public DtEstudio getDatos(){
+//        for(Prototipo p : this.getPrototipos()){
+//            String[] pro = {p.getId().toString()};
+//        }
+        DtEstudio dte = new DtEstudio(this.id,this.nombre, this.prototipos);
+        return dte;
+    }
 }

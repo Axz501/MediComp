@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -33,7 +34,7 @@ public class Medico extends Usuario implements Serializable {
     @ManyToMany
     @JoinTable(name = "usuario_entidades")
     private List<Entidad> entidades = new ArrayList();
-    @ManyToMany
+    @ManyToMany (cascade = {CascadeType.DETACH,CascadeType.MERGE})
     private List<Paciente> pacientes = new ArrayList() ;
     @OneToMany()
     @JoinTable(name = "usuario_entidades_creadas")
@@ -82,7 +83,9 @@ public class Medico extends Usuario implements Serializable {
     public void AgregarPaciente(Paciente p){
         this.pacientes.add(p);
     }
-
+    public void BorrarPaciente(Paciente p){
+        this.pacientes.remove(p);
+    }
     public List<Entidad> getEntidades() {
         return entidades;
     }
@@ -98,7 +101,7 @@ public class Medico extends Usuario implements Serializable {
     public void setPacientes(List<Paciente> pacientes) {
         this.pacientes = pacientes;
     }
-    
+
 
 
     @Override

@@ -36,6 +36,9 @@ public class EstudioRealizado implements Serializable {
     private NombredeEstudio nombre;
     @ManyToOne
     private Consulta consulta;
+
+    public EstudioRealizado() {
+    }
     
     public EstudioRealizado(Date fecha_hora, String informe, List<Imagen> imagen) {
         this.fecha_hora = fecha_hora;
