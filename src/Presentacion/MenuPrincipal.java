@@ -2996,6 +2996,10 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jPanel43MouseClicked
 
     private void jPanel48MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel48MouseClicked
+        EstudioaPaciente nuevo = new EstudioaPaciente();
+        nuevo.setVisible(true);
+        nuevo.centrar();
+        nuevo.setIconImage(icono);
         efectoclick(Color.LIGHT_GRAY,evt);
     }//GEN-LAST:event_jPanel48MouseClicked
 

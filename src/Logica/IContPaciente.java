@@ -6,6 +6,7 @@
 package Logica;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Map;
 
 
@@ -46,5 +47,5 @@ public interface IContPaciente {
     public abstract boolean EliminarEstudio(String ide);
     public abstract boolean EliminarPrototipo(String idp);
     public abstract List<DtPaciente> getPacientesMedico(String n);
-    
+    public abstract boolean AgregarEstudioaPaciente(String ci,String idEst);
 }

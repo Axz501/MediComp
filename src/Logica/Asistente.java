@@ -1,6 +1,7 @@
 package Logica;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -21,7 +22,7 @@ public class Asistente extends Usuario implements Serializable {
 //    private String ci;
     
     @OneToMany(mappedBy = "asistente")
-    private List<Rel_Med_Asis> medicos = null;
+    private List<Rel_Med_Asis> medicos = new ArrayList();
     
     public Asistente(){}
 

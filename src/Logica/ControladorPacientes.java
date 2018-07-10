@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -260,6 +261,12 @@ public class ControladorPacientes implements IContPaciente{
         return true;
     }
 
+    @Override
+    public boolean AgregarEstudioaPaciente(String ci, String idEst) {
+       return true;
+    }
+
+
     private static class ControladorPacientesHolder {
         private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("MediCompPU");
         private static final EntityManager em = emf.createEntityManager();
@@ -363,7 +370,8 @@ public class ControladorPacientes implements IContPaciente{
      @Override
     public void getEstudiosBD(){
         List<NombredeEstudio> resultado = null;
-        ControladorPacientes.getInstance().getEntityManager().getTransaction().begin();
+        if (!ControladorPacientes.getInstance().getEntityManager().getTransaction().isActive())
+            ControladorPacientes.getInstance().getEntityManager().getTransaction().begin();
         try {
             resultado = ControladorPacientes.getEntityManager().createNativeQuery("SELECT * FROM medicomp.nombredeestudio ;", NombredeEstudio.class).getResultList();
             ControladorPacientes.getEntityManager().getTransaction().commit();
@@ -379,7 +387,8 @@ public class ControladorPacientes implements IContPaciente{
      @Override
     public void getPrototipoBD(){
         List<Prototipo> resultado = null;
-        ControladorPacientes.getInstance().getEntityManager().getTransaction().begin();
+        if (!ControladorPacientes.getInstance().getEntityManager().getTransaction().isActive())
+            ControladorPacientes.getInstance().getEntityManager().getTransaction().begin();
         try {
             resultado = ControladorPacientes.getEntityManager().createNativeQuery("SELECT * FROM medicomp.prototipo ;", Prototipo.class).getResultList();
             ControladorPacientes.getEntityManager().getTransaction().commit();
@@ -454,7 +463,7 @@ public class ControladorPacientes implements IContPaciente{
             Paciente p = new Paciente(ci, nombre, apellido, correo,edad,comboTipo,particular);
             this.pacientes.put(ci, p);
             try {
-                persist(p);
+                this.commit();
                 return true;
             } catch (Exception ex) {
                 return false;
@@ -822,4 +831,21 @@ public class ControladorPacientes implements IContPaciente{
             return false;
         }
     }
+    
+   /* public List<DtConsulta> listarConsulta(String paciente){
+        List<DtConsulta> retornar = new ArrayList<>();
+        Medico m = (Medico) User.getSesionactiva();
+        for (Consulta con : ) {
+            if () {
+                retornar.add(pac.getDatos());
+            }
+        }
+        return retornar;
+    }
+    
+    
+    public boolean AgregarEstudioaPaciente(String ci,String idEst){
+        
+    return false;
+*/    
 }

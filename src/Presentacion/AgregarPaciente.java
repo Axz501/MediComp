@@ -504,8 +504,8 @@ public class AgregarPaciente extends JFrameConFondo {
         edad = Integer.valueOf(txt_Edad.getText());
         comboTipo = cmb_Tipo.getSelectedItem().toString();
         part = particular.isSelected();
-        if (part==false) {
-            if ((txt_Ci.getText().equals("")) || edad == 0 || (txt_Nombre.getText().equals("")) || (txt_Apellido.getText().equals("")) || (txt_Correo.getText().equals("")) ) {
+        if (part == false) {
+            if ((txt_Ci.getText().equals("")) || edad == 0  || (txt_Nombre.getText().equals("")) || (txt_Apellido.getText().equals("")) || (txt_Correo.getText().equals("")) ) {
                 javax.swing.JOptionPane.showMessageDialog(this, "Debe llenar todos los campos \n", "AVISO!", javax.swing.JOptionPane.INFORMATION_MESSAGE);
                 txt_Ci.requestFocus();
             }else{
@@ -541,7 +541,7 @@ public class AgregarPaciente extends JFrameConFondo {
 
                 }
             
-        }} else {
+        }}else {
             
             if(txt_Ciudad.getText().equals("Ciudad") || txt_Departamento.getText().equals("Departamento") || txt_Calle.getText().equals("Calle") || txt_Numero.getText().equals("Numero")){
                 javax.swing.JOptionPane.showMessageDialog(this, "Debe llenar todos los campos \n", "AVISO!", javax.swing.JOptionPane.INFORMATION_MESSAGE);
