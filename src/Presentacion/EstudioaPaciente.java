@@ -5,6 +5,7 @@
  */
 package Presentacion;
 
+import Logica.Consulta;
 import Logica.ControladorPacientes;
 import Logica.ControladorUsuarios;
 import Logica.DtEstudio;
@@ -38,6 +39,7 @@ public class EstudioaPaciente extends JFrameConFondo {
     List<DtEstudio> Est;
     ArrayList<NombredeEstudio> es;
     ArrayList<Paciente> pa;
+    ArrayList<Consulta> co;
     public EstudioaPaciente() {
         initComponents();
         Pct = ControladorPacientes.getInstance();
@@ -47,7 +49,7 @@ public class EstudioaPaciente extends JFrameConFondo {
         setTitle("Agregar Estudio a Paciente");
         this.setImagen("Fondo.jpg");
         listarEstudios("");
-        listarPacientes("");
+        listarConsultas("");
     }
     
     
@@ -75,25 +77,25 @@ public class EstudioaPaciente extends JFrameConFondo {
         Est = Pct.listarEstudio(nombre);
         for (DtEstudio e : Est) {
             for (Prototipo p : e.getPrototipos()){
-                String[] datos = {ConvertirString(String.valueOf(e.getId())),ConvertirString(e.getNombre()),String.valueOf(p.getId())};
+                String[] datos = {ConvertirString(String.valueOf(e.getId())),ConvertirString(e.getNombre()),String.valueOf(p.getPrototipo())};
                 modelo.addRow(datos);
             }
         }  
     }
     
-    public void listarPacientes(String ci) {
+    /*public void listarConsultas(String ci) {
 
-        DefaultTableModel modelo = (DefaultTableModel) PacienteTable.getModel();
+        DefaultTableModel modelo = (DefaultTableModel) ConsultaTable.getModel();
         while (modelo.getRowCount() > 0) {
             modelo.removeRow(0);
         }
-        pa = Pct.listarPacientes();
-        for (Paciente dtp : pa) {
-            String[] datos = {String.valueOf(dtp.getCi()),ConvertirString(dtp.getNombre()),ConvertirString(dtp.getApellido()),ConvertirString(dtp.getCorreo()),String.valueOf(dtp.getEdad()),String.valueOf(dtp.getTelefono()),String.valueOf(dtp.getDireccion()),ConvertirString(dtp.getGenero()),String.valueOf(dtp.isParticular()),String.valueOf(dtp.getImagen())};
+        co = Pct.listarConsultas();
+        for (Consulta dtc : co) {
+            String[] datos = {String.valueOf(dtc),ConvertirString(dtc)};
             modelo.addRow(datos);
         }
         
-    }
+    }*/
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -109,11 +111,9 @@ public class EstudioaPaciente extends JFrameConFondo {
         jLabel1 = new javax.swing.JLabel();
         buscarIngTextField = new javax.swing.JTextField();
         jScrollPane3 = new javax.swing.JScrollPane();
-        PacienteTable = new javax.swing.JTable();
+        ConsultaTable = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
         buscarIngTextField1 = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
@@ -125,7 +125,7 @@ public class EstudioaPaciente extends JFrameConFondo {
 
             },
             new String [] {
-                "Id", "Nombre de Estudio", "Id Protoripo"
+                "Id", "Nombre de Estudio", "Informe del Protoripo"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -146,10 +146,11 @@ public class EstudioaPaciente extends JFrameConFondo {
         jScrollPane2.setViewportView(EstudiosTable);
         if (EstudiosTable.getColumnModel().getColumnCount() > 0) {
             EstudiosTable.getColumnModel().getColumn(1).setPreferredWidth(150);
+            EstudiosTable.getColumnModel().getColumn(2).setPreferredWidth(150);
         }
 
         jLabel1.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
-        jLabel1.setText("Buscar Estudios:");
+        jLabel1.setText("Buscar Estudio:");
 
         buscarIngTextField.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -157,45 +158,43 @@ public class EstudioaPaciente extends JFrameConFondo {
             }
         });
 
-        PacienteTable.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        PacienteTable.setModel(new javax.swing.table.DefaultTableModel(
+        ConsultaTable.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        ConsultaTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "CI", "Nombre", "Apellido", "Correo", "Edad", "Telefono", "Direccion", "Genero", "Particular", "Imagen"
+                "Fecha Hora", "Paciente"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                true, false, false, false, false, false, false, false, false, false
+                false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        PacienteTable.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
-        PacienteTable.setGridColor(new java.awt.Color(204, 204, 204));
-        PacienteTable.addMouseListener(new java.awt.event.MouseAdapter() {
+        ConsultaTable.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
+        ConsultaTable.setGridColor(new java.awt.Color(204, 204, 204));
+        ConsultaTable.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                PacienteTableMouseClicked(evt);
+                ConsultaTableMouseClicked(evt);
             }
         });
-        jScrollPane3.setViewportView(PacienteTable);
+        jScrollPane3.setViewportView(ConsultaTable);
+        if (ConsultaTable.getColumnModel().getColumnCount() > 0) {
+            ConsultaTable.getColumnModel().getColumn(1).setPreferredWidth(120);
+        }
 
         jLabel2.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
-        jLabel2.setText("Buscar Paciente:");
+        jLabel2.setText("Buscar Consulta:");
 
         buscarIngTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 buscarIngTextField1KeyReleased(evt);
             }
         });
-
-        jLabel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-
-        jLabel4.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
-        jLabel4.setText("Imagen de Perfil");
 
         jButton1.setText("Cancelar");
 
@@ -210,56 +209,46 @@ public class EstudioaPaciente extends JFrameConFondo {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(34, 34, 34)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(25, 25, 25)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addGap(45, 45, 45)
-                                .addComponent(buscarIngTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 607, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addGap(44, 44, 44)
-                                .addComponent(buscarIngTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(96, 96, 96)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(32, 32, 32))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLabel2)
+                                    .addGap(45, 45, 45)
+                                    .addComponent(buscarIngTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLabel1)
+                                    .addGap(44, 44, 44)
+                                    .addComponent(buscarIngTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(98, 98, 98)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 358, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(120, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(27, 27, 27)
+                .addGap(26, 26, 26)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(buscarIngTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(buscarIngTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4))
+                    .addComponent(buscarIngTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel1)
-                            .addComponent(buscarIngTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(28, 28, 28))
         );
 
@@ -274,40 +263,26 @@ public class EstudioaPaciente extends JFrameConFondo {
         listarEstudios(buscarIngTextField.getText());
     }//GEN-LAST:event_buscarIngTextFieldKeyReleased
 
-    private void PacienteTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PacienteTableMouseClicked
-        if (PacienteTable.getSelectedRow() > -1) {
+    private void ConsultaTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ConsultaTableMouseClicked
 
-            Paciente a = pa.get(PacienteTable.getSelectedRow());
-            if (a.getImagen() != null) {
-                ImageIcon imagen = a.getImagen().getImagen();
-                Icon imagenperfil = new ImageIcon(imagen.getImage().getScaledInstance(jLabel3.getWidth(), jLabel3.getHeight(), Image.SCALE_DEFAULT));
-                jLabel3.setIcon(imagenperfil);
-            } else {
-                java.util.Properties pr = System.getProperties();
-                String cadena = pr.getProperty("user.dir");
-                ImageIcon imagen = new ImageIcon(cadena + "/src/Utils/iconoUsuario.jpg"); //genera la imagen que seleccionamos
-                Icon imagenperfil = new ImageIcon(imagen.getImage().getScaledInstance(jLabel3.getWidth(), jLabel3.getHeight(), Image.SCALE_DEFAULT));
-                jLabel3.setIcon(imagenperfil);
-            }
-        }
 
-    }//GEN-LAST:event_PacienteTableMouseClicked
+    }//GEN-LAST:event_ConsultaTableMouseClicked
 
     private void buscarIngTextField1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_buscarIngTextField1KeyReleased
-        listarPacientes(buscarIngTextField.getText());
+        listarConsultas(buscarIngTextField.getText());
     }//GEN-LAST:event_buscarIngTextField1KeyReleased
 
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
         if (EstudiosTable.getRowCount() < 1) {
             JOptionPane.showMessageDialog(this, "No hay ningun Estudio", "Error", JOptionPane.ERROR_MESSAGE);
         }
-        if (PacienteTable.getRowCount() < 1) {
+        if (ConsultaTable.getRowCount() < 1) {
             JOptionPane.showMessageDialog(this, "No hay ningun Paciente", "Error", JOptionPane.ERROR_MESSAGE);
         }
-        if (PacienteTable.getSelectedRow() > -1 && EstudiosTable.getSelectedRow() > -1) {
+        if (ConsultaTable.getSelectedRow() > -1 && EstudiosTable.getSelectedRow() > -1) {
             List<Paciente> pac;
             boolean b = true, ok=false;
-            String ci = (String) PacienteTable.getValueAt(PacienteTable.getSelectedRow(), 0);
+            String ci = (String) ConsultaTable.getValueAt(ConsultaTable.getSelectedRow(), 0);
             String idEst = (String) EstudiosTable.getValueAt(EstudiosTable.getSelectedRow(), 0);
             Medico u = (Medico) Usr.getSesionactiva();
             pac = u.getPacientes();
@@ -380,16 +355,14 @@ public void centrar(){
         
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable ConsultaTable;
     private javax.swing.JTable EstudiosTable;
-    private javax.swing.JTable PacienteTable;
     private javax.swing.JTextField buscarIngTextField;
     private javax.swing.JTextField buscarIngTextField1;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     // End of variables declaration//GEN-END:variables

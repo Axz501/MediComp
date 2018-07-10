@@ -7,6 +7,7 @@ package Logica;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Map;
 
 /**
@@ -36,4 +37,10 @@ public interface IContUsuario {
     public abstract void AgregarAsistente(String correoasi);
     public abstract void ModificarAsistente(String ci,boolean b,int hrsr, int hrst);
     public abstract void BorrarAsistente(String ci);
-}
+    public abstract List<Direccion> getMisDirecciones();
+    public abstract void IngresarDireccion(String dep,String cit,String cal,int num);
+    public abstract void BorrarDireccion(long id);
+    public abstract boolean IngresarJornada(List<DtConsulta> lista,boolean s,DtEntidad st,Date d);
+    public abstract boolean IngresarJornada(List<DtConsulta> lista,boolean s,Direccion d,Date da);
+    public abstract void SetContPaciente(IContPaciente pac);
+} 

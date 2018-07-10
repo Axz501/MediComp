@@ -173,7 +173,6 @@ public class AgregarPaciente extends JFrameConFondo {
             }
         });
 
-        particular.setSelected(true);
         particular.setText("Particular?");
         particular.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -505,8 +504,8 @@ public class AgregarPaciente extends JFrameConFondo {
         edad = Integer.valueOf(txt_Edad.getText());
         comboTipo = cmb_Tipo.getSelectedItem().toString();
         part = particular.isSelected();
-        if (particular.isSelected()==true) {
-            if ((txt_Ci.getText().equals("")) || edad == 0 || txt_Telefono.getText().equals("") || (txt_Nombre.getText().equals("")) || (txt_Apellido.getText().equals("")) || (txt_Correo.getText().equals("")) || ((cmb_Tipo.getSelectedItem() == null))) {
+        if (part == false) {
+            if ((txt_Ci.getText().equals("")) || edad == 0  || (txt_Nombre.getText().equals("")) || (txt_Apellido.getText().equals("")) || (txt_Correo.getText().equals("")) ) {
                 javax.swing.JOptionPane.showMessageDialog(this, "Debe llenar todos los campos \n", "AVISO!", javax.swing.JOptionPane.INFORMATION_MESSAGE);
                 txt_Ci.requestFocus();
             }else{
@@ -542,7 +541,7 @@ public class AgregarPaciente extends JFrameConFondo {
 
                 }
             
-        }} else {
+        }}else {
             
             if(txt_Ciudad.getText().equals("Ciudad") || txt_Departamento.getText().equals("Departamento") || txt_Calle.getText().equals("Calle") || txt_Numero.getText().equals("Numero")){
                 javax.swing.JOptionPane.showMessageDialog(this, "Debe llenar todos los campos \n", "AVISO!", javax.swing.JOptionPane.INFORMATION_MESSAGE);
@@ -691,9 +690,10 @@ public class AgregarPaciente extends JFrameConFondo {
     }//GEN-LAST:event_txt_NumeroFocusGained
 
     private void particularMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_particularMouseClicked
-        if(!particular.isSelected()){
+        if(particular.isSelected()){
             jPanel1.setVisible(true);
-        }else{jPanel1.setVisible(false);}
+        }else{
+            jPanel1.setVisible(false);}
     }//GEN-LAST:event_particularMouseClicked
 
 

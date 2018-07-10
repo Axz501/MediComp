@@ -40,6 +40,15 @@ public class Consulta implements Serializable {
     public List<EstudioRealizado> getEstudios() {
         return estudios;
     }
+
+    public Paciente getPaciente() {
+        return paciente;
+    }
+
+    public void setPaciente(Paciente paciente) {
+        this.paciente = paciente;
+    }
+    
     
     public void agregarestudio(EstudioRealizado e){
         this.estudios.add(e);

@@ -41,6 +41,12 @@ public class ControladorUsuarios  implements IContUsuario{
     
     private static ControladorUsuarios instancia;
     private Map<String, Usuario> usuarios = new HashMap();
+    //private final ControladorPacientes Pac = ControladorPacientes.getInstance();
+    private IContPaciente pac;
+    
+    public void SetContPaciente(IContPaciente pac) {
+        this.pac = pac;
+    }
 
     private Usuario sesionactiva;
 
@@ -54,6 +60,47 @@ public class ControladorUsuarios  implements IContUsuario{
         this.usuarios = usuarios;
     }
     
+    @Override
+    public boolean IngresarJornada(List<DtConsulta> lista,boolean s,DtEntidad dt,Date da){
+        for (Jornada j : this.getSesionactiva().getJornadas()){
+            if (j.getFecha().equals(da))
+                return false;
+        }
+        Jornada j = new Jornada(da,dt.getDireccion(),s,null);
+        persist(j);
+        for (DtConsulta dtc : lista){
+            Consulta c = new Consulta(dtc.getFecha());
+            Paciente p = this.pac.getPacientes().get(dtc.getPaciente());
+            c.setPaciente(p);
+            persist(c);
+            j.addConsulta(c);
+        }
+        Medico m = (Medico) this.getSesionactiva();
+        m.AgregarJornada(j);
+        this.commit();
+        return true;
+    }
+    
+    @Override
+    public boolean IngresarJornada(List<DtConsulta> lista,boolean s,Direccion d, Date da){
+        for (Jornada j : this.getSesionactiva().getJornadas()){
+            if (j.getFecha().equals(da))
+                return false;
+        }
+        Jornada j = new Jornada(da,d,s,null);
+        persist(j);
+        for (DtConsulta dtc : lista){
+            Consulta c = new Consulta(dtc.getFecha());
+            Paciente p = this.pac.getPacientes().get(dtc.getPaciente());
+            c.setPaciente(p);
+            persist(c);
+            j.addConsulta(c);
+        }
+        Medico m = (Medico) this.getSesionactiva();
+        m.AgregarJornada(j);
+        this.commit();
+        return true;
+    }
 
     @Override
     public Usuario getSesionactiva() {
@@ -127,6 +174,45 @@ public class ControladorUsuarios  implements IContUsuario{
     public void close(){
         ControladorUsuarios.getEntityManager().close();
     }
+    public void commit(){
+        if (!ControladorUsuarios.getEntityManager().getTransaction().isActive())
+            ControladorUsuarios.getEntityManager().getTransaction().begin();
+        if (ControladorUsuarios.getEntityManager().getTransaction().isActive())
+            ControladorUsuarios.getEntityManager().getTransaction().commit();
+    }
+    
+    @Override
+    public List<Direccion> getMisDirecciones(){
+        Medico m = (Medico) this.getSesionactiva();
+        return m.getDirecciones();
+    }
+    
+    @Override
+    public void IngresarDireccion(String dep,String cit,String cal,int num){
+        Direccion d = new Direccion(cit,dep,cal,num);
+        Medico m = (Medico) this.getSesionactiva();
+        this.persist(d);
+        m.getDirecciones().add(d);
+        this.commit();
+    }
+    
+    
+    
+    @Override
+    public void BorrarDireccion(long id){
+        Direccion aux = null;
+        Medico m = (Medico) this.getSesionactiva();
+        for(Direccion d : m.getDirecciones()){
+            if (d.getId()==id){
+                aux = d;
+                m.getDirecciones().remove(d);
+            }
+        }
+        if (aux!=null)
+            this.remove(aux);
+        this.commit();
+    }
+    
     @Override
     public boolean copiarArchivo(String rutaOrigenArchivo, String rutaDestino) {
         try {

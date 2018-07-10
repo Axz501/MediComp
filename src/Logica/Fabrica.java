@@ -38,6 +38,6 @@ public class Fabrica {
         this.getPaciente();
     }
 
-        
+   
 }
 

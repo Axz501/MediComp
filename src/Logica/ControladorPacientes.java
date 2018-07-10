@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -68,9 +69,10 @@ public class ControladorPacientes implements IContPaciente{
         }
         try {
             Medico m = (Medico) this.User.getSesionactiva();
+            persist(e);
             m.getEntidades().add(e);
             m.getEntidadescreadas().add(e);
-            persist(e);
+            this.commit();
             //this.add(e);
             return true;
         } catch(Exception ex){
@@ -259,6 +261,7 @@ public class ControladorPacientes implements IContPaciente{
         return true;
     }
 
+
     private static class ControladorPacientesHolder {
         private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("MediCompPU");
         private static final EntityManager em = emf.createEntityManager();
@@ -294,7 +297,7 @@ public class ControladorPacientes implements IContPaciente{
             em.getTransaction().begin();
         try {
             em.persist(object);
-            if (!em.getTransaction().isActive())
+            //if (!em.getTransaction().isActive())
             em.getTransaction().commit();
         } catch (Exception e) {
             e.printStackTrace();
@@ -347,6 +350,17 @@ public class ControladorPacientes implements IContPaciente{
 //            }
 //        }
 //    }
+    
+    @Override
+    public List<DtPaciente> getPacientesMedico(String nom){
+        Medico m = (Medico) this.User.getSesionactiva();
+        List<DtPaciente> retornar = new ArrayList();
+        for(Paciente p : m.getPacientes()){
+            if (p.getNombre().toLowerCase().contains(nom.toLowerCase()))
+                retornar.add(p.getDatos());
+        }
+        return retornar;
+    }
     
      @Override
     public void getEstudiosBD(){
@@ -812,7 +826,21 @@ public class ControladorPacientes implements IContPaciente{
             return false;
         }
     }
+    
+   /* public List<DtConsulta> listarConsulta(String paciente){
+        List<DtConsulta> retornar = new ArrayList<>();
+        Medico m = (Medico) User.getSesionactiva();
+        for (Consulta con : ) {
+            if () {
+                retornar.add(pac.getDatos());
+            }
+        }
+        return retornar;
+    }
+    
+    
     public boolean AgregarEstudioaPaciente(String ci,String idEst){
         
-    }
+    return false;
+*/    
 }
