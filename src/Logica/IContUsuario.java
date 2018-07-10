@@ -43,4 +43,5 @@ public interface IContUsuario {
     public abstract boolean IngresarJornada(List<DtConsulta> lista,boolean s,DtEntidad st,Date d);
     public abstract boolean IngresarJornada(List<DtConsulta> lista,boolean s,Direccion d,Date da);
     public abstract void SetContPaciente(IContPaciente pac);
+    public abstract List<DtConsulta> getListadoJornadas();
 } 

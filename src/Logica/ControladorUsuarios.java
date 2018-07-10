@@ -61,12 +61,27 @@ public class ControladorUsuarios  implements IContUsuario{
     }
     
     @Override
+    public List<DtConsulta> getListadoJornadas(){
+       List<DtConsulta> retornar = new ArrayList();
+       for (Jornada j : this.getSesionactiva().getJornadas()){
+           for (Consulta c : j.getConsultas())
+               retornar.add(new DtConsulta(c.getFecha_Hora(),c.getPaciente().getDatos(),j.getDireccion(),j.getEntidad()!=null ? j.getEntidad().getDatos() : null));
+       }
+       return retornar;
+    }
+    
+    @Override
     public boolean IngresarJornada(List<DtConsulta> lista,boolean s,DtEntidad dt,Date da){
         for (Jornada j : this.getSesionactiva().getJornadas()){
             if (j.getFecha().equals(da))
                 return false;
         }
-        Jornada j = new Jornada(da,dt.getDireccion(),s,null);
+        int i=0;
+        while (this.pac.getEntidades().get(i).getId()!=dt.getId()){
+            i++;
+        }
+        Entidad e = this.pac.getEntidades().get(i);
+        Jornada j = new Jornada(da,e,s,null);
         persist(j);
         for (DtConsulta dtc : lista){
             Consulta c = new Consulta(dtc.getFecha());

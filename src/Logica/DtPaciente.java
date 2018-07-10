@@ -59,6 +59,12 @@ public class DtPaciente{
         this.telefono = telefono;
         this.direccion = direccion;
     }
+    
+    public DtPaciente(String ci, String nombre, String apellido){
+        this.ci = ci;
+        this.nombre = nombre;
+        this.apellido = apellido;
+    }
 
     public String getCi() {
         return ci;

@@ -36,6 +36,8 @@ public class Consulta implements Serializable {
     private Deuda deuda;
     @ManyToOne
     private Paciente paciente;
+    
+    public Consulta(){}
 
     public List<EstudioRealizado> getEstudios() {
         return estudios;

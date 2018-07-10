@@ -14,13 +14,47 @@ import java.util.List;
  */
 public class DtConsulta {
     private Date Fecha;
-    private List<EstudioRealizado> estudios;
+    private List<EstudioRealizado> estudios = null;
     private String paciente;
+    private Direccion dir = null;
+    private DtEntidad entidad = null;
+    private DtPaciente dtp = null;
 
     public DtConsulta(Date Fecha, List<EstudioRealizado> estudios, String paciente) {
         this.Fecha = Fecha;
         this.estudios = estudios;
         this.paciente = paciente;
+    }
+    
+    public DtConsulta(Date Fecha, DtPaciente paciente,Direccion dir, DtEntidad ent) {
+        this.Fecha = Fecha;
+        this.dir = dir;
+        this.dtp = paciente;
+        this.entidad = ent;
+    }
+
+    public Direccion getDir() {
+        return dir;
+    }
+
+    public void setDir(Direccion dir) {
+        this.dir = dir;
+    }
+
+    public DtEntidad getEntidad() {
+        return entidad;
+    }
+
+    public void setEntidad(DtEntidad entidad) {
+        this.entidad = entidad;
+    }
+
+    public DtPaciente getDtp() {
+        return dtp;
+    }
+
+    public void setDtp(DtPaciente dtp) {
+        this.dtp = dtp;
     }
 
     public DtConsulta() {

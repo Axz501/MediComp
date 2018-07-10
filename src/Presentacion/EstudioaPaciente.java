@@ -8,6 +8,7 @@ package Presentacion;
 import Logica.Consulta;
 import Logica.ControladorPacientes;
 import Logica.ControladorUsuarios;
+import Logica.DtConsulta;
 import Logica.DtEstudio;
 import Logica.IContPaciente;
 import Logica.IContUsuario;
@@ -18,6 +19,8 @@ import Logica.Prototipo;
 import Utils.JFrameConFondo;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.Icon;
@@ -39,7 +42,7 @@ public class EstudioaPaciente extends JFrameConFondo {
     List<DtEstudio> Est;
     ArrayList<NombredeEstudio> es;
     ArrayList<Paciente> pa;
-    ArrayList<Consulta> co;
+    List<DtConsulta> consultas;
     public EstudioaPaciente() {
         initComponents();
         Pct = ControladorPacientes.getInstance();
@@ -49,7 +52,7 @@ public class EstudioaPaciente extends JFrameConFondo {
         setTitle("Agregar Estudio a Paciente");
         this.setImagen("Fondo.jpg");
         listarEstudios("");
-        listarConsultas("");
+        listarjornadas();
     }
     
     
@@ -83,19 +86,23 @@ public class EstudioaPaciente extends JFrameConFondo {
         }  
     }
     
-    /*public void listarConsultas(String ci) {
-
-        DefaultTableModel modelo = (DefaultTableModel) ConsultaTable.getModel();
+    public void listarjornadas(){
+        DefaultTableModel modelo = (DefaultTableModel)JornadaTable.getModel();
         while (modelo.getRowCount() > 0) {
             modelo.removeRow(0);
         }
-        co = Pct.listarConsultas();
-        for (Consulta dtc : co) {
-            String[] datos = {String.valueOf(dtc),ConvertirString(dtc)};
+        consultas = Usr.getListadoJornadas();
+        for (DtConsulta d : consultas) {
+            LocalDateTime localDate = d.getFecha().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+            int year  = localDate.getYear();
+            int month = localDate.getMonthValue();
+            int day   = localDate.getDayOfMonth();
+            int hr = localDate.getHour();
+            int min = localDate.getMinute();
+            String[] datos = {day+"/"+month+"/"+year,"0"+hr+":"+"0"+min,d.getEntidad()!=null ? d.getEntidad().getNombre() : d.getDir().getDepartamento()+" "+d.getDir().getCiudad()+" "+d.getDir().getCalle()+" "+d.getDir().getNumero(),ConvertirString(d.getDtp().getNombre()+" "+d.getDtp().getApellido()),d.getDtp().getCi()};
             modelo.addRow(datos);
         }
-        
-    }*/
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -111,7 +118,7 @@ public class EstudioaPaciente extends JFrameConFondo {
         jLabel1 = new javax.swing.JLabel();
         buscarIngTextField = new javax.swing.JTextField();
         jScrollPane3 = new javax.swing.JScrollPane();
-        ConsultaTable = new javax.swing.JTable();
+        JornadaTable = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
         buscarIngTextField1 = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
@@ -158,33 +165,34 @@ public class EstudioaPaciente extends JFrameConFondo {
             }
         });
 
-        ConsultaTable.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        ConsultaTable.setModel(new javax.swing.table.DefaultTableModel(
+        JornadaTable.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        JornadaTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Fecha Hora", "Paciente"
+                "Fecha Hora", "Jornada", "Paciente", "Direccion entidad"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false
+                false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        ConsultaTable.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
-        ConsultaTable.setGridColor(new java.awt.Color(204, 204, 204));
-        ConsultaTable.addMouseListener(new java.awt.event.MouseAdapter() {
+        JornadaTable.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
+        JornadaTable.setGridColor(new java.awt.Color(204, 204, 204));
+        JornadaTable.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                ConsultaTableMouseClicked(evt);
+                JornadaTableMouseClicked(evt);
             }
         });
-        jScrollPane3.setViewportView(ConsultaTable);
-        if (ConsultaTable.getColumnModel().getColumnCount() > 0) {
-            ConsultaTable.getColumnModel().getColumn(1).setPreferredWidth(120);
+        jScrollPane3.setViewportView(JornadaTable);
+        if (JornadaTable.getColumnModel().getColumnCount() > 0) {
+            JornadaTable.getColumnModel().getColumn(1).setPreferredWidth(120);
+            JornadaTable.getColumnModel().getColumn(3).setPreferredWidth(120);
         }
 
         jLabel2.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
@@ -222,12 +230,12 @@ public class EstudioaPaciente extends JFrameConFondo {
                                 .addGroup(layout.createSequentialGroup()
                                     .addComponent(jLabel1)
                                     .addGap(44, 44, 44)
-                                    .addComponent(buscarIngTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(buscarIngTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(98, 98, 98)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 358, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 358, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 388, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(120, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -263,26 +271,26 @@ public class EstudioaPaciente extends JFrameConFondo {
         listarEstudios(buscarIngTextField.getText());
     }//GEN-LAST:event_buscarIngTextFieldKeyReleased
 
-    private void ConsultaTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ConsultaTableMouseClicked
+    private void JornadaTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JornadaTableMouseClicked
 
 
-    }//GEN-LAST:event_ConsultaTableMouseClicked
+    }//GEN-LAST:event_JornadaTableMouseClicked
 
     private void buscarIngTextField1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_buscarIngTextField1KeyReleased
-        listarConsultas(buscarIngTextField.getText());
+        listarjornadas();
     }//GEN-LAST:event_buscarIngTextField1KeyReleased
 
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
         if (EstudiosTable.getRowCount() < 1) {
             JOptionPane.showMessageDialog(this, "No hay ningun Estudio", "Error", JOptionPane.ERROR_MESSAGE);
         }
-        if (ConsultaTable.getRowCount() < 1) {
+        if (JornadaTable.getRowCount() < 1) {
             JOptionPane.showMessageDialog(this, "No hay ningun Paciente", "Error", JOptionPane.ERROR_MESSAGE);
         }
-        if (ConsultaTable.getSelectedRow() > -1 && EstudiosTable.getSelectedRow() > -1) {
+        if (JornadaTable.getSelectedRow() > -1 && EstudiosTable.getSelectedRow() > -1) {
             List<Paciente> pac;
             boolean b = true, ok=false;
-            String ci = (String) ConsultaTable.getValueAt(ConsultaTable.getSelectedRow(), 0);
+            String ci = (String) JornadaTable.getValueAt(JornadaTable.getSelectedRow(), 0);
             String idEst = (String) EstudiosTable.getValueAt(EstudiosTable.getSelectedRow(), 0);
             Medico u = (Medico) Usr.getSesionactiva();
             pac = u.getPacientes();
@@ -355,8 +363,8 @@ public void centrar(){
         
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTable ConsultaTable;
     private javax.swing.JTable EstudiosTable;
+    private javax.swing.JTable JornadaTable;
     private javax.swing.JTextField buscarIngTextField;
     private javax.swing.JTextField buscarIngTextField1;
     private javax.swing.JButton jButton1;

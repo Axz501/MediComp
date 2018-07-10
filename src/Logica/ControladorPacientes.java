@@ -261,6 +261,11 @@ public class ControladorPacientes implements IContPaciente{
         return true;
     }
 
+    @Override
+    public boolean AgregarEstudioaPaciente(String ci, String idEst) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 
     private static class ControladorPacientesHolder {
         private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("MediCompPU");
