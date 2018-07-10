@@ -6,12 +6,16 @@
 package Logica;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 
@@ -28,23 +32,27 @@ public class Jornada implements Serializable {
     private Long id;
     private enum estado{Pendiente,En_Curso,Finalizada};
     @Temporal(javax.persistence.TemporalType.DATE)
-    private Date Fecha_Inicio;
-    @Temporal(javax.persistence.TemporalType.DATE)
-    private Date Fecha_Fin;
+    private Date Fecha;
     @ManyToOne
     private Direccion direccion;
     private boolean particular;
     @OneToOne
     private Deuda deuda;
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Consulta> consultas = new ArrayList();
+    
     @OneToOne
     private Entidad entidad;
 
-    public Jornada(Date Fecha_Inicio, Date Fecha_Fin, Direccion direccion, boolean particular, Deuda deuda) {
-        this.Fecha_Inicio = Fecha_Inicio;
-        this.Fecha_Fin = Fecha_Fin;
+    public Jornada(Date Fecha, Direccion direccion, boolean particular, Deuda deuda) {
+        this.Fecha = Fecha;
         this.direccion = direccion;
         this.particular = particular;
         this.deuda = deuda;
+    }
+    
+    public void addConsulta(Consulta c){
+        this.consultas.add(c);
     }
 
     public Deuda getDeuda() {
@@ -54,23 +62,29 @@ public class Jornada implements Serializable {
     public void setDeuda(Deuda deuda) {
         this.deuda = deuda;
     }
-    
-    
 
-    public Date getFecha_Inicio() {
-        return Fecha_Inicio;
+    public List<Consulta> getConsultas() {
+        return consultas;
     }
 
-    public void setFecha_Inicio(Date Fecha_Inicio) {
-        this.Fecha_Inicio = Fecha_Inicio;
+    public void setConsultas(List<Consulta> consultas) {
+        this.consultas = consultas;
     }
 
-    public Date getFecha_Fin() {
-        return Fecha_Fin;
+    public Entidad getEntidad() {
+        return entidad;
     }
 
-    public void setFecha_Fin(Date Fecha_Fin) {
-        this.Fecha_Fin = Fecha_Fin;
+    public void setEntidad(Entidad entidad) {
+        this.entidad = entidad;
+    }
+
+    public Date getFecha() {
+        return Fecha;
+    }
+
+    public void setFecha(Date Fecha) {
+        this.Fecha = Fecha;
     }
 
     public Direccion getDireccion() {

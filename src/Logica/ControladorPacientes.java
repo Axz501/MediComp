@@ -68,9 +68,10 @@ public class ControladorPacientes implements IContPaciente{
         }
         try {
             Medico m = (Medico) this.User.getSesionactiva();
+            persist(e);
             m.getEntidades().add(e);
             m.getEntidadescreadas().add(e);
-            persist(e);
+            this.commit();
             //this.add(e);
             return true;
         } catch(Exception ex){
@@ -294,7 +295,7 @@ public class ControladorPacientes implements IContPaciente{
             em.getTransaction().begin();
         try {
             em.persist(object);
-            if (!em.getTransaction().isActive())
+            //if (!em.getTransaction().isActive())
             em.getTransaction().commit();
         } catch (Exception e) {
             e.printStackTrace();
@@ -347,6 +348,17 @@ public class ControladorPacientes implements IContPaciente{
 //            }
 //        }
 //    }
+    
+    @Override
+    public List<DtPaciente> getPacientesMedico(String nom){
+        Medico m = (Medico) this.User.getSesionactiva();
+        List<DtPaciente> retornar = new ArrayList();
+        for(Paciente p : m.getPacientes()){
+            if (p.getNombre().toLowerCase().contains(nom.toLowerCase()))
+                retornar.add(p.getDatos());
+        }
+        return retornar;
+    }
     
      @Override
     public void getEstudiosBD(){

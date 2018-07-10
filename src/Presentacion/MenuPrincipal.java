@@ -3033,6 +3033,10 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private void jPanel50MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel50MouseClicked
         // TODO add your handling code here:
         efectoclick(Color.LIGHT_GRAY,evt);
+        AgendarJornada nuevo = new AgendarJornada();
+        nuevo.centrar();
+        nuevo.setVisible(true);
+        nuevo.setIconImage(icono);
     }//GEN-LAST:event_jPanel50MouseClicked
 
     private void jPanel57MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel57MouseClicked
@@ -3053,6 +3057,10 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private void jPanel58MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel58MouseClicked
         // TODO add your handling code here:
         efectoclick(Color.LIGHT_GRAY,evt);
+        MisDirecciones nuevo = new MisDirecciones();
+        nuevo.centrar();
+        nuevo.setVisible(true);
+        nuevo.setIconImage(icono);
     }//GEN-LAST:event_jPanel58MouseClicked
 
     private void jPanel60MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel60MouseClicked

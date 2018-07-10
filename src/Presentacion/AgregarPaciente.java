@@ -173,7 +173,6 @@ public class AgregarPaciente extends JFrameConFondo {
             }
         });
 
-        particular.setSelected(true);
         particular.setText("Particular?");
         particular.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -691,9 +690,10 @@ public class AgregarPaciente extends JFrameConFondo {
     }//GEN-LAST:event_txt_NumeroFocusGained
 
     private void particularMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_particularMouseClicked
-        if(!particular.isSelected()){
+        if(particular.isSelected()){
             jPanel1.setVisible(true);
-        }else{jPanel1.setVisible(false);}
+        }else{
+            jPanel1.setVisible(false);}
     }//GEN-LAST:event_particularMouseClicked
 
 

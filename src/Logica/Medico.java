@@ -41,6 +41,8 @@ public class Medico extends Usuario implements Serializable {
     private List<Entidad> entidadescreadas = new ArrayList();
     @OneToMany(mappedBy = "medico")
     private List<Rel_Med_Asis> asistentes = new ArrayList();
+    @OneToMany
+    private List<Direccion> direcciones = new ArrayList();
     
     public Medico(){}
 
@@ -66,6 +68,13 @@ public class Medico extends Usuario implements Serializable {
         this.entidadescreadas = entidadescreadas;
     }
 
+    public List<Direccion> getDirecciones() {
+        return direcciones;
+    }
+
+    public void setDirecciones(List<Direccion> direcciones) {
+        this.direcciones = direcciones;
+    }
     
     public List<Rel_Med_Asis> getAsistentes() {
         return asistentes;

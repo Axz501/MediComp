@@ -41,6 +41,7 @@ public class Principall extends JFrameConFondo {
         this.changefeeltoSeaGlass();
         User = Fabrica.getUsuario();
         Pac = Fabrica.getPaciente();
+        User.SetContPaciente(Pac);
         User.getUsuariosdeBD();
         Pac.getEntidadesdeBD();
         Pac.getPacientesdeBD();
