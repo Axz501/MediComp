@@ -2330,10 +2330,10 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         jLabel136.setFont(new java.awt.Font("Verdana", 1, 16)); // NOI18N
         jLabel136.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel136.setText("Consultar Entidad");
+        jLabel136.setText("Mis Entidades");
 
         jLabel137.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel137.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Utils/historial-medico2.png"))); // NOI18N
+        jLabel137.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Utils/hospital2.png"))); // NOI18N
         jLabel137.setAlignmentX(0.5F);
 
         javax.swing.GroupLayout jPanel59Layout = new javax.swing.GroupLayout(jPanel59);
@@ -2373,10 +2373,10 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         jLabel138.setFont(new java.awt.Font("Verdana", 1, 16)); // NOI18N
         jLabel138.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel138.setText("Agregar Entidad");
+        jLabel138.setText("Crear Entidad");
 
         jLabel139.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel139.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Utils/hospital2.png"))); // NOI18N
+        jLabel139.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Utils/agregar-usuario.png"))); // NOI18N
         jLabel139.setAlignmentX(0.5F);
 
         javax.swing.GroupLayout jPanel60Layout = new javax.swing.GroupLayout(jPanel60);
@@ -2416,10 +2416,10 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         jLabel140.setFont(new java.awt.Font("Verdana", 1, 16)); // NOI18N
         jLabel140.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel140.setText("Borrar Entidad");
+        jLabel140.setText("Entidades Globales");
 
         jLabel141.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel141.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Utils/borrar.png"))); // NOI18N
+        jLabel141.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Utils/hospital2.png"))); // NOI18N
         jLabel141.setAlignmentX(0.5F);
 
         javax.swing.GroupLayout jPanel61Layout = new javax.swing.GroupLayout(jPanel61);
@@ -2519,7 +2519,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
                         .addComponent(jPanel59, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jPanel62, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 105, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 101, Short.MAX_VALUE)
                 .addComponent(jPanelSuperior7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -3051,7 +3051,10 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jPanel36MouseClicked
 
     private void jPanel33MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel33MouseClicked
-        // TODO add your handling code here:
+//        AgregarPaciente nuevo= new AgregarPaciente();
+//        nuevo.setVisible(true);
+//        nuevo.centrar();
+//        nuevo.setIconImage(icono);                
         efectoclick(Color.LIGHT_GRAY,evt);
         AgregarPaciente nuevo= new AgregarPaciente();
         nuevo.setVisible(true);
@@ -3150,22 +3153,41 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private void jPanel60MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel60MouseClicked
         // TODO add your handling code here:
         efectoclick(Color.LIGHT_GRAY,evt);
-        
+        AgregarEntidad nuevo = new AgregarEntidad();
+        nuevo.centrar();
+        nuevo.setVisible(true);
+        nuevo.setIconImage(icono);
+        efectohoversalir(new Color(153,255,255),evt);
     }//GEN-LAST:event_jPanel60MouseClicked
 
     private void jPanel59MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel59MouseClicked
         // TODO add your handling code here:
         efectoclick(Color.LIGHT_GRAY,evt);
+        ConsultarEntidad nuevo = new ConsultarEntidad();
+        nuevo.centrar();
+        nuevo.setVisible(true);
+        nuevo.setIconImage(icono);
+        efectohoversalir(new Color(153,255,255),evt);
     }//GEN-LAST:event_jPanel59MouseClicked
 
     private void jPanel61MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel61MouseClicked
         // TODO add your handling code here:
         efectoclick(Color.LIGHT_GRAY,evt);
+        EntidadesGlobales nuevo = new EntidadesGlobales();
+        nuevo.centrar();
+        nuevo.setVisible(true);
+        nuevo.setIconImage(icono);
+        efectohoversalir(new Color(153,255,255),evt);
     }//GEN-LAST:event_jPanel61MouseClicked
 
     private void jPanel62MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel62MouseClicked
         // TODO add your handling code here:
         efectoclick(Color.LIGHT_GRAY,evt);
+        EditarEntidad nuevo = new EditarEntidad();
+        nuevo.centrar();
+        nuevo.setVisible(true);
+        nuevo.setIconImage(icono);
+        efectohoversalir(new Color(153,255,255),evt);
     }//GEN-LAST:event_jPanel62MouseClicked
 
     private void jPanel64MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel64MouseClicked

@@ -7,6 +7,7 @@ package Presentacion;
 
 
 import Logica.Fabrica;
+import Logica.IContPaciente;
 import Logica.IContUsuario;
 import java.awt.Toolkit;
 import javax.swing.JFrame;
@@ -16,7 +17,6 @@ import com.nilo.plaf.nimrod.NimRODLookAndFeel;
 import com.seaglasslookandfeel.SeaGlassLookAndFeel;
 import java.awt.GraphicsConfiguration;
 import java.awt.Image;
-import java.text.ParseException;
 import javax.swing.ImageIcon;
 import javax.swing.UnsupportedLookAndFeelException;
 import sun.java2d.SunGraphicsEnvironment;
@@ -32,6 +32,7 @@ public class Principall extends JFrameConFondo {
      * Creates new form Principall
      */
     private IContUsuario User;
+    private IContPaciente Pac;
     int x;
     int y;
     int laf=0;
@@ -39,7 +40,10 @@ public class Principall extends JFrameConFondo {
         initComponents();
         this.changefeeltoSeaGlass();
         User = Fabrica.getUsuario();
+        Pac = Fabrica.getPaciente();
         User.getUsuariosdeBD();
+        Pac.getEntidadesdeBD();
+        Pac.getPacientesdeBD();
         //this.setUndecorated(false);
         this.repaint();
         x = (int) (Toolkit.getDefaultToolkit().getScreenSize().getWidth());

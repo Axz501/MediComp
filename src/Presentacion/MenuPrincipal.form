@@ -3207,7 +3207,7 @@
                                   <Component id="jPanel62" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace pref="105" max="32767" attributes="0"/>
+                          <EmptySpace pref="101" max="32767" attributes="0"/>
                           <Component id="jPanelSuperior7" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -3383,14 +3383,14 @@
                           <Font name="Verdana" size="16" style="1"/>
                         </Property>
                         <Property name="horizontalAlignment" type="int" value="0"/>
-                        <Property name="text" type="java.lang.String" value="Consultar Entidad"/>
+                        <Property name="text" type="java.lang.String" value="Mis Entidades"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JLabel" name="jLabel137">
                       <Properties>
                         <Property name="horizontalAlignment" type="int" value="0"/>
                         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                          <Image iconType="3" name="/Utils/historial-medico2.png"/>
+                          <Image iconType="3" name="/Utils/hospital2.png"/>
                         </Property>
                         <Property name="alignmentX" type="float" value="0.5"/>
                       </Properties>
@@ -3453,14 +3453,14 @@
                           <Font name="Verdana" size="16" style="1"/>
                         </Property>
                         <Property name="horizontalAlignment" type="int" value="0"/>
-                        <Property name="text" type="java.lang.String" value="Agregar Entidad"/>
+                        <Property name="text" type="java.lang.String" value="Crear Entidad"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JLabel" name="jLabel139">
                       <Properties>
                         <Property name="horizontalAlignment" type="int" value="0"/>
                         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                          <Image iconType="3" name="/Utils/hospital2.png"/>
+                          <Image iconType="3" name="/Utils/agregar-usuario.png"/>
                         </Property>
                         <Property name="alignmentX" type="float" value="0.5"/>
                       </Properties>
@@ -3523,14 +3523,14 @@
                           <Font name="Verdana" size="16" style="1"/>
                         </Property>
                         <Property name="horizontalAlignment" type="int" value="0"/>
-                        <Property name="text" type="java.lang.String" value="Borrar Entidad"/>
+                        <Property name="text" type="java.lang.String" value="Entidades Globales"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JLabel" name="jLabel141">
                       <Properties>
                         <Property name="horizontalAlignment" type="int" value="0"/>
                         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                          <Image iconType="3" name="/Utils/borrar.png"/>
+                          <Image iconType="3" name="/Utils/hospital2.png"/>
                         </Property>
                         <Property name="alignmentX" type="float" value="0.5"/>
                       </Properties>

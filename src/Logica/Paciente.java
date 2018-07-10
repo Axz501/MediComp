@@ -45,6 +45,8 @@ public class Paciente implements Serializable {
     private List<Entidad> entidades;
     @ManyToMany(mappedBy = "pacientes")
     private List<Medico> medicos;
+    
+    public Paciente(){};
 
     public Paciente(String ci, String nombre, String apellido, String correo, int edad, int telefono, Direccion direccion, String genero, boolean particular, Imagen imagen) {
         this.ci = ci;
@@ -68,18 +70,6 @@ public class Paciente implements Serializable {
         this.correo = correo;
         this.telefono = telefono;
         this.direccion = direccion;
-    }
-    public Paciente(String ci, String nombre, String apellido, int edad, String genero, boolean particular, Imagen imagen) {
-        this.ci = ci;
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.edad = edad;
-        this.genero = genero;
-        this.particular = particular;
-        this.imagen = imagen;
-        this.correo = null;
-        this.telefono = 0;
-        this.direccion = null;
     }
     public List<Consulta> getConsultas() {
         return consultas;

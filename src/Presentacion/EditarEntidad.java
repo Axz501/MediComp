@@ -5,38 +5,82 @@
  */
 package Presentacion;
 
+import Logica.DtEntidad;
 import Logica.Fabrica;
 import Logica.IContPaciente;
 import Utils.JFrameConFondo;
+import java.awt.Color;
 import java.awt.FileDialog;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author Admin
  */
-public class AgregarEntidad extends JFrameConFondo {
+public class EditarEntidad extends JFrameConFondo {
 
     /**
-     * Creates new form AgregarEntidad
+     * Creates new form EditarEntidad
      */
+    List<DtEntidad> enti;
+    long id;
+    boolean elimg = false;
     private DefaultListModel<String> lm = new DefaultListModel<>();
     private IContPaciente Pac;
-    public AgregarEntidad() {
+    public EditarEntidad() {
         initComponents();
         this.setImagen("Fondo.jpg");
         Pac = Fabrica.getPaciente();
-        setTitle("Agregar Entidad");
+        setTitle("Editar Entidad");
         listatel.setModel(lm);
         listatel.setSelectionMode(0);
+        listatel.setModel(lm);
+        rutaaux.setText("");
+        aceptar.setEnabled(false);
+        listarEntidades("");
+    }
+    
+    public void listarEntidades(String ci) {
+
+        DefaultTableModel modelo = (DefaultTableModel) EntiTable.getModel();
+        while (modelo.getRowCount() > 0) {
+            modelo.removeRow(0);
+        }
+        enti = Pac.getDtEntidades(ci,3);
+        for (DtEntidad a : enti) {
+            String[] datos = {ConvertirString(a.getNombre()),a.getCorreo(),a.getTelefonosString(),a.isPrivado() ? "Si" : "No",a.getImagen()!=null ? "Si" : "No",a.getDireccion().getCiudad()+", "+a.getDireccion().getDepartamento(),a.getDireccion().getCalle()+" "+a.getDireccion().getNumero(),Long.toString(a.getId())};
+            modelo.addRow(datos);
+        }
+        
+    }
+    
+    String ConvertirString(String cad) {
+        cad = cad.toLowerCase();
+        String[] palabras = cad.split("\\s+");
+        cad = "";
+        for (int i = 0; i < palabras.length; i++) {
+            palabras[i].toLowerCase();
+            palabras[i] = palabras[i].substring(0, 1).toUpperCase() + palabras[i].substring(1);
+            if (i == 0) {
+                cad = cad + palabras[i];
+            } else {
+                cad = cad + " " + palabras[i];
+            }
+        }
+        return cad;
     }
 
     /**
@@ -70,7 +114,7 @@ public class AgregarEntidad extends JFrameConFondo {
         CargarImg = new javax.swing.JButton();
         CargarImg1 = new javax.swing.JButton();
         jSeparator2 = new javax.swing.JSeparator();
-        jButton1 = new javax.swing.JButton();
+        aceptar = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         listatel = new javax.swing.JList<>();
@@ -81,6 +125,12 @@ public class AgregarEntidad extends JFrameConFondo {
         rutaaux = new javax.swing.JTextArea();
         esprivada = new javax.swing.JCheckBox();
         jLabel3 = new javax.swing.JLabel();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        EntiTable = new javax.swing.JTable();
+        buscarIngTextField = new javax.swing.JTextField();
+        jLabel13 = new javax.swing.JLabel();
+        jButton4 = new javax.swing.JButton();
+        jLabel12 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
@@ -95,15 +145,22 @@ public class AgregarEntidad extends JFrameConFondo {
         jLabel4.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
         jLabel4.setText("Nombre:");
 
-        correo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                correoActionPerformed(evt);
+        correo.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        correo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                correoMouseClicked(evt);
             }
         });
 
         jLabel5.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
         jLabel5.setText("Correo:");
 
+        nombre.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        nombre.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                nombreMouseClicked(evt);
+            }
+        });
         nombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 nombreActionPerformed(evt);
@@ -113,6 +170,11 @@ public class AgregarEntidad extends JFrameConFondo {
         jLabel6.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
         jLabel6.setText("Teléfono(s):");
 
+        telefono.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                telefonoMouseClicked(evt);
+            }
+        });
         telefono.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 telefonoActionPerformed(evt);
@@ -130,18 +192,36 @@ public class AgregarEntidad extends JFrameConFondo {
         jLabel8.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
         jLabel8.setText("Departamento:");
 
+        calle.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        calle.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                calleMouseClicked(evt);
+            }
+        });
         calle.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 calleActionPerformed(evt);
             }
         });
 
+        dpto.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        dpto.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                dptoMouseClicked(evt);
+            }
+        });
         dpto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 dptoActionPerformed(evt);
             }
         });
 
+        ciudad.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        ciudad.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ciudadMouseClicked(evt);
+            }
+        });
         ciudad.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ciudadActionPerformed(evt);
@@ -156,6 +236,13 @@ public class AgregarEntidad extends JFrameConFondo {
 
         jLabel11.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
         jLabel11.setText("Número:");
+
+        nro.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        nro.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                nroMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -177,7 +264,7 @@ public class AgregarEntidad extends JFrameConFondo {
                             .addComponent(dpto)
                             .addComponent(ciudad)
                             .addComponent(nro, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(73, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -217,10 +304,10 @@ public class AgregarEntidad extends JFrameConFondo {
             }
         });
 
-        jButton1.setText("Aceptar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        aceptar.setText("Aceptar");
+        aceptar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                aceptarActionPerformed(evt);
             }
         });
 
@@ -257,6 +344,61 @@ public class AgregarEntidad extends JFrameConFondo {
 
         jLabel3.setText("<html>Marca esta opción si quieres hacer esta entidad<br/>visible solo para tu usuario</html>");
 
+        EntiTable.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        EntiTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Nombre", "Correo", "Teléfonos", "Es Privada?", "Imagen", "Ciudad - Departamento", "Dirección"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        EntiTable.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
+        EntiTable.setColumnSelectionAllowed(true);
+        EntiTable.setGridColor(new java.awt.Color(204, 204, 204));
+        EntiTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                EntiTableMouseClicked(evt);
+            }
+        });
+        jScrollPane5.setViewportView(EntiTable);
+        EntiTable.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+        if (EntiTable.getColumnModel().getColumnCount() > 0) {
+            EntiTable.getColumnModel().getColumn(0).setPreferredWidth(100);
+            EntiTable.getColumnModel().getColumn(1).setPreferredWidth(100);
+            EntiTable.getColumnModel().getColumn(2).setPreferredWidth(100);
+            EntiTable.getColumnModel().getColumn(3).setPreferredWidth(100);
+            EntiTable.getColumnModel().getColumn(4).setPreferredWidth(100);
+            EntiTable.getColumnModel().getColumn(5).setPreferredWidth(100);
+            EntiTable.getColumnModel().getColumn(6).setPreferredWidth(100);
+        }
+
+        buscarIngTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                buscarIngTextFieldKeyReleased(evt);
+            }
+        });
+
+        jLabel13.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
+        jLabel13.setText("Buscar y Seleccionar:");
+
+        jButton4.setText("Elegir Entidad");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
+        jLabel12.setText("Selecciona una entidad de la tabla, luego selecciona los campos que deseas editar");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -264,14 +406,13 @@ public class AgregarEntidad extends JFrameConFondo {
             .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(aceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(44, 44, 44)
                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(85, 85, 85))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -279,17 +420,27 @@ public class AgregarEntidad extends JFrameConFondo {
                             .addComponent(jLabel6)
                             .addComponent(jLabel5)
                             .addComponent(jLabel4))
-                        .addGap(21, 21, 21)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 316, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(104, 104, 104)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 303, Short.MAX_VALUE)
                             .addComponent(telefono)
-                            .addComponent(nombre)
-                            .addComponent(correo))))
+                            .addComponent(correo)
+                            .addComponent(nombre))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(buscarIngTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel13)
+                            .addComponent(jButton4, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addGap(20, 20, 20)
+                        .addComponent(jScrollPane5))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel12)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addGap(18, 18, 18)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(48, 48, 48)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(34, 34, 34)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(jLabel1)
@@ -299,25 +450,37 @@ public class AgregarEntidad extends JFrameConFondo {
                             .addComponent(CargarImg, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(CargarImg1, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(jScrollPane2))
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(esprivada)
                     .addComponent(jLabel3))
-                .addGap(80, 80, 80))
+                .addGap(44, 44, 44))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 16, Short.MAX_VALUE)
-                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 458, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(23, 23, 23)
+                                .addGap(54, 54, 54)
+                                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                                .addGap(23, 23, 23))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(30, 30, 30)
+                                .addComponent(jLabel12)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel13)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(buscarIngTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel4)
-                                    .addComponent(nombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(nombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel4))
                                 .addGap(30, 30, 30)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel5)
@@ -332,14 +495,14 @@ public class AgregarEntidad extends JFrameConFondo {
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jButton3)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jButton5)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(jButton5))))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGap(33, 33, 33)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(13, 13, 13)
                                 .addComponent(jLabel2)
-                                .addGap(18, 18, 18)
-                                .addComponent(Img, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(Img, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(CargarImg1)
@@ -351,23 +514,20 @@ public class AgregarEntidad extends JFrameConFondo {
                                 .addGap(18, 18, 18)
                                 .addComponent(esprivada)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel3)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                                .addComponent(jLabel3)
+                                .addGap(0, 16, Short.MAX_VALUE))
+                            .addComponent(jSeparator1))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(aceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(20, 20, 20))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void correoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_correoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_correoActionPerformed
 
     private void nombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombreActionPerformed
         // TODO add your handling code here:
@@ -399,15 +559,23 @@ public class AgregarEntidad extends JFrameConFondo {
         String filename = fd.getFile();
         if (filename != null){
             rutaaux.setText(fd.getDirectory()+filename);
-            ImageIcon imagen = new ImageIcon(rutaaux.getText()); //genera la imagen que seleccionamos
-            Icon icono = new ImageIcon(imagen.getImage().getScaledInstance(Img.getWidth(), Img.getHeight(), Image.SCALE_DEFAULT));
-            this.Img.setIcon(icono); // coloca la imagen en el label
+            ImageIcon imagen;
+            try {
+                imagen = this.imagenredonda(org.apache.commons.io.FileUtils.readFileToByteArray(new File(rutaaux.getText())));
+                Icon icono = new ImageIcon(imagen.getImage().getScaledInstance(Img.getWidth(), Img.getHeight(), Image.SCALE_DEFAULT));
+                this.Img.setIcon(icono);
+            } catch (IOException ex) {
+                Logger.getLogger(EditarEntidad.class.getName()).log(Level.SEVERE, null, ex);
+            }
+             // coloca la imagen en el label
         }
     }//GEN-LAST:event_CargarImgActionPerformed
 
     private void CargarImg1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CargarImg1ActionPerformed
         rutaaux.setText("");
         this.Img.setIcon(null); // limpia la imagen del label
+        elimg = true;
+        this.setimagengenerica();
     }//GEN-LAST:event_CargarImg1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -429,57 +597,163 @@ public class AgregarEntidad extends JFrameConFondo {
         }
     }//GEN-LAST:event_jButton5ActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void aceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aceptarActionPerformed
         // TODO add your handling code here:
-        String nom = this.nombre.getText();
-        String mail = correo.getText();
-        List<String> telefonos = new ArrayList();
-        for (int i=0; i<listatel.getModel().getSize() ; i++){
-            telefonos.add(listatel.getModel().getElementAt(i));
-        }
-        String departamento = dpto.getText();
-        String city = ciudad.getText();
-        String cal = this.calle.getText();
-        int num = (int) nro.getValue();
-        if (!nom.equals("") && !mail.equals("") && !telefonos.isEmpty() && !departamento.equals("") && !city.equals("") && !cal.equals("") && num!=0 ){
-            if (mail.contains("@") && mail.contains(".com")){
-                //System.out.print(rutaaux.getText());
-                boolean b = this.Pac.IngresarEntidad(nom, mail, telefonos, departamento, city, cal, num, rutaaux.getText(),esprivada.isSelected());
-                if (b){
-                    JOptionPane.showMessageDialog(this, "La entidad "+nom+" ha sido agregada","Entidad Agregada", JOptionPane.INFORMATION_MESSAGE);
-                    this.dispose();
-                }
-                else
-                    JOptionPane.showMessageDialog(this, "La entidad "+nom+" no ha podido ser agregada","Error", JOptionPane.ERROR_MESSAGE);
+        if (EntiTable.isEnabled())
+            JOptionPane.showMessageDialog(this,"Selecciona una entidad para editar","Seleccionar Tabla", WIDTH);
+        else{
+            boolean mailsi = true;
+            String nom = "", mail = "", departamento= "", city= "", cal = "";
+            int num = 0;
+            List<String> telefonos = new ArrayList();
+            if (nombre.isEnabled())    
+                nom = this.nombre.getText();
+            if (correo.isEnabled()){
+                mail = correo.getText();
+                if (!mail.contains("@") || !mail.contains(".com"))
+                    mailsi = false;
+            }
+            for (int i=0; i<listatel.getModel().getSize() ; i++){
+                telefonos.add(listatel.getModel().getElementAt(i));
+            }
+            if (dpto.isEnabled())
+                departamento = dpto.getText();
+            if (ciudad.isEnabled())
+                city = ciudad.getText();
+            if (calle.isEnabled())
+                cal = this.calle.getText();
+            if (nro.isEnabled())
+                num = (int) nro.getValue();
+            if (mailsi){
+                this.Pac.EditarEntidad(id,nom, mail, telefonos, departamento, city, cal, num,rutaaux.getText(),esprivada.isSelected(),elimg);
+                JOptionPane.showMessageDialog(this,"La entidad se ha editado correctamente", "Operacion Finalizada", JOptionPane.INFORMATION_MESSAGE);
+                this.dispose();
             } else {
-             JOptionPane.showMessageDialog(this, "Formato de correo inválido (ej:correo@mail.com)", "Campo Inválido", JOptionPane.ERROR_MESSAGE);
-             correo.requestFocus();
+                 JOptionPane.showMessageDialog(this, "Formato de correo inválido (ej:correo@mail.com)", "Campo Inválido", JOptionPane.ERROR_MESSAGE);
+                 correo.requestFocus();
             }
         }
-        else{
-            JOptionPane.showMessageDialog(this, "Debes llenar todos los campos requeridos", "Campos Vacíos", JOptionPane.ERROR_MESSAGE);
-            if (nom.equals(""))
-                nombre.requestFocus();
-            if (mail.equals(""))
-                correo.requestFocus();
-            if (telefonos.isEmpty())
-                telefono.requestFocus();
-            if (departamento.equals(""))
-                dpto.requestFocus();
-            if (city.equals(""))
-                ciudad.requestFocus();
-            if (cal.equals(""))
-                calle.requestFocus();
-            if (num==0)
-                nro.requestFocus();
-                
-        }
-    }//GEN-LAST:event_jButton1ActionPerformed
+       
+    }//GEN-LAST:event_aceptarActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void EntiTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EntiTableMouseClicked
+        if (EntiTable.getSelectedRow() > -1 && EntiTable.isEnabled()) {
+            //for (DtEntidad a : enti){
+                //if (Long.toString(a.getId()).equals(EntiTable.getValueAt(EntiTable.getSelectedRow(), 6))){
+            DtEntidad a = enti.get(EntiTable.getSelectedRow());
+            if (a.getImagen()!=null){
+                //ImageIcon imagen = a.getImagen().getImagen();
+                ImageIcon imagen;
+                try {
+                    imagen = this.imagenredonda(a.getImagen().getTapa());
+                    Icon imagenperfil = new ImageIcon(imagen.getImage().getScaledInstance(Img.getWidth(), Img.getHeight(), Image.SCALE_DEFAULT));
+                    Img.setIcon(imagenperfil);
+                } catch (IOException ex) {
+                    Logger.getLogger(EditarEntidad.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            else{
+                setimagengenerica();
+            }
+            lm.clear();
+            nombre.setText(a.getNombre());
+            correo.setText(a.getCorreo());
+            for(String s : a.getTelefono()){
+                lm.addElement(s);
+            }
+            dpto.setText(a.getDireccion().getDepartamento());
+            ciudad.setText(a.getDireccion().getCiudad());
+            calle.setText(a.getDireccion().getCalle());
+            nro.setValue(a.getDireccion().getNumero());
+            esprivada.setSelected(a.isPrivado());
+            nombre.setEnabled(false);
+            correo.setEnabled(false);
+            dpto.setEnabled(false);
+            ciudad.setEnabled(false);
+            calle.setEnabled(false);
+            nro.setEnabled(false);
+            telefono.setEnabled(false);
+            
+        }
+    }//GEN-LAST:event_EntiTableMouseClicked
+
+    private void buscarIngTextFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_buscarIngTextFieldKeyReleased
+        listarEntidades(buscarIngTextField.getText());
+    }//GEN-LAST:event_buscarIngTextFieldKeyReleased
+
+    private void nombreMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nombreMouseClicked
+        // TODO add your handling code here:
+        evt.getComponent().setEnabled(true);
+    }//GEN-LAST:event_nombreMouseClicked
+
+    private void correoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_correoMouseClicked
+        // TODO add your handling code here:
+        evt.getComponent().setEnabled(true);
+    }//GEN-LAST:event_correoMouseClicked
+
+    private void telefonoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_telefonoMouseClicked
+        // TODO add your handling code here:
+        evt.getComponent().setEnabled(true);
+    }//GEN-LAST:event_telefonoMouseClicked
+
+    private void dptoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dptoMouseClicked
+        // TODO add your handling code here:
+        evt.getComponent().setEnabled(true);
+    }//GEN-LAST:event_dptoMouseClicked
+
+    private void ciudadMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ciudadMouseClicked
+        // TODO add your handling code here:
+        evt.getComponent().setEnabled(true);
+    }//GEN-LAST:event_ciudadMouseClicked
+
+    private void calleMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_calleMouseClicked
+        // TODO add your handling code here:
+        evt.getComponent().setEnabled(true);
+    }//GEN-LAST:event_calleMouseClicked
+
+    private void nroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nroMouseClicked
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_nroMouseClicked
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        if (EntiTable.getSelectedRow()>-1){
+            id = enti.get(EntiTable.getSelectedRow()).getId();
+            EntiTable.setEnabled(false);
+            DefaultTableModel tl = (DefaultTableModel) EntiTable.getModel();
+            while (tl.getRowCount()>0){
+                tl.removeRow(0);
+            }
+            int i =0;
+            while (enti.get(i).getId()!=id)
+                i++;
+            DtEntidad a = enti.get(i);
+            String[] datos = {ConvertirString(a.getNombre()),a.getCorreo(),a.getTelefonosString(),a.isPrivado() ? "Si" : "No",a.getImagen()!=null ? "Si" : "No",a.getDireccion().getCiudad()+", "+a.getDireccion().getDepartamento(),a.getDireccion().getCalle()+" "+a.getDireccion().getNumero(),Long.toString(a.getId())};
+            tl.addRow(datos);
+            nro.setEnabled(true);
+            aceptar.setEnabled(true);
+        }
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    
+    
+    public void setimagengenerica(){
+        java.util.Properties p = System.getProperties();
+        String cadena = p.getProperty("user.dir");
+        File f = new File(cadena+"/src/Utils/iconoUsuario.jpg");
+        try {
+            ImageIcon imagen = this.imagenredonda(org.apache.commons.io.FileUtils.readFileToByteArray(f));
+            Icon imagenperfil = new ImageIcon(imagen.getImage().getScaledInstance(Img.getWidth(), Img.getHeight(), Image.SCALE_DEFAULT));
+            Img.setIcon(imagenperfil);
+        } catch (IOException ex) {
+            Logger.getLogger(EditarEntidad.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     /**
      * @param args the command line arguments
      */
@@ -497,20 +771,20 @@ public class AgregarEntidad extends JFrameConFondo {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AgregarEntidad.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditarEntidad.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AgregarEntidad.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditarEntidad.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AgregarEntidad.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditarEntidad.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AgregarEntidad.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditarEntidad.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AgregarEntidad().setVisible(true);
+                new EditarEntidad().setVisible(true);
             }
         });
     }
@@ -527,19 +801,24 @@ public class AgregarEntidad extends JFrameConFondo {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton CargarImg;
     private javax.swing.JButton CargarImg1;
+    private javax.swing.JTable EntiTable;
     private javax.swing.JLabel Img;
+    private javax.swing.JButton aceptar;
+    private javax.swing.JTextField buscarIngTextField;
     private javax.swing.JTextField calle;
     private javax.swing.JTextField ciudad;
     private javax.swing.JTextField correo;
     private javax.swing.JTextField dpto;
     private javax.swing.JCheckBox esprivada;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -551,6 +830,7 @@ public class AgregarEntidad extends JFrameConFondo {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JList<String> listatel;

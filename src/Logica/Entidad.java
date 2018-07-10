@@ -6,7 +6,11 @@
 package Logica;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -25,19 +29,47 @@ public class Entidad implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    private boolean privado;
+    
     private String correo;
     private String nombre;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
+    private Imagen imagen;
+    @OneToOne(cascade = CascadeType.ALL)
     private Direccion direccion;
-    private String telefono;
+    private String telefono = "";
     @ManyToMany(mappedBy = "entidades")
     private List<Paciente> pacientes = null;
+    
+    public Entidad(){};
 
-    public Entidad(String correo, String nombre, Direccion direccion, String telefono) {
+    public Entidad(String correo, String nombre, Direccion direccion, List<String> telefono, Imagen img,boolean b) {
         this.correo = correo;
         this.nombre = nombre;
         this.direccion = direccion;
-        this.telefono = telefono;
+        for (String s : telefono){
+           this.telefono = this.telefono + s + ';'; 
+        }
+        this.imagen = img;
+        this.privado = b;
+    }
+
+    
+    
+    public boolean isPrivado() {
+        return privado;
+    }
+
+    public void setPrivado(boolean privado) {
+        this.privado = privado;
+    }
+    
+    public Imagen getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(Imagen imagen) {
+        this.imagen = imagen;
     }
 
     public String getCorreo() {
@@ -64,12 +96,18 @@ public class Entidad implements Serializable {
         this.direccion = direccion;
     }
 
-    public String getTelefono() {
-        return telefono;
+    public List<String> getTelefono() {
+        List<String> lista = new ArrayList();
+        String[] telefonos = this.telefono.split(";");
+        lista.addAll(Arrays.asList(telefonos));
+        return lista;
     }
 
-    public void setTelefono(String telefono) {
-        this.telefono = telefono;
+    public void setTelefono(List<String> telefono) {
+        this.telefono = "";
+        for (String s : telefono){
+           this.telefono = this.telefono + s + ';'; 
+        }
     }
     
         
@@ -107,4 +145,7 @@ public class Entidad implements Serializable {
         return "Logica.Entidad[ id=" + id + " ]";
     }
     
+    public DtEntidad getDatos(){
+        return new DtEntidad(this.getId(),this.getCorreo(),this.getNombre(),this.getImagen(),this.getDireccion(),this.getTelefono(),this.isPrivado());
+    }
 }

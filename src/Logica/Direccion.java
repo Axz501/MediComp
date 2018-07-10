@@ -61,6 +61,22 @@ public class Direccion implements Serializable {
         this.id = id;
     }
 
+    public void setCiudad(String ciudad) {
+        this.ciudad = ciudad;
+    }
+
+    public void setDepartamento(String departamento) {
+        this.departamento = departamento;
+    }
+
+    public void setCalle(String calle) {
+        this.calle = calle;
+    }
+
+    public void setNumero(int numero) {
+        this.numero = numero;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -85,8 +101,5 @@ public class Direccion implements Serializable {
     public String toString() {
         return "Logica.Jornada[ id=" + id + " ]";
     }
-    public Direccion getDatos(){ 
-        return new Direccion(ciudad,departamento,calle,numero);
-    }
-    
+
 }

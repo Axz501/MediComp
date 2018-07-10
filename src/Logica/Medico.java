@@ -9,12 +9,16 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 /**
  *
@@ -27,11 +31,13 @@ public class Medico extends Usuario implements Serializable {
 //    @Id
 //    private String ci;
     @ManyToMany
+    @JoinTable(name = "usuario_entidades")
     private List<Entidad> entidades = new ArrayList();
     @ManyToMany
     private List<Paciente> pacientes = new ArrayList() ;
-//    @ManyToMany
-//    private List<Asistente> asistentes = null;
+    @OneToMany()
+    @JoinTable(name = "usuario_entidades_creadas")
+    private List<Entidad> entidadescreadas = new ArrayList();
     @OneToMany(mappedBy = "medico")
     private List<Rel_Med_Asis> asistentes = new ArrayList();
     
@@ -39,8 +45,6 @@ public class Medico extends Usuario implements Serializable {
 
     public Medico(String ci, String nombre, String apellido, String correo, String contraseña, Imagen imagen) {
         super(ci, nombre, apellido, correo, contraseña, imagen);
-        this.entidades=null;
-        this.pacientes=null;
     }
 
     public Medico(List<Entidad> entidades, List<Paciente> pacientes, String ci, String nombre, String apellido, String correo, String contraseña, Imagen imagen) {
@@ -51,10 +55,17 @@ public class Medico extends Usuario implements Serializable {
 
     public Medico(String ci, String contrasenia, String nombre, String apellido, String correo) {
         super(ci, contrasenia, nombre, apellido, correo);
-        this.entidades=null;
-        this.pacientes=null;
     }
 
+    public List<Entidad> getEntidadescreadas() {
+        return entidadescreadas;
+    }
+
+    public void setEntidadescreadas(List<Entidad> entidadescreadas) {
+        this.entidadescreadas = entidadescreadas;
+    }
+
+    
     public List<Rel_Med_Asis> getAsistentes() {
         return asistentes;
     }
