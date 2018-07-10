@@ -32,7 +32,7 @@ public class Paciente implements Serializable {
     private String apellido;
     private int edad;
     private String genero;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Imagen imagen;
     private boolean particular;
     private String correo;
@@ -45,7 +45,8 @@ public class Paciente implements Serializable {
     private List<Entidad> entidades;
     @ManyToMany(mappedBy = "pacientes")
     private List<Medico> medicos;
-    public Paciente() {}
+    
+    public Paciente(){};
 
     public Paciente(String ci, String nombre, String apellido, String correo, int edad, String telefono, Direccion direccion, String genero, boolean particular, Imagen imagen) {
         this.ci = ci;

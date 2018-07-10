@@ -14,6 +14,7 @@ import java.awt.Toolkit;
 import java.util.List;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -33,6 +34,7 @@ public class VerMedicos extends JFrameConFondo {
         Usr = ControladorUsuarios.getInstance();
         setTitle("Ver Médicos Asociados");
         listarMedicos("");
+        MedicTable.setSelectionMode(0);
     }
     
     public void listarMedicos(String ci) {

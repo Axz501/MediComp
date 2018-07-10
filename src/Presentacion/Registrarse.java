@@ -6,33 +6,20 @@
 package Presentacion;
 import Logica.Fabrica;
 import Logica.IContUsuario;
-import Logica.Imagen;
 import Utils.JFrameConFondo;
-import java.awt.CardLayout;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.FileDialog;
-import java.awt.Frame;
 import java.awt.Image;
 import java.awt.Toolkit;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Paths;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
-import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.border.BevelBorder;
-import javax.swing.filechooser.FileNameExtensionFilter;
 
 
 
@@ -52,7 +39,7 @@ public class Registrarse extends JFrameConFondo {
         initComponents();
         this.Usr = Fabrica.getUsuario();
         setTitle("Registarse");
-        //setResizable(false);
+        setResizable(false);
         getRootPane().setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED,Color.cyan,Color.white));
         //String path = Paths.get("").toAbsolutePath().toString() + "/src/Utils/Fondo.jpg";
         this.setImagen("Fondo.jpg");
@@ -114,6 +101,7 @@ public class Registrarse extends JFrameConFondo {
         setTitle("Registrar Usuario");
         setBackground(new java.awt.Color(0, 0, 153));
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        setMaximizedBounds(new java.awt.Rectangle(0, 0, 599, 383));
         setResizable(false);
 
         jButton1.setText("Aceptar");

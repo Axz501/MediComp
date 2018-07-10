@@ -6,8 +6,10 @@
 package Presentacion;
 
 import Logica.ControladorUsuarios;
+import Logica.DtEntidad;
 import Logica.DtUsuario;
-import Logica.IContUsuario;
+import Logica.Fabrica;
+import Logica.IContPaciente;
 import Utils.JFrameConFondo;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -21,34 +23,42 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Admin
  */
-public class BorrarAsistente extends JFrameConFondo {
+public class EntidadesGlobales extends JFrameConFondo {
 
     /**
-     * Creates new form BorrarAsistente
+     * Creates new form EntidadesGlobales
      */
-    List<DtUsuario> asii;
-    private IContUsuario Usr;
-    public BorrarAsistente() {
+    List<DtEntidad> enti;
+    private IContPaciente Pac;
+    public EntidadesGlobales() {
         initComponents();
         this.setImagen("Fondo.jpg");
-        Usr = ControladorUsuarios.getInstance();
-        setTitle("Borrar Asistentes Asociados");
-        listarAsistentes("");
-        AsistTable.setSelectionMode(0);
+        Pac = Fabrica.getPaciente();
+        setTitle("Entidades Públicas");
+        listarEntidades("");
+        EntiTable.setSelectionMode(0);
     }
     
-    public void listarAsistentes(String ci) {
-
-        DefaultTableModel modelo = (DefaultTableModel) AsistTable.getModel();
+    public void listarEntidades(String ci) {
+        DefaultTableModel modelo = (DefaultTableModel) EntiTable.getModel();
         while (modelo.getRowCount() > 0) {
             modelo.removeRow(0);
         }
-        asii = Usr.listarAsistentesMedico(ci);
-        for (DtUsuario a : asii) {
-            String[] datos = {ConvertirString(a.getNombre()),ConvertirString(a.getApellido()),a.getCi(), a.getCorreo(),a.getImagen()!=null ? "Si" : "No",a.isRenumerado() ? "Si" : "No",String.valueOf(a.getHoras_renum()),String.valueOf(a.getHoras_trab())};
+        enti = Pac.getDtEntidades(ci,2);
+        for (DtEntidad a : enti) {
+            String[] datos = {ConvertirString(a.getNombre()),a.getCorreo(),a.getTelefonosString(),a.getImagen()!=null ? "Si" : "No",a.getDireccion().getCiudad()+", "+a.getDireccion().getDepartamento(),a.getDireccion().getCalle()+" "+a.getDireccion().getNumero(),Long.toString(a.getId())};
             modelo.addRow(datos);
         }
         
+    }
+    
+    public void centrar() {
+        //este metodo devuelve el tamaÃ±o de la pantalla
+        int x = (int) (Toolkit.getDefaultToolkit().getScreenSize().getWidth());
+        int y = (int) (Toolkit.getDefaultToolkit().getScreenSize().getHeight());
+        int h = this.getHeight();
+        int z = this.getWidth();
+        this.setLocation(x / 2 - z / 2, y / 2 - h / 2);
     }
     
     String ConvertirString(String cad) {
@@ -77,48 +87,54 @@ public class BorrarAsistente extends JFrameConFondo {
     private void initComponents() {
 
         jScrollPane2 = new javax.swing.JScrollPane();
-        AsistTable = new javax.swing.JTable();
-        buscarIngTextField = new javax.swing.JTextField();
+        EntiTable = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
+        buscarIngTextField = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setUndecorated(true);
         setResizable(false);
 
-        AsistTable.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        AsistTable.setModel(new javax.swing.table.DefaultTableModel(
+        EntiTable.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        EntiTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Nombre", "Apellido", "C.I.", "Correo", "Imagen", "Renumerado", "Horas renumeradas", "Horas trabajadas"
+                "Nombre", "Correo", "Teléfonos", "Imagen", "Ciudad - Departamento", "Dirección"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false
+                false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        AsistTable.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
-        AsistTable.setGridColor(new java.awt.Color(204, 204, 204));
-        AsistTable.addMouseListener(new java.awt.event.MouseAdapter() {
+        EntiTable.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
+        EntiTable.setColumnSelectionAllowed(true);
+        EntiTable.setGridColor(new java.awt.Color(204, 204, 204));
+        EntiTable.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                AsistTableMouseClicked(evt);
+                EntiTableMouseClicked(evt);
             }
         });
-        jScrollPane2.setViewportView(AsistTable);
-        if (AsistTable.getColumnModel().getColumnCount() > 0) {
-            AsistTable.getColumnModel().getColumn(0).setPreferredWidth(120);
-            AsistTable.getColumnModel().getColumn(1).setPreferredWidth(120);
-            AsistTable.getColumnModel().getColumn(2).setPreferredWidth(120);
-            AsistTable.getColumnModel().getColumn(3).setPreferredWidth(120);
+        jScrollPane2.setViewportView(EntiTable);
+        EntiTable.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        if (EntiTable.getColumnModel().getColumnCount() > 0) {
+            EntiTable.getColumnModel().getColumn(0).setPreferredWidth(100);
+            EntiTable.getColumnModel().getColumn(1).setPreferredWidth(100);
+            EntiTable.getColumnModel().getColumn(2).setPreferredWidth(130);
+            EntiTable.getColumnModel().getColumn(3).setPreferredWidth(70);
+            EntiTable.getColumnModel().getColumn(4).setPreferredWidth(100);
+            EntiTable.getColumnModel().getColumn(5).setPreferredWidth(100);
         }
+
+        jLabel1.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
+        jLabel1.setText("Buscar Entidad:");
 
         buscarIngTextField.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -126,13 +142,10 @@ public class BorrarAsistente extends JFrameConFondo {
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
-        jLabel1.setText("Buscar Asistente:");
-
         jLabel2.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
-        jLabel2.setText("Imagen de Perfil");
+        jLabel2.setText("Imagen");
 
-        jButton1.setText("Borrar Seleccionado");
+        jButton1.setText("Agregar a Mis Entidades");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -144,7 +157,7 @@ public class BorrarAsistente extends JFrameConFondo {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(0, 28, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 578, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
@@ -155,41 +168,36 @@ public class BorrarAsistente extends JFrameConFondo {
                         .addComponent(jButton1)))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
-                .addContainerGap(24, Short.MAX_VALUE))
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(41, 41, 41))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(23, 23, 23)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(23, 23, 23)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2)
-                            .addComponent(jButton1)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(25, 25, 25)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel1)
-                            .addComponent(buscarIngTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel2)
+                        .addComponent(jButton1))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel1)
+                        .addComponent(buscarIngTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(54, 54, 54))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(30, Short.MAX_VALUE))))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void AsistTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AsistTableMouseClicked
-        if (AsistTable.getSelectedRow() > -1) {
-            for (DtUsuario a : asii){
-                if (a.getCi().equals(AsistTable.getValueAt(AsistTable.getSelectedRow(), 2))){
+    private void EntiTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EntiTableMouseClicked
+        if (EntiTable.getSelectedRow() > -1) {
+            //for (DtEntidad a : enti){
+                //if (Long.toString(a.getId()).equals(EntiTable.getValueAt(EntiTable.getSelectedRow(), 6))){
+                    DtEntidad a = enti.get(EntiTable.getSelectedRow());
                     if (a.getImagen()!=null){
                         ImageIcon imagen = a.getImagen().getImagen();
                         Icon imagenperfil = new ImageIcon(imagen.getImage().getScaledInstance(jLabel3.getWidth(), jLabel3.getHeight(), Image.SCALE_DEFAULT));
@@ -198,32 +206,30 @@ public class BorrarAsistente extends JFrameConFondo {
                     else{
                         setimagengenerica();
                     }
-                }
-            }
+                //}
+            //}
         }
-    }//GEN-LAST:event_AsistTableMouseClicked
+    }//GEN-LAST:event_EntiTableMouseClicked
 
     private void buscarIngTextFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_buscarIngTextFieldKeyReleased
-        listarAsistentes(buscarIngTextField.getText());
+        listarEntidades(buscarIngTextField.getText());
     }//GEN-LAST:event_buscarIngTextFieldKeyReleased
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        if (AsistTable.getRowCount()<1)
-                JOptionPane.showMessageDialog(this, "No tienes ningún asistente asociado", "Error", JOptionPane.ERROR_MESSAGE);
-        else{
-            if (AsistTable.getSelectedRow() > -1) {
-                String ci = (String) AsistTable.getValueAt(AsistTable.getSelectedRow(), 2);
-                this.Usr.BorrarAsistente(ci);
-                ((DefaultTableModel)AsistTable.getModel()).removeRow(AsistTable.getSelectedRow());
-                JOptionPane.showMessageDialog(this, "El asistente ha sido borrado", "Operación Completa", JOptionPane.INFORMATION_MESSAGE);
-                setimagengenerica();
+        if (EntiTable.getSelectedRow() > -1) {
+            long id = enti.get(EntiTable.getSelectedRow()).getId();
+            if (Pac.AgregarEntidaddeMedico(id)){
+                String nom = enti.get(EntiTable.getSelectedRow()).getNombre();
+                JOptionPane.showMessageDialog(this, "La entidad "+nom+" ha sido agregada a tus entidades","Entidad Agregada", JOptionPane.INFORMATION_MESSAGE);
+                listarEntidades("");
             }
             else{
-                JOptionPane.showMessageDialog(this, "Selecciona un asistente de la tabla");            
+                JOptionPane.showMessageDialog(this, "Ya tienes esta entidad agregada","Entidad En Mis Entidades", JOptionPane.ERROR_MESSAGE);
             }
         }
     }//GEN-LAST:event_jButton1ActionPerformed
+
     
     public void setimagengenerica(){
         java.util.Properties p = System.getProperties();
@@ -231,16 +237,6 @@ public class BorrarAsistente extends JFrameConFondo {
         ImageIcon imagen = new ImageIcon(cadena+"/src/Utils/iconoUsuario.jpg"); //genera la imagen que seleccionamos
         Icon imagenperfil = new ImageIcon(imagen.getImage().getScaledInstance(jLabel3.getWidth(), jLabel3.getHeight(), Image.SCALE_DEFAULT));
         jLabel3.setIcon(imagenperfil);
-    }
-    
-    public void centrar() {
-        //este metodo devuelve el tamaÃ±o de la pantalla
-        int x = (int) (Toolkit.getDefaultToolkit().getScreenSize().getWidth());
-        int y = (int) (Toolkit.getDefaultToolkit().getScreenSize().getHeight());
-        int h = this.getHeight();
-        int z = this.getWidth();
-        this.setLocation(x / 2 - z / 2, y / 2 - h / 2);
-
     }
     /**
      * @param args the command line arguments
@@ -259,26 +255,26 @@ public class BorrarAsistente extends JFrameConFondo {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(BorrarAsistente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EntidadesGlobales.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(BorrarAsistente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EntidadesGlobales.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(BorrarAsistente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EntidadesGlobales.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(BorrarAsistente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EntidadesGlobales.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new BorrarAsistente().setVisible(true);
+                new ConsultarEntidad().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTable AsistTable;
+    private javax.swing.JTable EntiTable;
     private javax.swing.JTextField buscarIngTextField;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;

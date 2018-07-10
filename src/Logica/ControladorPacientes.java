@@ -30,6 +30,17 @@ public class ControladorPacientes implements IContPaciente{
     private static ControladorPacientes instancia;
     private final ControladorUsuarios User = ControladorUsuarios.getInstance();
     private Map<String, Paciente> pacientes = new HashMap();
+    private List<Entidad> entidades = new ArrayList();
+
+    @Override
+    public List<Entidad> getEntidades() {
+        return entidades;
+    }
+
+    public void setEntidades(List<Entidad> entidades) {
+        this.entidades = entidades;
+    }
+
     private final Map<Long, NombredeEstudio> estudios = new HashMap();
     private final Map<Long, Prototipo> prototipos = new HashMap();
     
@@ -46,6 +57,184 @@ public class ControladorPacientes implements IContPaciente{
             instancia = new ControladorPacientes();
         }
         return instancia;
+    }
+    
+    public boolean IngresarEntidad(String nom,String mail,List<String> listatel,String dpto,String ciudad,String calle, int nro,String rutaimagen,boolean b){
+        Direccion d = new Direccion(ciudad,dpto,calle,nro);
+        Entidad e = new Entidad(mail,nom,d,listatel,null,b);
+        if (!rutaimagen.equals("")){
+            Imagen img = new Imagen(rutaimagen);
+            e.setImagen(img);
+        }
+        try {
+            Medico m = (Medico) this.User.getSesionactiva();
+            m.getEntidades().add(e);
+            m.getEntidadescreadas().add(e);
+            persist(e);
+            //this.add(e);
+            return true;
+        } catch(Exception ex){
+            return false;
+        }
+    }
+    
+    @Override
+    public boolean AgregarEntidaddeMedico(long id){
+        Medico m = (Medico) this.User.getSesionactiva();
+        int i=0;
+        while(this.entidades.get(i).getId()!=id){
+            i++;
+        }
+        Entidad e = this.entidades.get(i);
+        if (m.getEntidades().contains(e)){
+            return false;
+        }
+        else{
+            m.getEntidades().add(e);
+            this.commit();
+            return true;
+        }
+    }
+    
+    @Override
+    public boolean BorrarEntidaddeMedico(long id){
+        Medico m = (Medico) this.User.getSesionactiva();
+        //for (int i=0;i<m.getEntidades().size();i++){
+        int i=0;
+        while(m.getEntidades().get(i).getId()!=id){
+            i++;
+        }
+        Entidad e = m.getEntidades().get(i);
+        if (e.isPrivado()){
+            m.getEntidades().remove(i);
+            m.getEntidadescreadas().remove(i);
+            this.remove(e);
+        }
+        else{
+            m.getEntidades().remove(i);
+            this.commit();
+        }
+        return true;
+    }
+    
+    public void commit(){
+        if (!ControladorUsuarios.getEntityManager().getTransaction().isActive())
+            ControladorUsuarios.getEntityManager().getTransaction().begin();
+        if (ControladorUsuarios.getEntityManager().getTransaction().isActive())
+            ControladorUsuarios.getEntityManager().getTransaction().commit();
+    }
+    
+    @Override
+    public List<DtEntidad> getDtEntidades(String nom, int n){
+        List<DtEntidad> res = new ArrayList();
+        Medico m = (Medico) this.User.getSesionactiva();
+        if (n==1){
+            for (Entidad ee : m.getEntidades()) {
+                if (ee.getNombre().toLowerCase().contains(nom.toLowerCase()))
+                    res.add(ee.getDatos());
+            }
+            return res;
+        }
+        if (n==2){
+            this.getEntidadesdeBD();
+            for (Entidad ee : this.entidades){
+                if (!ee.isPrivado()) {
+                    if (ee.getNombre().toLowerCase().contains(nom.toLowerCase())) {
+                            res.add(ee.getDatos());
+                        }
+                    }
+                }
+            return res;
+        }
+        if (n==3){
+            for (Entidad ee : m.getEntidadescreadas()){
+                if (ee.getNombre().toLowerCase().contains(nom.toLowerCase()))
+                    res.add(ee.getDatos());
+            }
+            return res;
+        }
+        return null;
+    }
+    
+    @Override
+    public void EditarEntidad(long id,String nom,String mail,List<String> listatel,String dpto,String ciudad,String calle, int nro,String rutaimagen,boolean b,boolean elimg){
+        int i=0;
+        while (this.entidades.get(i).getId()!=id){
+            i++;
+        }
+        Entidad e = this.entidades.get(i);
+        if (!ControladorUsuarios.getInstance().getEntityManager().getTransaction().isActive())
+            ControladorUsuarios.getInstance().getEntityManager().getTransaction().begin();
+        if (elimg){
+            if (e.getImagen()!=null){
+                Query q1 = ControladorUsuarios.getEntityManager().createNativeQuery("UPDATE medicomp.entidad SET imagen_id=null WHERE id='"+id+"';");
+                Query q2 = ControladorUsuarios.getEntityManager().createNativeQuery("DELETE FROM medicomp.imagen WHERE id = "+e.getImagen().getId()+";");
+                q1.executeUpdate();
+                q2.executeUpdate();
+                e.setImagen(null);
+            }
+        }
+        if (nom!=""){
+            e.setNombre(nom);
+        }
+        if (mail!=""){
+            e.setCorreo(mail);
+        }
+        if (!listatel.isEmpty()){
+            e.setTelefono(listatel);
+        }
+        if (dpto!=""){
+            e.getDireccion().setDepartamento(dpto);
+        }
+        if (ciudad!=""){
+            e.getDireccion().setCiudad(ciudad);
+        }
+        if (calle!=""){
+            e.getDireccion().setCalle(calle);
+        }
+        if (nro!=0){
+            e.getDireccion().setNumero(nro);
+        }
+        if (!rutaimagen.equals("")){
+            e.setImagen(new Imagen(rutaimagen));
+        }
+        e.setPrivado(b);
+        this.commit();
+    }
+    
+    @Override
+    public void getPacientesdeBD(){
+        List<Paciente> resultado = null;
+        if (!ControladorUsuarios.getEntityManager().getTransaction().isActive())
+            ControladorUsuarios.getInstance().getEntityManager().getTransaction().begin();
+        try {
+            resultado = ControladorUsuarios.getEntityManager().createNativeQuery("SELECT * FROM medicomp.paciente ;", Paciente.class).getResultList();
+            if (!ControladorUsuarios.getEntityManager().getTransaction().isActive())
+                ControladorUsuarios.getEntityManager().getTransaction().commit();
+        } catch (Exception e) {
+            ControladorUsuarios.getEntityManager().getTransaction().rollback();
+        }
+        if (resultado!=null && !resultado.isEmpty()){
+            for (int i=0;i<resultado.size();i++){
+                this.getPacientes().put(resultado.get(i).getCi(), resultado.get(i));
+            }
+        }
+    }
+    
+    
+    @Override
+    public void getEntidadesdeBD(){
+        List<Entidad> resultado = null;
+        if (!ControladorUsuarios.getEntityManager().getTransaction().isActive())
+            ControladorUsuarios.getInstance().getEntityManager().getTransaction().begin();
+        try {
+            resultado = ControladorUsuarios.getEntityManager().createNativeQuery("SELECT * FROM medicomp.entidad ;", Entidad.class).getResultList();
+            if (!ControladorUsuarios.getEntityManager().getTransaction().isActive())
+                ControladorUsuarios.getEntityManager().getTransaction().commit();
+        } catch (Exception e) {
+            ControladorUsuarios.getEntityManager().getTransaction().rollback();
+        }
+        this.setEntidades(resultado);
     }
     
     public Map<Long, NombredeEstudio> getEstudios(){
@@ -142,23 +331,23 @@ public class ControladorPacientes implements IContPaciente{
         }
     }
     
-    @Override
-    public void getPacientesdeBD(){
-        List<Paciente> resultado = null;
-        if (!ControladorPacientes.getInstance().getEntityManager().getTransaction().isActive()) 
-            ControladorPacientes.getInstance().getEntityManager().getTransaction().begin();
-        try {
-            resultado = ControladorPacientes.getEntityManager().createNativeQuery("SELECT * FROM medicomp.paciente ;", Paciente.class).getResultList();
-            ControladorPacientes.getEntityManager().getTransaction().commit();
-        } catch (Exception e) {
-            ControladorPacientes.getEntityManager().getTransaction().rollback();
-        }
-        if (resultado!=null && !resultado.isEmpty()){
-            for (int i=0;i<resultado.size();i++){
-                this.getPacientes().put(resultado.get(i).getCi(), resultado.get(i));
-            }
-        }
-    }
+//    @Override
+//    public void getPacientesdeBD(){
+//        List<Paciente> resultado = null;
+//        ControladorPacientes.getInstance().getEntityManager().getTransaction().begin();
+//        try {
+//            resultado = ControladorPacientes.getEntityManager().createNativeQuery("SELECT * FROM medicomp.paciente ;", Paciente.class).getResultList();
+//            ControladorPacientes.getEntityManager().getTransaction().commit();
+//        } catch (Exception e) {
+//            ControladorPacientes.getEntityManager().getTransaction().rollback();
+//        }
+//        if (resultado!=null && !resultado.isEmpty()){
+//            for (int i=0;i<resultado.size();i++){
+//                this.getPacientes().put(resultado.get(i).getCi(), resultado.get(i));
+//            }
+//        }
+//    }
+    
      @Override
     public void getEstudiosBD(){
         List<NombredeEstudio> resultado = null;

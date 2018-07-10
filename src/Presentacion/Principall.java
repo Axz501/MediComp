@@ -17,7 +17,6 @@ import com.nilo.plaf.nimrod.NimRODLookAndFeel;
 import com.seaglasslookandfeel.SeaGlassLookAndFeel;
 import java.awt.GraphicsConfiguration;
 import java.awt.Image;
-import java.text.ParseException;
 import javax.swing.ImageIcon;
 import javax.swing.UnsupportedLookAndFeelException;
 import sun.java2d.SunGraphicsEnvironment;
@@ -43,6 +42,7 @@ public class Principall extends JFrameConFondo {
         User = Fabrica.getUsuario();
         Pac = Fabrica.getPaciente();
         User.getUsuariosdeBD();
+        Pac.getEntidadesdeBD();
         Pac.getPacientesdeBD();
         //this.setUndecorated(false);
         this.repaint();

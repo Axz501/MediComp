@@ -48,6 +48,7 @@ public final class AgregarAsistentes extends JFrameConFondo {
         //AsistTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         setResizable(false);
         listarAsistentes("");
+        AsistTable.setSelectionMode(0);
     }
 
     public void listarAsistentes(String ci) {

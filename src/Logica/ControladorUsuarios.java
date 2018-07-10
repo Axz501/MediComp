@@ -60,11 +60,12 @@ public class ControladorUsuarios  implements IContUsuario{
         return sesionactiva;
     }
 
+    @Override
     public void setSesionactiva(Usuario sesionactiva) {
         this.sesionactiva = sesionactiva;
     }
-    
-    
+
+       
     
     public static ControladorUsuarios getInstance() {
         if (instancia == null) {
@@ -92,6 +93,7 @@ public class ControladorUsuarios  implements IContUsuario{
     private static EntityManagerFactory EntityManagerFactory(){
         return ControladorUsuariosHolder.emf;
     }
+   
     
     public void remove(Object object) {
         EntityManager em = ControladorUsuarios.getEntityManager();
@@ -215,7 +217,7 @@ public class ControladorUsuarios  implements IContUsuario{
             Medico m = new Medico(ci, nombre, apellido, correo,passhash ,img);
             this.usuarios.put(ci, m);
             try {
-                persist(img);
+                //persist(img);
                 persist(m);
                 return true;
             } catch (Exception ex) {
@@ -304,9 +306,11 @@ public class ControladorUsuarios  implements IContUsuario{
     @Override
     public void getUsuariosdeBD(){
         List<Usuario> resultado = null;
+        if (!ControladorUsuarios.getEntityManager().getTransaction().isActive())
         ControladorUsuarios.getInstance().getEntityManager().getTransaction().begin();
         try {
             resultado = ControladorUsuarios.getEntityManager().createNativeQuery("SELECT * FROM medicomp.usuario ;", Usuario.class).getResultList();
+            if (ControladorUsuarios.getEntityManager().getTransaction().isActive())
             ControladorUsuarios.getEntityManager().getTransaction().commit();
         } catch (Exception e) {
             ControladorUsuarios.getEntityManager().getTransaction().rollback();

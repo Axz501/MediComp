@@ -42,6 +42,7 @@ public class ListaAsistentes extends JFrameConFondo {
         setResizable(false);
         this.setImagen("Fondo.jpg");
         listarAsistentes("");
+        AsistTable.setSelectionMode(0);
     }
     public void listarAsistentes(String ci) {
 
