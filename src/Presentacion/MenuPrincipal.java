@@ -3042,6 +3042,10 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private void jPanel57MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel57MouseClicked
         // TODO add your handling code here:
         efectoclick(Color.LIGHT_GRAY,evt);
+        ConsultarJornada nuevo = new ConsultarJornada();
+        nuevo.centrar();
+        nuevo.setVisible(true);
+        nuevo.setIconImage(icono);
     }//GEN-LAST:event_jPanel57MouseClicked
 
     private void jPanel45MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel45MouseClicked

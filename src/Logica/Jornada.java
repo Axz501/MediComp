@@ -34,19 +34,27 @@ public class Jornada implements Serializable {
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date Fecha;
     @ManyToOne
-    private Direccion direccion;
+    private Direccion direccion = null;
     private boolean particular;
     @OneToOne
     private Deuda deuda;
     @OneToMany(cascade = CascadeType.ALL)
     private List<Consulta> consultas = new ArrayList();
-    
     @OneToOne
-    private Entidad entidad;
+    private Entidad entidad = null;
+    
+    public Jornada(){}
 
     public Jornada(Date Fecha, Direccion direccion, boolean particular, Deuda deuda) {
         this.Fecha = Fecha;
         this.direccion = direccion;
+        this.particular = particular;
+        this.deuda = deuda;
+    }
+    
+    public Jornada(Date Fecha, Entidad ent, boolean particular, Deuda deuda) {
+        this.Fecha = Fecha;
+        this.entidad = ent;
         this.particular = particular;
         this.deuda = deuda;
     }
