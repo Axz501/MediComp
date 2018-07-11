@@ -268,6 +268,7 @@ public class ControladorPacientes implements IContPaciente{
         for (int i=0;i< m.getJornadas().size();i++) {
 
     }
+    }
         
     
 
