@@ -75,7 +75,7 @@ public class ConsultarJornada extends JFrameConFondo {
             int day   = localDate.getDayOfMonth();
             int hr = localDate.getHour();
             int min = localDate.getMinute();
-            String[] datos = {day+"/"+month+"/"+year,"0"+hr+":"+"0"+min,d.getEntidad()!=null ? d.getEntidad().getNombre() : d.getDir().getDepartamento()+" "+d.getDir().getCiudad()+" "+d.getDir().getCalle()+" "+d.getDir().getNumero(),ConvertirString(d.getDtp().getNombre()+" "+d.getDtp().getApellido()),d.getDtp().getCi()};
+            String[] datos = {day+"/"+month+"/"+year,"0"+hr+":"+"0"+min, d.getEntidad()!=null ? d.getEntidad().getNombre() : d.getDir().getDepartamento()+" "+d.getDir().getCiudad()+" "+d.getDir().getCalle()+" "+d.getDir().getNumero(), ConvertirString(d.getDtp().getNombre()+" "+d.getDtp().getApellido()),d.getDtp().getCi()};
             modelo.addRow(datos);
         }
     }
