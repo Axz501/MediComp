@@ -263,11 +263,7 @@ public class ControladorPacientes implements IContPaciente{
 
     @Override
     public boolean AgregarEstudioaPaciente(Long id, String idEst, String inf) {
-        List<DtPaciente> retornar = new ArrayList<>();
-        Medico m = (Medico) User.getSesionactiva();
-        for (int i=0;i< m.getJornadas().size();i++) {
-
-    }
+        return true;
     }
         
     

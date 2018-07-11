@@ -325,9 +325,7 @@ public final class EstudioaPaciente extends JFrameConFondo {
                             this.dispose();
                         }
                     }
-                    else{
-                        javax.swing.JOptionPane.showMessageDialog(this, "El Paciente no esta asociado a este medico");
-                    }
+                   
             
         }
             
