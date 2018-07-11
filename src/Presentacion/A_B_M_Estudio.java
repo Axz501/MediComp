@@ -37,7 +37,6 @@ public class A_B_M_Estudio extends JFrameConFondo {
         Pct.getPrototipoBD();
         setTitle("Alta Baja Modificacion de Estudio");
         this.setImagen("Fondo.jpg");
-        
         listarEstudios("");
         listarPrototipos("");
     }
